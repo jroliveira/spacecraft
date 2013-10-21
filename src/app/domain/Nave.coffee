@@ -21,7 +21,7 @@
         
         constructor: (@context) ->
             @image = new Image
-            @image.src = "/nave/app/img/naveSprite.png"
+            @image.src = "/src/app/img/naveSprite.png"
 
         getRow: () ->
             @row * @width

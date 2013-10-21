@@ -38,7 +38,7 @@
         this.updates = __bind(this.updates, this);
 
         this.image = new Image;
-        this.image.src = "/nave/app/img/naveSprite.png";
+        this.image.src = "/src/app/img/naveSprite.png";
       }
 
       Nave.prototype.getRow = function() {

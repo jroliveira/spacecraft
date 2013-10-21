@@ -42,20 +42,11 @@
             @draw()
             @run()
 
-        #window.addEventListener 'keydown', (e) =>
-        #    e.preventDefault();
-        #
-        #    switch e.keyCode
-        #        when 37 then @nave.left()
-        #        when 38 then @nave.up()
-        #        when 39 then @nave.right()
-        #        when 40 then @nave.down()
-
-        #window.addEventListener 'keyup', (e) =>
-        #    e.preventDefault();
-        #
-        #    switch e.keyCode
-        #        when 37 then @nave.left()
-        #        when 38 then @nave.up()
-        #        when 39 then @nave.right()
-        #        when 40 then @nave.down()
+            ($ document).bind 'keyup keydown', (e) =>
+                e.preventDefault();
+        
+                switch e.keyCode
+                    when 37 then @nave.left()
+                    when 38 then @nave.up()
+                    when 39 then @nave.right()
+                    when 40 then @nave.down()

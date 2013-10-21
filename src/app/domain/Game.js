@@ -52,8 +52,22 @@
       };
 
       Game.prototype.start = function() {
+        var _this = this;
         this.draw();
-        return this.run();
+        this.run();
+        return ($(document)).bind('keyup keydown', function(e) {
+          e.preventDefault();
+          switch (e.keyCode) {
+            case 37:
+              return _this.nave.left();
+            case 38:
+              return _this.nave.up();
+            case 39:
+              return _this.nave.right();
+            case 40:
+              return _this.nave.down();
+          }
+        });
       };
 
       return Game;

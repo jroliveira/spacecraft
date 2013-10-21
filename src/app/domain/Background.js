@@ -14,7 +14,7 @@
         this.updates = __bind(this.updates, this);
 
         this.image = new Image;
-        this.image.src = "/nave/app/img/" + imageName + ".png";
+        this.image.src = "/src/app/img/" + imageName + ".png";
       }
 
       Background.prototype.updates = function() {
