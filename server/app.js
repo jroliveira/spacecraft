@@ -18,7 +18,7 @@
         app.set('view engine', 'underscore');
         
         app.use('/client', express.static(path.dirname(filename) + '/../client'));
-        app.set('views', path.dirname(filename) + '/views');
+        app.set('views', path.dirname(filename) + '/../client/view');
     });
     
     app.get('/', function (req, res) {

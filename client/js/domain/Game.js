@@ -22,12 +22,12 @@
             var self = this;
 
             this.context.clearRect(0, 0, this.$canvas.width, this.$canvas.height);
+            
             _.each(this.backgrounds, function (value, key) {
-                self.context.drawImage(value.image, value.pos.x, 0);
-                self.context.drawImage(value.image, value.pos.x + value.image.width, 0);
+                value.draw(self.context);
             });
 
-            this.context.drawImage(this.ship.image, this.ship.row * this.ship.width, this.ship.col * this.ship.height, this.ship.width, this.ship.height, this.ship.pos.x, this.ship.pos.y, this.ship.width * 2, this.ship.height * 2);
+            this.ship.draw(this.context);
         };
 
         Game.prototype.update = function () {
