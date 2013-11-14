@@ -3,7 +3,7 @@
 ], function (Element) {
 
     var ship = (function () {
-        
+
         function Ship() {
             this.pos = { x: 0, y: 0 };
             this.image = { width: 43, height: 39 };
@@ -16,7 +16,7 @@
 
         Ship.prototype = new Element();
 
-        Ship.prototype.currentRowSprite = function() {
+        Ship.prototype.currentRowSprite = function () {
             return this.sprite.row * this.image.width;
         };
 
@@ -24,15 +24,20 @@
             return this.sprite.col * this.image.height;
         };
 
-        Ship.prototype.width = function() {
+        Ship.prototype.width = function () {
             return this.image.width * 2;
         };
-        
+
         Ship.prototype.height = function () {
             return this.image.height * 2;
         };
 
-        Ship.prototype.draw = function(context) {
+        Ship.prototype.destroy = function () {
+            this.pos.x = 0;
+            this.pos.y = 0;
+        };
+
+        Ship.prototype.draw = function (context) {
             context.drawImage(this.imageSprite, this.currentRowSprite(), this.currentColSprite(), this.image.width, this.image.height, this.pos.x, this.pos.y, this.width(), this.height());
         };
 
@@ -49,13 +54,13 @@
             if (this.keys.right) {
                 this.pos.x += 2;
             }
-            
+
             this.sprite.row = (this.sprite.row === 2) ? 0 : this.sprite.row + 1;
         };
 
         Ship.prototype.up = function (move) {
             this.keys.up = move;
-            
+
             if (this.keys.up) {
                 if (this.sprite.col <= 0)
                     this.sprite.col = 0;
@@ -66,7 +71,7 @@
 
         Ship.prototype.down = function (move) {
             this.keys.down = move;
-            
+
             if (this.keys.down) {
                 if (this.sprite.col >= 2)
                     this.sprite.col = 2;
