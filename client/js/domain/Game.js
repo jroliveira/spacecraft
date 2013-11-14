@@ -2,8 +2,10 @@
     'underscore',
     
     'domain/Background',
-    'domain/Ship'
-], function (_, Background, Ship) {
+    'domain/Ship',
+    'domain/Asteroid',
+    'domain/Element'
+], function (_, Background, Ship, Asteroid, Element) {
 
     var game = (function () {
 
@@ -12,11 +14,13 @@
             this.context = this.$canvas.getContext('2d');
 
             this.ship = new Ship();
-            this.backgrounds = {
-                bg1: new Background('bg1', 2.5),
-                bg2: new Background('bg2', 10),
-                bg3: new Background('bg3', 5)
-            };
+            
+            this.elements = [];
+            this.elements.push(new Background('bg1', 2.5));
+            this.elements.push(new Background('bg2', 10));
+            this.elements.push(new Background('bg3', 5));
+            this.elements.push(this.ship);
+            this.elements.push(new Asteroid());
         }
 
         Game.prototype.draw = function () {
@@ -24,17 +28,27 @@
 
             this.context.clearRect(0, 0, this.$canvas.width, this.$canvas.height);
             
-            _.each(this.backgrounds, function (value, key) {
-                value.draw(self.context);
+            _.each(this.elements, function (element) {
+                element.draw(self.context);
             });
-
-            this.ship.draw(this.context);
         };
 
         Game.prototype.updates = function () {
-            this.ship.updates();
-            _.each(this.backgrounds, function (value, key) {
-                value.updates();
+            var self = this;
+            
+            _.each(this.elements, function (element) {
+                //if (element instanceof Element) {
+                //    _.each(self.elements, function (obstacle) {
+                //        if ((obstacle instanceof Element) && (obstacle != element)) {
+                //            if (element.collided(obstacle)) {
+                //                element.pos.x = 0;
+                //                element.pos.y = 0;
+                //            }
+                //        }
+                //    });
+                //}
+                
+                element.updates();
             });
 
             this.draw();

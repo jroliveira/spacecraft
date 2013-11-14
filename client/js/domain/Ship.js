@@ -1,32 +1,20 @@
 ﻿define([
-    'domain/Object'
-], function (Object) {
+    'domain/Element'
+], function (Element) {
 
     var ship = (function () {
         
         function Ship() {
+            this.pos = { x: 0, y: 0 };
+            this.image = { width: 43, height: 39 };
+            this.sprite = { row: 0, col: 0 };
+            this.keys = { up: false, down: false, right: false, left: false };
+
             this.imageSprite = new Image();
-            this.imageSprite.src = "../../client/img/naveSprite.png";
+            this.imageSprite.src = "../../client/img/shipSprite.png";
         }
 
-        Ship.prototype = new Object();
-
-        Ship.prototype.image = {
-            width: 43,
-            height: 39
-        };
-
-        Ship.prototype.sprite = {
-            row: 0,
-            col: 0
-        };
-
-        Ship.prototype.keys = {
-            up: false,
-            down: false,
-            right: false,
-            left: false
-        };
+        Ship.prototype = new Element();
 
         Ship.prototype.currentRowSprite = function() {
             return this.sprite.row * this.image.width;
