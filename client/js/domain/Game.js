@@ -1,5 +1,6 @@
 ﻿define([
     'underscore',
+    
     'domain/Background',
     'domain/Ship'
 ], function (_, Background, Ship) {
@@ -30,7 +31,7 @@
             this.ship.draw(this.context);
         };
 
-        Game.prototype.update = function () {
+        Game.prototype.updates = function () {
             this.ship.updates();
             _.each(this.backgrounds, function (value, key) {
                 value.updates();

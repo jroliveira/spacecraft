@@ -9,7 +9,7 @@
             var game = new Game($canvas);
 
             function loop() {
-                game.update();
+                game.updates();
 
                 window.setTimeout(loop, 1000 / 60);
             }

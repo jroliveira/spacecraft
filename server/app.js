@@ -2,28 +2,31 @@
     'express',
     'module',
     'path',
-    'consolidate'
+    'consolidate',
+
+    'server/routes/home'
 ], function (
     express,
     module,
     path,
-    consolidate
+    consolidate,
+    
+    home
 ) {
+    
+    var dirname = path.dirname(module.uri);
+    
     var app = express();
 
     app.configure(function () {
-        var filename = module.uri;
-        
         app.engine('html', consolidate.underscore);
+        app.set('views', dirname + '/../client/views');
         app.set('view engine', 'underscore');
-        
-        app.use('/client', express.static(path.dirname(filename) + '/../client'));
-        app.set('views', path.dirname(filename) + '/../client/view');
+        app.use('/client', express.static(dirname + '/../client'));
     });
     
-    app.get('/', function (req, res) {
-        res.render('index.html');
-    });
+    app.get('/', home.index);
 
     return app;
+
 });

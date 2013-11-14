@@ -1,17 +1,21 @@
-﻿define([], function () {
+﻿define([
+    'domain/Object'
+], function (Object) {
 
     var ship = (function () {
         
-        Ship.prototype.pos = {
-            x: 0,
-            y: 0
-        };
-        
+        function Ship() {
+            this.imageSprite = new Image();
+            this.imageSprite.src = "../../client/img/naveSprite.png";
+        }
+
+        Ship.prototype = new Object();
+
         Ship.prototype.image = {
             width: 43,
             height: 39
         };
-        
+
         Ship.prototype.sprite = {
             row: 0,
             col: 0
@@ -23,11 +27,6 @@
             right: false,
             left: false
         };
-
-        function Ship() {
-            this.imageSprite = new Image();
-            this.imageSprite.src = "../../client/img/naveSprite.png";
-        }
 
         Ship.prototype.currentRowSprite = function() {
             return this.sprite.row * this.image.width;
