@@ -43,15 +43,31 @@
 
         Ship.prototype.updates = function () {
             if (this.keys.up) {
+                if (this.pos.y <= 0) {
+                    return;
+                }
+                
                 this.pos.y -= 2;
             }
             if (this.keys.down) {
+                if ((this.pos.y + this.height()) >= 600) {
+                    return;
+                }
+                
                 this.pos.y += 2;
             }
             if (this.keys.left) {
+                if (this.pos.x <= 0) {
+                    return;
+                }
+                
                 this.pos.x -= 2;
             }
             if (this.keys.right) {
+                if ((this.pos.x + this.width()) >= 895) {
+                    return;
+                }
+                
                 this.pos.x += 2;
             }
 
