@@ -6,7 +6,7 @@
 
         function Asteroid() {
             this.speedy = 2.5;
-            this.pos = { x: 800, y: this.getRandomPos() };
+            this.pos = { x: 895, y: this.getRandomPos() };
             
             this.image = new Image();
             this.image.src = "../../client/img/asteroid.png";
@@ -30,7 +30,7 @@
         };
         
         Asteroid.prototype.destroy = function () {
-            this.pos.x = 800;
+            this.pos.x = 895;
             this.pos.y = this.getRandomPos();
         };
         
