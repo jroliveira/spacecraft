@@ -5,9 +5,9 @@
     var ship = (function () {
 
         function Ship() {
-            this.pos = { x: this.initPosX(), y: this.initPosY() };
+            this.pos = { x: 0, y: 0 };
             
-            this.life = this.initLife();
+            this.life = 50;
             this.damage = 100;
             
             this.keys = { up: false, down: false, right: false, left: false };
@@ -20,18 +20,6 @@
         }
 
         Ship.prototype = new Element();
-
-        Ship.prototype.initPosY = function () {
-            return 0;
-        };
-
-        Ship.prototype.initPosX = function () {
-            return 0;
-        };
-
-        Ship.prototype.initLife = function () {
-            return 50;
-        };
 
         Ship.prototype.currentRowSprite = function () {
             return this.sprite.row * this.image.width;
@@ -47,6 +35,15 @@
 
         Ship.prototype.height = function () {
             return this.image.height * 2;
+        };
+        
+        Ship.prototype.damages = function (damage) {
+            this.life = this.life - damage;
+            if (this.destroyed()) {
+                this.pos.x = 0;
+                this.pos.y = 0;
+                this.life = 50;
+            }
         };
 
         Ship.prototype.draw = function (context) {

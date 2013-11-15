@@ -7,7 +7,7 @@
         function Asteroid() {
             this.pos = { x: this.initPosX(), y: this.initPosY() };
             
-            this.life = this.initLife();
+            this.life = 10;
             this.damage = 20;
             
             this.speedy = 1.5;
@@ -17,10 +17,6 @@
         }
         
         Asteroid.prototype = new Enemy();
-
-        Asteroid.prototype.initLife = function () {
-            return 10;
-        };
         
         return Asteroid;
 

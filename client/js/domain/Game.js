@@ -50,14 +50,14 @@
         Game.prototype.missileLaunch = function () {
             var posX = this.ship.pos.x + this.ship.width() + 10;
             var posY = this.ship.pos.y + (this.ship.height() / 2);
-            
+
             this.elements.push(new Missile(posX, posY));
         };
-        
+
         Game.prototype.shoot = function () {
             var posX = this.ship.pos.x + this.ship.width() + 10;
             var posY = this.ship.pos.y + (this.ship.height() / 2);
-            
+
             this.elements.push(new Bullet(posX, posY));
         };
 
@@ -71,6 +71,11 @@
             _.each(this.elements, function (element) {
                 if (element instanceof Element) {
                     self.detectsCollision(element);
+                    
+                    if (element.destroyed()) {
+                        var i = self.elements.indexOf(element);
+                        delete self.elements[i];
+                    }
                 }
 
                 element.updates();
