@@ -30,7 +30,7 @@
         };
 
         Ship.prototype.initLife = function () {
-            return 10;
+            return 50;
         };
 
         Ship.prototype.currentRowSprite = function () {
