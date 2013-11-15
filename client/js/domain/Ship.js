@@ -5,16 +5,33 @@
     var ship = (function () {
 
         function Ship() {
-            this.pos = { x: 0, y: 0 };
+            this.pos = { x: this.initPosX(), y: this.initPosY() };
+            
+            this.life = this.initLife();
+            this.damage = 100;
+            
+            this.keys = { up: false, down: false, right: false, left: false };
+
             this.image = { width: 43, height: 39 };
             this.sprite = { row: 0, col: 0 };
-            this.keys = { up: false, down: false, right: false, left: false };
 
             this.imageSprite = new Image();
             this.imageSprite.src = "../../client/img/shipSprite.png";
         }
 
         Ship.prototype = new Element();
+
+        Ship.prototype.initPosY = function () {
+            return 0;
+        };
+
+        Ship.prototype.initPosX = function () {
+            return 0;
+        };
+
+        Ship.prototype.initLife = function () {
+            return 10;
+        };
 
         Ship.prototype.currentRowSprite = function () {
             return this.sprite.row * this.image.width;
@@ -30,11 +47,6 @@
 
         Ship.prototype.height = function () {
             return this.image.height * 2;
-        };
-
-        Ship.prototype.destroy = function () {
-            this.pos.x = 0;
-            this.pos.y = 0;
         };
 
         Ship.prototype.draw = function (context) {

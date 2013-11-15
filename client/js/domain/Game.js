@@ -1,11 +1,13 @@
 ﻿define([
     'underscore',
 
+    'domain/Element',
     'domain/Background',
     'domain/Ship',
-    'domain/Asteroid',
-    'domain/Element'
-], function (_, Background, Ship, Asteroid, Element) {
+    'domain/enemy/Asteroid',
+    'domain/ammunition/Missile',
+    'domain/ammunition/Bullet'
+], function (_, Element, Background, Ship, Asteroid, Missile, Bullet) {
 
     var game = (function () {
 
@@ -38,14 +40,28 @@
             _.each(this.elements, function (obstacle) {
                 if ((obstacle instanceof Element) && (obstacle != element)) {
                     if (element.collided(obstacle)) {
-                        element.destroy();
-                        obstacle.destroy();
+                        element.damages(obstacle.damage);
+                        obstacle.damages(element.damage);
                     }
                 }
             });
         };
 
-        Game.prototype.insertEnemy = function () {
+        Game.prototype.missileLaunch = function () {
+            var posX = this.ship.pos.x + this.ship.width() + 10;
+            var posY = this.ship.pos.y + (this.ship.height() / 2);
+            
+            this.elements.push(new Missile(posX, posY));
+        };
+        
+        Game.prototype.shoot = function () {
+            var posX = this.ship.pos.x + this.ship.width() + 10;
+            var posY = this.ship.pos.y + (this.ship.height() / 2);
+            
+            this.elements.push(new Bullet(posX, posY));
+        };
+
+        Game.prototype.insertAsteroid = function () {
             this.elements.push(new Asteroid());
         };
 
@@ -63,9 +79,9 @@
             this.timer++;
             if (this.timer === 200) {
                 this.timer = 0;
-                this.insertEnemy();
+                this.insertAsteroid();
             }
-            
+
             this.draw();
         };
 
@@ -78,6 +94,12 @@
                 e.preventDefault();
 
                 switch (e.keyCode) {
+                    case 32:
+                        self.shoot();
+                        break;
+                    case 70:
+                        self.missileLaunch();
+                        break;
                     case 37:
                         self.ship.left(true);
                         break;
