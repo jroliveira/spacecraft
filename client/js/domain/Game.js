@@ -1,13 +1,14 @@
 ﻿define([
     'underscore',
 
+    'infrastructure/Background',
+
     'domain/Element',
-    'domain/Background',
     'domain/Ship',
     'domain/enemy/Asteroid',
     'domain/ammunition/Missile',
     'domain/ammunition/Bullet'
-], function (_, Element, Background, Ship, Asteroid, Missile, Bullet) {
+], function (_, Background, Element, Ship, Asteroid, Missile, Bullet) {
 
     function Game($canvas) {
         this.$canvas = $canvas;
@@ -32,55 +33,6 @@
         _.each(this.elements, function (element) {
             element.draw(self.context);
         });
-    };
-
-    Game.prototype.detectsCollision = function (element) {
-        var self = this;
-
-        if (element.destroyed()) {
-            this.removeElement(element);
-            return;
-        }
-        
-        _.each(this.elements, function (obstacle) {
-            if ((obstacle instanceof Element) && (obstacle != element)) {
-                if (element.collided(obstacle)) {
-                    element.damages(obstacle.damage);
-                    if (element.destroyed()) {
-                        self.removeElement(element);
-                    }
-                    
-                    obstacle.damages(element.damage);
-                    if (obstacle.destroyed()) {
-                        self.removeElement(obstacle);
-                    }
-                }
-            }
-        });
-    };
-
-    Game.prototype.missileLaunch = function () {
-        var posX = this.ship.pos.x + this.ship.width() + 10;
-        var posY = this.ship.pos.y + (this.ship.height() / 2);
-
-        this.elements.push(new Missile(posX, posY));
-    };
-
-    Game.prototype.shoot = function () {
-        var posX = this.ship.pos.x + this.ship.width() + 10;
-        var posY = this.ship.pos.y + (this.ship.height() / 2);
-
-        this.elements.push(new Bullet(posX, posY));
-    };
-
-    Game.prototype.insertElement = function (element) {
-        this.elements.push(element);
-    };
-    
-    Game.prototype.removeElement = function (element) {
-        var i = this.elements.indexOf(element);
-
-        delete this.elements[i];
     };
 
     Game.prototype.updates = function () {
@@ -117,10 +69,10 @@
 
             switch (e.keyCode) {
                 case 32:
-                    self.shoot();
+                    self.insertElement(new Bullet(self.ship));
                     break;
                 case 70:
-                    self.missileLaunch();
+                    self.insertElement(new Missile(self.ship));
                     break;
                 case 37:
                     self.ship.left(true);
@@ -155,6 +107,46 @@
                     break;
             }
         });
+    };
+    
+    // Collision
+    
+    Game.prototype.detectsCollision = function (element) {
+        var self = this;
+
+        if (element.destroyed()) {
+            this.removeElement(element);
+            return;
+        }
+
+        _.each(this.elements, function (obstacle) {
+            if ((obstacle instanceof Element) && (obstacle != element)) {
+                if (element.collided(obstacle)) {
+                    element.damages(obstacle.damage);
+                    if (element.destroyed()) {
+                        self.removeElement(element);
+                    }
+
+                    obstacle.damages(element.damage);
+                    if (obstacle.destroyed()) {
+                        self.removeElement(obstacle);
+                    }
+                }
+            }
+        });
+    };
+
+    
+    // Config
+    
+    Game.prototype.insertElement = function (element) {
+        this.elements.push(element);
+    };
+
+    Game.prototype.removeElement = function (element) {
+        var i = this.elements.indexOf(element);
+
+        delete this.elements[i];
     };
 
     return Game;
