@@ -2,26 +2,20 @@
     'domain/ammunition/Ammunition'
 ], function (Ammunition) {
 
-    var missile = (function () {
+    function Missile(posX, posY) {
+        this.pos = { x: posX, y: posY };
 
-        function Missile(posX, posY) {
-            this.pos = { x: posX, y: posY };
-            
-            this.life = this.initLife();
-            this.damage = 10;
-            
-            this.speedy = 5;
+        this.life = this.initLife();
+        this.damage = 10;
 
-            this.image = new Image();
-            this.image.src = "../../client/img/ammunition/missile.png";
-        }
+        this.speedy = 5;
 
-        Missile.prototype = new Ammunition();
+        this.image = new Image();
+        this.image.src = "../../client/img/ammunition/missile.png";
+    }
 
-        return Missile;
+    Missile.prototype = new Ammunition();
 
-    })();
-
-    return missile;
+    return Missile;
 
 });
