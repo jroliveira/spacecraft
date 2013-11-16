@@ -16,15 +16,12 @@
     
     // Config
 
-    Enemy.prototype.initPosX = function () {
-        return 895;
-    };
-
-    Enemy.prototype.initPosY = function () {
+    Enemy.prototype.initPos = function () {
         var min = 1;
         var max = 600 - this.height();
-
-        return Math.floor(Math.random() * (max - min + 1)) + min;
+        var posY = Math.floor(Math.random() * (max - min + 1)) + min;
+        
+        return { x: 895, y: posY };
     };
 
     return Enemy;

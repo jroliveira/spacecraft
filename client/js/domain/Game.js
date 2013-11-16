@@ -7,8 +7,9 @@
     'domain/Ship',
     'domain/enemy/Asteroid',
     'domain/ammunition/Missile',
-    'domain/ammunition/Bullet'
-], function (_, Background, Element, Ship, Asteroid, Missile, Bullet) {
+    'domain/ammunition/Bullet',
+    'domain/ammunition/Laser'
+], function (_, Background, Element, Ship, Asteroid, Missile, Bullet, Laser) {
 
     function Game($canvas) {
         this.$canvas = $canvas;
@@ -73,6 +74,9 @@
                     break;
                 case 70:
                     self.insertElement(new Missile(self.ship));
+                    break;
+                case 82:
+                    self.insertElement(new Laser(self.ship));
                     break;
                 case 37:
                     self.ship.left(true);

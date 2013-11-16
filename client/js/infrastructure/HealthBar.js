@@ -16,14 +16,14 @@
 
     HealthBar.prototype.draw = function (context) {
         context.beginPath();
-        context.rect(this.initPosX(), this.initPosY(), this.maxWidth, this.height);
+        context.rect(this.initPosX(), this.initPosY(), this.maxWidth + 2, this.height + 2);
         context.fillStyle = "white";
         context.fill();
         context.closePath();
 
         context.beginPath();
         var width = this.maxWidth * this.health / this.maxHealth;
-        context.rect(this.initPosX(), this.initPosY(), width, this.height);
+        context.rect(this.initPosX() + 1, this.initPosY() + 1, width, this.height);
         context.fillStyle = "red";
         context.fill();
         context.closePath();
