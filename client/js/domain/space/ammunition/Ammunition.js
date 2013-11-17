@@ -1,5 +1,5 @@
 ﻿define([
-    'domain/Element'
+    'domain/space/Element'
 ], function (Element) {
 
     function Ammunition() { }

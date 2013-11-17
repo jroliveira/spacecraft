@@ -4,16 +4,16 @@
     'infrastructure/background/Background',
     'infrastructure/background/Parallax',
 
-    'domain/Element',
-    'domain/Ship',
-    'domain/Starbase',
-    'domain/enemy/Asteroid',
-    'domain/ammunition/Missile',
-    'domain/ammunition/Bullet',
-    'domain/ammunition/Laser'
+    'domain/space/Element',
+    'domain/space/Ship',
+    'domain/space/Starbase',
+    'domain/space/enemy/Asteroid',
+    'domain/space/ammunition/Missile',
+    'domain/space/ammunition/Bullet',
+    'domain/space/ammunition/Laser'
 ], function (_, Background, Parallax, Element, Ship, Starbase, Asteroid, Missile, Bullet, Laser) {
 
-    function Game($canvas, context) {
+    function Space($canvas, context) {
         this.$canvas = $canvas;
         this.context = context;
 
@@ -31,7 +31,7 @@
         this.insertElement(this.ship);
     }
 
-    Game.prototype.draw = function () {
+    Space.prototype.draw = function () {
         var self = this;
 
         this.context.clearRect(0, 0, this.$canvas.width, this.$canvas.height);
@@ -41,7 +41,7 @@
         });
     };
 
-    Game.prototype.updates = function () {
+    Space.prototype.updates = function () {
         var self = this;
 
         if (this.background.ended()) {
@@ -73,7 +73,7 @@
         this.draw();
     };
 
-    Game.prototype.start = function () {
+    Space.prototype.start = function () {
         var self = this;
 
         this.draw();
@@ -128,7 +128,7 @@
     
     // Collision
     
-    Game.prototype.detectsCollision = function (element) {
+    Space.prototype.detectsCollision = function (element) {
         var self = this;
 
         if (element.destroyed()) {
@@ -155,16 +155,16 @@
     
     // Config
     
-    Game.prototype.insertElement = function (element) {
+    Space.prototype.insertElement = function (element) {
         this.elements.push(element);
     };
 
-    Game.prototype.removeElement = function (element) {
+    Space.prototype.removeElement = function (element) {
         var i = this.elements.indexOf(element);
 
         delete this.elements[i];
     };
 
-    return Game;
+    return Space;
 
 });

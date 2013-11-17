@@ -1,7 +1,7 @@
 ﻿define([
     'infrastructure/HealthBar',
     
-    'domain/ammunition/Ammunition'
+    'domain/space/ammunition/Ammunition'
 ], function (HealthBar, Ammunition) {
 
     function Laser(ship) {

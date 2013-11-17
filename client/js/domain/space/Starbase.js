@@ -3,7 +3,7 @@
     
     'infrastructure/HealthBar',
 
-    'domain/Element'
+    'domain/space/Element'
 ], function ($, HealthBar, Element) {
 
     function Starbase() {

@@ -1,25 +1,25 @@
 ﻿define([
     'infrastructure/HealthBar',
     
-    'domain/ammunition/Ammunition'
+    'domain/space/ammunition/Ammunition'
 ], function (HealthBar, Ammunition) {
 
-    function Bullet(ship) {
+    function Missile(ship) {
         this.image = new Image();
-        this.image.src = "../../client/img/ammunition/bullet.png";
-
+        this.image.src = "../../client/img/ammunition/missile.png";
+        
         this.pos = ship.initPosShot();
 
         this.health = this.initHealth();
-        this.damage = 3;
+        this.damage = 5;
 
-        this.speedy = 3;
+        this.speedy = 5;
         
         this.healthBar = new HealthBar(this);
     }
 
-    Bullet.prototype = new Ammunition();
+    Missile.prototype = new Ammunition();
 
-    return Bullet;
+    return Missile;
 
 });

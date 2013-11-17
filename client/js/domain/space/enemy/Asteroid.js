@@ -1,7 +1,7 @@
 ﻿define([
     'infrastructure/HealthBar',
 
-    'domain/enemy/Enemy'
+    'domain/space/enemy/Enemy'
 ], function (HealthBar, Enemy) {
 
     function Asteroid() {
