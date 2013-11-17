@@ -1,28 +1,33 @@
 ﻿define([
     'underscore',
 
-    'infrastructure/Background',
+    'infrastructure/background/Background',
+    'infrastructure/background/Parallax',
 
     'domain/Element',
     'domain/Ship',
+    'domain/Starbase',
     'domain/enemy/Asteroid',
     'domain/ammunition/Missile',
     'domain/ammunition/Bullet',
     'domain/ammunition/Laser'
-], function (_, Background, Element, Ship, Asteroid, Missile, Bullet, Laser) {
+], function (_, Background, Parallax, Element, Ship, Starbase, Asteroid, Missile, Bullet, Laser) {
 
-    function Game($canvas) {
+    function Game($canvas, context) {
         this.$canvas = $canvas;
-        this.context = this.$canvas.getContext('2d');
+        this.context = context;
 
         this.timer = 0;
+        this.ended = false;
 
         this.ship = new Ship();
+        this.startBase = new Starbase();
+        this.background = new Background('background1', 2.5);
 
         this.elements = [];
-        this.insertElement(new Background('bg1', 2.5));
-        this.insertElement(new Background('bg2', 10));
-        this.insertElement(new Background('bg3', 5));
+        this.insertElement(this.background);
+        this.insertElement(new Parallax('parallax1', 10));
+        this.insertElement(new Parallax('parallax2', 5));
         this.insertElement(this.ship);
     }
 
@@ -39,12 +44,20 @@
     Game.prototype.updates = function () {
         var self = this;
 
+        if (this.background.ended()) {
+            var i = this.elements.indexOf(this.startBase);
+
+            if (i < 0) {
+                this.insertElement(this.startBase);
+            } else {
+                if (this.startBase.collided(this.ship)) {
+                    this.ended = true;
+                }
+            }
+        }
+
         _.each(this.elements, function (element) {
             if (element instanceof Element) {
-                if (element.destroyed()) {
-                    
-                }
-
                 self.detectsCollision(element);
             }
 
@@ -139,7 +152,6 @@
             }
         });
     };
-
     
     // Config
     

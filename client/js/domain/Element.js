@@ -22,7 +22,6 @@
         return this.health <= 0;
     };
     
-    
     // Health
 
     Element.prototype.setHealth = function (health) {

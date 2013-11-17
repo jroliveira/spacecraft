@@ -1,12 +1,12 @@
 ﻿define([], function () {
 
     function Background(imageName, value) {
+        this.image = new Image();
+        this.image.src = "../../client/img/background/" + imageName + ".png";
+
         this.pos = { x: 0 };
 
         this.speedy = value;
-
-        this.image = new Image();
-        this.image.src = "../../client/img/background/" + imageName + ".png";
     }
 
     Background.prototype.draw = function (context) {
@@ -15,7 +15,13 @@
     };
 
     Background.prototype.updates = function () {
-        this.pos.x = (Math.abs(this.pos.x) >= this.image.width) ? 0 : this.pos.x - this.speedy;
+        if ((Math.abs(this.pos.x) + 895) < this.image.width) {
+            this.pos.x = this.pos.x - this.speedy;
+        }
+    };
+
+    Background.prototype.ended = function () {
+        return (Math.abs(this.pos.x)  + 895) >= this.image.width;
     };
 
     return Background;

@@ -8,7 +8,7 @@
         this.imageSprite = new Image();
         this.imageSprite.src = "../../client/img/shipSprite.png";
         
-        this.pos = { x: 0, y: 0 };
+        this.pos = { x: 10, y: 10 };
 
         this.health = 50;
         this.damage = 100;
@@ -31,7 +31,7 @@
 
     Ship.prototype.updates = function () {
         if (this.keys.up) {
-            if (this.pos.y <= 0) {
+            if (this.pos.y <= 10) {
                 return;
             }
 
