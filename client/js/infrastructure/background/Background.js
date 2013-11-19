@@ -11,17 +11,21 @@
 
     Background.prototype.draw = function (context) {
         context.drawImage(this.image, this.pos.x, 0);
-        context.drawImage(this.image, this.pos.x + this.image.width, 0);
+        context.drawImage(this.image, this.pos.x + this.width(), 0);
     };
 
     Background.prototype.updates = function () {
-        if ((Math.abs(this.pos.x) + 895) < this.image.width) {
+        if ((Math.abs(this.pos.x) + 895) < this.width()) {
             this.pos.x = this.pos.x - this.speedy;
         }
     };
+    
+    Background.prototype.width = function () {
+        return 3091;
+    };
 
     Background.prototype.ended = function () {
-        return (Math.abs(this.pos.x)  + 895) >= this.image.width;
+        return (Math.abs(this.pos.x)  + 895) >= this.width();
     };
 
     return Background;

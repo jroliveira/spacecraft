@@ -19,6 +19,14 @@
     }
 
     Asteroid.prototype = new Enemy();
+    
+    Asteroid.prototype.width = function () {
+        return 95;
+    };
+
+    Asteroid.prototype.height = function () {
+        return 93;
+    };
 
     return Asteroid;
 
