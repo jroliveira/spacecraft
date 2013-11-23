@@ -4,15 +4,40 @@
     'infrastructure/background/Background',
     'infrastructure/background/Parallax',
 
-    'domain/Element',
-    'domain/Scenario',
-    'domain/space/Ship',
-    'domain/space/Starbase',
-    'domain/space/enemy/Asteroid',
-    'domain/space/ammunition/Missile',
-    'domain/space/ammunition/Bullet',
-    'domain/space/ammunition/Laser'
-], function (_, Background, Parallax, Element, Scenario, Ship, Starbase, Asteroid, Missile, Bullet, Laser) {
+    'common/configs/munitions/BulletConfig',
+    'common/configs/munitions/MissileConfig',
+    'common/configs/munitions/LaserConfig',
+    'common/configs/enemies/AsteroidConfig',
+    'common/configs/characters/ShipConfig',
+    'common/configs/StarbaseConfig',
+
+    'domain/Entity',
+    'domain/scenarios/Scenario',
+    'domain/characters/Ship',
+    'domain/Starbase',
+    'domain/enemies/Asteroid',
+    'domain/munitions/Missile',
+    'domain/munitions/Bullet',
+    'domain/munitions/Laser'
+], function (
+    _,
+    Background,
+    Parallax,
+    BulletConfig,
+    MissileConfig,
+    LaserConfig,
+    AsteroidConfig,
+    ShipConfig,
+    StarbaseConfig,
+    Entity,
+    Scenario,
+    Ship,
+    Starbase,
+    Asteroid,
+    Missile,
+    Bullet,
+    Laser
+) {
 
     function Space($canvas, context) {
         this.$canvas = $canvas;
@@ -21,15 +46,15 @@
         this.timer = 0;
         this.ended = false;
 
-        this.ship = new Ship();
-        this.startBase = new Starbase();
+        this.ship = new Ship(ShipConfig);
+        this.startBase = new Starbase(StarbaseConfig);
         this.background = new Background('background1', 2.5);
 
-        this.elements = [];
-        this.insertElement(this.background);
-        this.insertElement(new Parallax('parallax1', 10));
-        this.insertElement(new Parallax('parallax2', 5));
-        this.insertElement(this.ship);
+        this.entities = [];
+        this.insertEntity(this.background);
+        this.insertEntity(new Parallax('parallax1', 10));
+        this.insertEntity(new Parallax('parallax2', 5));
+        this.insertEntity(this.ship);
     }
 
     Space.prototype = new Scenario();
@@ -38,10 +63,10 @@
         var self = this;
 
         if (this.background.ended()) {
-            var i = this.elements.indexOf(this.startBase);
+            var i = this.entities.indexOf(this.startBase);
 
             if (i < 0) {
-                this.insertElement(this.startBase);
+                this.insertEntity(this.startBase);
             } else {
                 if (this.startBase.collided(this.ship)) {
                     this.ended = true;
@@ -49,18 +74,18 @@
             }
         }
 
-        _.each(this.elements, function (element) {
-            if (element instanceof Element) {
-                self.detectsCollision(element);
+        _.each(this.entities, function (entity) {
+            if (entity instanceof Entity) {
+                self.detectsCollision(entity);
             }
 
-            element.updates();
+            entity.updates();
         });
 
         this.timer++;
         if (this.timer === 200) {
             this.timer = 0;
-            this.insertElement(new Asteroid());
+            this.insertEntity(new Asteroid(AsteroidConfig));
         }
 
         this.draw();
@@ -76,13 +101,13 @@
 
             switch (e.keyCode) {
                 case 32:
-                    self.insertElement(new Bullet(self.ship));
+                    self.insertEntity(new Bullet(self.ship, BulletConfig));
                     break;
                 case 70:
-                    self.insertElement(new Missile(self.ship));
+                    self.insertEntity(new Missile(self.ship, MissileConfig));
                     break;
                 case 82:
-                    self.insertElement(new Laser(self.ship));
+                    self.insertEntity(new Laser(self.ship, LaserConfig));
                     break;
                 case 37:
                     self.ship.left(true);

@@ -3,22 +3,21 @@
     
     'infrastructure/HealthBar',
 
-    'domain/Element'
-], function ($, HealthBar, Element) {
+    'domain/Entity'
+], function ($, HealthBar, Entity) {
 
-    function Starbase() {
+    function Starbase(config) {
+        this.config = config;
+
+        this.pos = config.pos;
+        this.health = config.health;
+
         this.image = new Image();
         this.image.src = "../../client/img/starbase.png";
-
-        this.pos = { x: 630, y: 450 };
-
-        this.health = 10000;
-        this.damage = 0;
-
         this.healthBar = new HealthBar(this);
     }
 
-    Starbase.prototype = new Element();
+    Starbase.prototype = new Entity();
 
     Starbase.prototype.updates = function () { };
 

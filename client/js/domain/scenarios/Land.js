@@ -1,10 +1,12 @@
 ﻿define([
     'underscore',
+    
+    'common/configs/characters/SoldierConfig',
 
-    'domain/Element',
-    'domain/Scenario',
-    'domain/land/Character'
-], function (_, Element, Scenario, Character) {
+    'domain/Entity',
+    'domain/scenarios/Scenario',
+    'domain/characters/Soldier'
+], function (_, SoldierConfig, Entity, Scenario, Soldier) {
 
     function Land($canvas, context) {
         this.$canvas = $canvas;
@@ -12,10 +14,10 @@
         
         this.ended = false;
 
-        this.character = new Character();
+        this.soldier = new Soldier(SoldierConfig);
 
-        this.elements = [];
-        this.insertElement(this.character);
+        this.entities = [];
+        this.insertEntity(this.soldier);
     }
 
     Land.prototype = new Scenario();
@@ -23,12 +25,12 @@
     Land.prototype.updates = function () {
         var self = this;
 
-        _.each(this.elements, function (element) {
-            if (element instanceof Element) {
-                self.detectsCollision(element);
+        _.each(this.entities, function (entity) {
+            if (entity instanceof Entity) {
+                self.detectsCollision(entity);
             }
 
-            element.updates();
+            entity.updates();
         });
 
         this.draw();
@@ -44,16 +46,16 @@
 
             switch (e.keyCode) {
                 case 37:
-                    self.character.left(true);
+                    self.soldier.left(true);
                     break;
                 case 38:
-                    self.character.up(true);
+                    self.soldier.up(true);
                     break;
                 case 39:
-                    self.character.right(true);
+                    self.soldier.right(true);
                     break;
                 case 40:
-                    self.character.down(true);
+                    self.soldier.down(true);
                     break;
             }
         });
@@ -63,16 +65,16 @@
 
             switch (e.keyCode) {
                 case 37:
-                    self.character.left(false);
+                    self.soldier.left(false);
                     break;
                 case 38:
-                    self.character.up(false);
+                    self.soldier.up(false);
                     break;
                 case 39:
-                    self.character.right(false);
+                    self.soldier.right(false);
                     break;
                 case 40:
-                    self.character.down(false);
+                    self.soldier.down(false);
                     break;
             }
         });

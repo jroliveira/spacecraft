@@ -1,12 +1,12 @@
 ﻿define([], function () {
     
-    function HealthBar(element) {
-        this.element = element;
+    function HealthBar(entity) {
+        this.entity = entity;
 
-        this.health = element.health;
+        this.health = entity.health;
         
-        this.maxHealth = element.health;
-        this.maxWidth = element.width();
+        this.maxHealth = entity.health;
+        this.maxWidth = entity.config.width;
         this.height = 5;
     }
 
@@ -32,11 +32,11 @@
     // Config
 
     HealthBar.prototype.initPosX = function () {
-        return this.element.pos.x;
+        return this.entity.pos.x;
     };
 
     HealthBar.prototype.initPosY = function () {
-        return this.element.pos.y - 5;
+        return this.entity.pos.y - 5;
     };
 
     return HealthBar;

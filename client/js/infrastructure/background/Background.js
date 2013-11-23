@@ -2,11 +2,11 @@
 
     function Background(imageName, value) {
         this.image = new Image();
-        this.image.src = "../../client/img/background/" + imageName + ".png";
+        this.image.src = "../../client/img/scenarios/" + imageName + ".png";
 
         this.pos = { x: 0 };
 
-        this.speedy = value;
+        this.speed = value;
     }
 
     Background.prototype.draw = function (context) {
@@ -16,7 +16,7 @@
 
     Background.prototype.updates = function () {
         if ((Math.abs(this.pos.x) + 895) < this.width()) {
-            this.pos.x = this.pos.x - this.speedy;
+            this.pos.x = this.pos.x - this.speed;
         }
     };
     

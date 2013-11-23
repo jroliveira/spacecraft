@@ -1,31 +1,28 @@
 ﻿define([
     'infrastructure/HealthBar',
 
-    'domain/Player'
-], function (HealthBar, Player) {
+    'domain/characters/Character'
+], function (HealthBar, Character) {
 
-    function Character() {
-        this.imageSprite = new Image();
-        this.imageSprite.src = "../../client/img/characterSprite.png";
+    function Soldier(config) {
+        this.config = config;
 
-        this.pos = this.initPos();
-
-        this.health = 50;
-        this.damage = 100;
+        this.pos = config.pos;
+        this.health = config.health;
+        this.sprite = config.sprite;
 
         this.keys = { up: false, down: false, right: false, left: false };
 
-        this.image = { width: 32, height: 32 };
-        this.sprite = { row: 0, col: 0 };
-
+        this.imageSprite = new Image();
+        this.imageSprite.src = "../../client/img/characters/soldierSprite.png";
         this.healthBar = new HealthBar(this);
     }
 
-    Character.prototype = new Player();
+    Soldier.prototype = new Character();
 
     // Move
 
-    Character.prototype.up = function (move) {
+    Soldier.prototype.up = function (move) {
         this.keys.up = move;
 
         if (this.keys.up) {
@@ -34,7 +31,7 @@
         }
     };
 
-    Character.prototype.down = function (move) {
+    Soldier.prototype.down = function (move) {
         this.keys.down = move;
 
         if (this.keys.down) {
@@ -43,7 +40,7 @@
         }
     };
 
-    Character.prototype.left = function (move) {
+    Soldier.prototype.left = function (move) {
         this.keys.left = move;
 
         if (this.keys.left) {
@@ -52,7 +49,7 @@
         }
     };
 
-    Character.prototype.right = function (move) {
+    Soldier.prototype.right = function (move) {
         this.keys.right = move;
 
         if (this.keys.right) {
@@ -61,6 +58,6 @@
         }
     };
 
-    return Character;
+    return Soldier;
 
 });

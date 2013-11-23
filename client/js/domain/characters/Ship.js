@@ -1,27 +1,24 @@
 ﻿define([
     'infrastructure/HealthBar',
 
-    'domain/Player'
-], function (HealthBar, Player) {
+    'domain/characters/Character'
+], function (HealthBar, Character) {
 
-    function Ship() {
-        this.imageSprite = new Image();
-        this.imageSprite.src = "../../client/img/shipSprite.png";
+    function Ship(config) {
+        this.config = config;
         
-        this.pos = this.initPos();
-
-        this.health = 50;
-        this.damage = 100;
+        this.pos = config.pos;
+        this.health = config.health;
+        this.sprite = config.sprite;
 
         this.keys = { up: false, down: false, right: false, left: false };
 
-        this.image = { width: 43, height: 39 };
-        this.sprite = { row: 0, col: 0 };
-
+        this.imageSprite = new Image();
+        this.imageSprite.src = "../../client/img/characters/shipSprite.png";
         this.healthBar = new HealthBar(this);
     }
 
-    Ship.prototype = new Player();
+    Ship.prototype = new Character();
 
     // Move
 
@@ -70,8 +67,8 @@
     // Config
 
     Ship.prototype.initPosShot = function () {
-        var posX = this.pos.x + (this.width() + 5);
-        var posY = this.pos.y + (this.height() / 2);
+        var posX = this.pos.x + (this.config.width + 5);
+        var posY = this.pos.y + (this.config.height / 2);
 
         return { x: posX, y: posY };
     };

@@ -3,10 +3,10 @@
     function Parallax(imageName, value) {
         this.pos = { x: 0 };
 
-        this.speedy = value;
+        this.speed = value;
 
         this.image = new Image();
-        this.image.src = "../../client/img/background/parallax/" + imageName + ".png";
+        this.image.src = "../../client/img/parallax/" + imageName + ".png";
     }
 
     Parallax.prototype.draw = function (context) {
@@ -15,7 +15,7 @@
     };
 
     Parallax.prototype.updates = function () {
-        this.pos.x = (Math.abs(this.pos.x) >= this.image.width) ? 0 : this.pos.x - this.speedy;
+        this.pos.x = (Math.abs(this.pos.x) >= this.image.width) ? 0 : this.pos.x - this.speed;
     };
 
     return Parallax;
