@@ -1,9 +1,10 @@
 ﻿define([
     'underscore',
 
-    'domain/land/Element',
-    'domain/land/Character',
-], function (_, Element, Character) {
+    'domain/Element',
+    'domain/Scenario',
+    'domain/land/Character'
+], function (_, Element, Scenario, Character) {
 
     function Land($canvas, context) {
         this.$canvas = $canvas;
@@ -17,15 +18,7 @@
         this.insertElement(this.character);
     }
 
-    Land.prototype.draw = function () {
-        var self = this;
-
-        this.context.clearRect(0, 0, this.$canvas.width, this.$canvas.height);
-
-        _.each(this.elements, function (element) {
-            element.draw(self.context);
-        });
-    };
+    Land.prototype = new Scenario();
 
     Land.prototype.updates = function () {
         var self = this;
@@ -85,45 +78,6 @@
         });
     };
     
-    // Collision
-    
-    Land.prototype.detectsCollision = function (element) {
-        var self = this;
-
-        if (element.destroyed()) {
-            this.removeElement(element);
-            return;
-        }
-
-        _.each(this.elements, function (obstacle) {
-            if ((obstacle instanceof Element) && (obstacle != element)) {
-                if (element.collided(obstacle)) {
-                    element.damages(obstacle.damage);
-                    if (element.destroyed()) {
-                        self.removeElement(element);
-                    }
-
-                    obstacle.damages(element.damage);
-                    if (obstacle.destroyed()) {
-                        self.removeElement(obstacle);
-                    }
-                }
-            }
-        });
-    };
-    
-    // Config
-    
-    Land.prototype.insertElement = function (element) {
-        this.elements.push(element);
-    };
-
-    Land.prototype.removeElement = function (element) {
-        var i = this.elements.indexOf(element);
-
-        delete this.elements[i];
-    };
-
     return Land;
 
 });

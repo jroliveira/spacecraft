@@ -1,8 +1,8 @@
 ﻿define([
     'infrastructure/HealthBar',
 
-    'domain/space/Element'
-], function (HealthBar, Element) {
+    'domain/Player'
+], function (HealthBar, Player) {
 
     function Ship() {
         this.imageSprite = new Image();
@@ -21,65 +21,16 @@
         this.healthBar = new HealthBar(this);
     }
 
-    Ship.prototype = new Element();
+    Ship.prototype = new Player();
 
-    Ship.prototype.draw = function (context) {
-        this.healthBar.draw(context);
-        
-        context.drawImage(this.imageSprite, this.currentRowSprite(), this.currentColSprite(), this.image.width, this.image.height, this.pos.x, this.pos.y, this.width(), this.height());
-    };
-
-    Ship.prototype.updates = function () {
-        if (this.keys.up) {
-            if (this.pos.y <= 10) {
-                return;
-            }
-
-            this.pos.y -= 2;
-        }
-        if (this.keys.down) {
-            if ((this.pos.y + this.height()) >= 600) {
-                return;
-            }
-
-            this.pos.y += 2;
-        }
-        if (this.keys.left) {
-            if (this.pos.x <= 0) {
-                return;
-            }
-
-            this.pos.x -= 2;
-        }
-        if (this.keys.right) {
-            if ((this.pos.x + this.width()) >= 895) {
-                return;
-            }
-
-            this.pos.x += 2;
-        }
-
-        this.sprite.row = (this.sprite.row === 2) ? 0 : this.sprite.row + 1;
-    };
-    
-    // Damage
-    
-    Ship.prototype.damages = function (damage) {
-        var health = this.health - damage;
-        this.setHealth(health);
-
-        if (this.destroyed()) {
-            this.pos = this.initPos();
-            this.setHealth(50);
-        }
-    };
-    
     // Move
 
     Ship.prototype.up = function (move) {
         this.keys.up = move;
 
         if (this.keys.up) {
+            this.sprite.row = (this.sprite.row === 2) ? 0 : this.sprite.row + 1;
+            
             if (this.sprite.col <= 0)
                 this.sprite.col = 0;
             else
@@ -91,6 +42,8 @@
         this.keys.down = move;
 
         if (this.keys.down) {
+            this.sprite.row = (this.sprite.row === 2) ? 0 : this.sprite.row + 1;
+            
             if (this.sprite.col >= 2)
                 this.sprite.col = 2;
             else
@@ -99,30 +52,22 @@
     };
 
     Ship.prototype.left = function (move) {
-        return this.keys.left = move;
+        this.keys.left = move;
+
+        if (this.keys.left) {
+            this.sprite.row = (this.sprite.row === 2) ? 0 : this.sprite.row + 1;
+        }
     };
 
     Ship.prototype.right = function (move) {
-        return this.keys.right = move;
+        this.keys.right = move;
+        
+        if (this.keys.right) {
+            this.sprite.row = (this.sprite.row === 2) ? 0 : this.sprite.row + 1;
+        }
     };
     
     // Config
-
-    Ship.prototype.width = function () {
-        return this.image.width * 1.5;
-    };
-
-    Ship.prototype.height = function () {
-        return this.image.height * 1.5;
-    };
-
-    Ship.prototype.currentRowSprite = function () {
-        return this.sprite.row * this.image.width;
-    };
-
-    Ship.prototype.currentColSprite = function () {
-        return this.sprite.col * this.image.height;
-    };
 
     Ship.prototype.initPosShot = function () {
         var posX = this.pos.x + (this.width() + 5);
@@ -131,10 +76,6 @@
         return { x: posX, y: posY };
     };
     
-    Ship.prototype.initPos = function () {
-        return { x: 1, y: 10 };
-    };
-
     return Ship;
 
 });

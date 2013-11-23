@@ -4,14 +4,15 @@
     'infrastructure/background/Background',
     'infrastructure/background/Parallax',
 
-    'domain/space/Element',
+    'domain/Element',
+    'domain/Scenario',
     'domain/space/Ship',
     'domain/space/Starbase',
     'domain/space/enemy/Asteroid',
     'domain/space/ammunition/Missile',
     'domain/space/ammunition/Bullet',
     'domain/space/ammunition/Laser'
-], function (_, Background, Parallax, Element, Ship, Starbase, Asteroid, Missile, Bullet, Laser) {
+], function (_, Background, Parallax, Element, Scenario, Ship, Starbase, Asteroid, Missile, Bullet, Laser) {
 
     function Space($canvas, context) {
         this.$canvas = $canvas;
@@ -31,15 +32,7 @@
         this.insertElement(this.ship);
     }
 
-    Space.prototype.draw = function () {
-        var self = this;
-
-        this.context.clearRect(0, 0, this.$canvas.width, this.$canvas.height);
-
-        _.each(this.elements, function (element) {
-            element.draw(self.context);
-        });
-    };
+    Space.prototype = new Scenario();
 
     Space.prototype.updates = function () {
         var self = this;
@@ -126,45 +119,6 @@
         });
     };
     
-    // Collision
-    
-    Space.prototype.detectsCollision = function (element) {
-        var self = this;
-
-        if (element.destroyed()) {
-            this.removeElement(element);
-            return;
-        }
-
-        _.each(this.elements, function (obstacle) {
-            if ((obstacle instanceof Element) && (obstacle != element)) {
-                if (element.collided(obstacle)) {
-                    element.damages(obstacle.damage);
-                    if (element.destroyed()) {
-                        self.removeElement(element);
-                    }
-
-                    obstacle.damages(element.damage);
-                    if (obstacle.destroyed()) {
-                        self.removeElement(obstacle);
-                    }
-                }
-            }
-        });
-    };
-    
-    // Config
-    
-    Space.prototype.insertElement = function (element) {
-        this.elements.push(element);
-    };
-
-    Space.prototype.removeElement = function (element) {
-        var i = this.elements.indexOf(element);
-
-        delete this.elements[i];
-    };
-
     return Space;
 
 });
