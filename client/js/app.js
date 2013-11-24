@@ -10,13 +10,13 @@
             var context = $canvas.getContext('2d');
             
             var fase = new Space($canvas, context);
+            $(fase).on('phaseEnded', function() {
+                fase = new Land($canvas, context);
+                fase.start();
+            });
 
             function loop() {
                 fase.updates();
-                if (fase.ended) {
-                    fase = new Land($canvas, context);
-                    fase.start();
-                }
 
                 window.setTimeout(loop, 1000 / 60);
             }

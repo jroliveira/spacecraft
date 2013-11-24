@@ -1,8 +1,9 @@
 ﻿define([
+    'jquery',
     'underscore',
 
     'domain/Entity'
-], function (_, Entity) {
+], function ($, _, Entity) {
 
     function Scenario() { }
 
@@ -16,47 +17,130 @@
         });
     };
 
-    Scenario.prototype.updates = function () { };
+    Scenario.prototype.updates = function() {
+        var self = this;
 
-    Scenario.prototype.start = function () { };
+        _.each(this.entities, function (entity) {
+            if (entity instanceof Entity) {
+                self.detectsCollision(entity);
+            }
+
+            entity.updates();
+        });
+
+        this.draw();
+
+        $(this).trigger('update');
+    };
+
+    Scenario.prototype.start = function() {
+        this.bindKeyUp();
+        this.bindKeyDown();
+        
+        this.draw();
+    };
 
     // Collision
 
     Scenario.prototype.detectsCollision = function (entity) {
-        var self = this;
-
-        if (entity.destroyed()) {
-            this.removeEntity(entity);
-            return;
-        }
-
         _.each(this.entities, function (obstacle) {
             if ((obstacle instanceof Entity) && (obstacle != entity)) {
                 if (entity.collided(obstacle)) {
-                    entity.damages(obstacle.config.damage);
-                    if (entity.destroyed()) {
-                        self.removeEntity(entity);
-                    }
-
-                    obstacle.damages(entity.config.damage);
-                    if (obstacle.destroyed()) {
-                        self.removeEntity(obstacle);
-                    }
+                    entity.damages(obstacle);
+                    obstacle.damages(entity);
                 }
+            }
+        });
+    };
+    
+    // Event
+
+    Scenario.prototype.bindKeyDown = function () {
+        var self = this;
+
+        $(document).bind('keydown', function (e) {
+            e.preventDefault();
+
+            switch (e.keyCode) {
+                case 32:
+                    $(self).trigger('spaceKeyDown', [true]);
+                    break;
+                case 70:
+                    $(self).trigger('fKeyDown', [true]);
+                    break;
+                case 82:
+                    $(self).trigger('rKeyDown', [true]);
+                    break;
+                case 37:
+                    $(self).trigger('leftKeyDown', [true]);
+                    break;
+                case 38:
+                    $(self).trigger('upKeyDown', [true]);
+                    break;
+                case 39:
+                    $(self).trigger('rightKeyDown', [true]);
+                    break;
+                case 40:
+                    $(self).trigger('downKeyDown', [true]);
+                    break;
+            }
+        });
+    };
+
+    Scenario.prototype.bindKeyUp = function () {
+        var self = this;
+
+        $(document).bind('keyup', function (e) {
+            e.preventDefault();
+
+            switch (e.keyCode) {
+                case 32:
+                    $(self).trigger('spaceKeyUp', [false]);
+                    break;
+                case 70:
+                    $(self).trigger('fKeyUp', [false]);
+                    break;
+                case 82:
+                    $(self).trigger('rKeyUp', [false]);
+                    break;
+                case 37:
+                    $(self).trigger('leftKeyUp', [false]);
+                    break;
+                case 38:
+                    $(self).trigger('upKeyUp', [false]);
+                    break;
+                case 39:
+                    $(self).trigger('rightKeyUp', [false]);
+                    break;
+                case 40:
+                    $(self).trigger('downKeyUp', [false]);
+                    break;
             }
         });
     };
 
     // Config
 
+    Scenario.prototype.shoot = function (munition) {
+        $(munition).on('destroy', this.removeEntity);
+
+        this.insertEntity(munition);
+    };
+
+    Scenario.prototype.threaten = function(enemy) {
+        $(enemy).on('destroy', this.removeEntity);
+
+        this.insertEntity(enemy);
+    };
+
     Scenario.prototype.insertEntity = function (entity) {
         this.entities.push(entity);
     };
 
-    Scenario.prototype.removeEntity = function (entity) {
-        var i = this.entities.indexOf(entity);
+    Scenario.prototype.removeEntity = function (event, entity) {
+        var i = entity.owner.entities.indexOf(entity);
 
-        delete this.entities[i];
+        delete entity.owner.entities[i];
     };
 
     return Scenario;

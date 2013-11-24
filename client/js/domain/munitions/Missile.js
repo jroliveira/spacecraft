@@ -1,13 +1,14 @@
 ﻿define([
     'infrastructure/HealthBar',
     
-    'domain/munitions/Munitions'
-], function (HealthBar, Munitions) {
+    'domain/munitions/Munition'
+], function (HealthBar, Munition) {
 
-    function Missile(ship, config) {
+    function Missile(config, owner) {
         this.config = config;
         
-        this.pos = ship.initPosShot();
+        this.owner = owner;
+        this.pos = owner.character.initPosShot();
         this.health = config.health;
         
         this.image = new Image();
@@ -15,7 +16,7 @@
         this.healthBar = new HealthBar(this);
     }
 
-    Missile.prototype = new Munitions();
+    Missile.prototype = new Munition();
 
     return Missile;
 

@@ -1,10 +1,14 @@
 ﻿define([
+    'jquery',
+    
     'infrastructure/HealthBar',
 
     'domain/Entity'
-], function (HealthBar, Entity) {
+], function ($, HealthBar, Entity) {
 
-    function Character() { }
+    function Character() {
+        $(this).on('damage', this.wasDestroyed);
+    }
 
     Character.prototype = new Entity();
 
@@ -30,52 +34,74 @@
                 return;
             }
 
-            this.pos.y -= 2;
+            this.pos.y -= this.config.speed.up;
         }
         if (this.keys.down) {
-            if ((this.pos.y + this.config.height) >= 600) {
+            if ((this.pos.y + this.config.height) >= this.config.canvas.height) {
                 return;
             }
 
-            this.pos.y += 2;
+            this.pos.y += this.config.speed.down;
         }
         if (this.keys.left) {
             if (this.pos.x <= 0) {
                 return;
             }
 
-            this.pos.x -= 2;
+            this.pos.x -= this.config.speed.left;
         }
         if (this.keys.right) {
-            if ((this.pos.x + this.config.width) >= 895) {
+            if ((this.pos.x + this.config.width) >= this.config.canvas.width) {
                 return;
             }
 
-            this.pos.x += 2;
+            this.pos.x += this.config.speed.right;
         }
+
+        $(this).trigger('update');
+    };
+    
+    Character.prototype.respawn = function () {
+        this.pos = this.config.pos;
+        this.sprite = this.config.sprite;
+        this.health = this.config.health;
     };
 
     // Damage
 
-    Character.prototype.damages = function (damage) {
-        var health = this.health - damage;
-        this.setHealth(health);
-
-        if (this.destroyed()) {
-            this.pos = this.initPos();
-            this.setHealth(50);
+    Character.prototype.wasDestroyed = function (event) {
+        var self = event.target;
+        
+        if (self.destroyed()) {
+            self.respawn();
         }
     };
 
     // Move
 
-    Character.prototype.up = function (move) { };
+    Character.prototype.up = function (move) {
+        this.keys.up = move;
 
-    Character.prototype.down = function (move) { };
+        $(this).trigger('upMove');
+    };
 
-    Character.prototype.left = function (move) { };
+    Character.prototype.down = function (move) {
+        this.keys.down = move;
 
-    Character.prototype.right = function (move) { };
+        $(this).trigger('downMove');
+    };
+
+    Character.prototype.left = function (move) {
+        this.keys.left = move;
+        
+        $(this).trigger('leftMove');
+    };
+
+    Character.prototype.right = function (move) {
+        this.keys.right = move;
+        
+        $(this).trigger('rightMove');
+    };
 
     // Config
 

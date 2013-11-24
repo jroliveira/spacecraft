@@ -1,4 +1,5 @@
 ﻿define([
+    'jquery',
     'underscore',
 
     'infrastructure/background/Background',
@@ -10,6 +11,7 @@
     'common/configs/enemies/AsteroidConfig',
     'common/configs/characters/ShipConfig',
     'common/configs/StarbaseConfig',
+    'common/configs/phases/FaseOneConfig',
 
     'domain/Entity',
     'domain/scenarios/Scenario',
@@ -20,15 +22,20 @@
     'domain/munitions/Bullet',
     'domain/munitions/Laser'
 ], function (
+    $,
     _,
+
     Background,
     Parallax,
+
     BulletConfig,
     MissileConfig,
     LaserConfig,
     AsteroidConfig,
     ShipConfig,
     StarbaseConfig,
+    FaseOneConfig,
+
     Entity,
     Scenario,
     Ship,
@@ -44,106 +51,111 @@
         this.context = context;
 
         this.timer = 0;
-        this.ended = false;
 
-        this.ship = new Ship(ShipConfig);
-        this.startBase = new Starbase(StarbaseConfig);
-        this.background = new Background('background1', 2.5);
+        this.character = new Ship(ShipConfig);
+        this.startBase = new Starbase(StarbaseConfig, this);
+        this.background = new Background(FaseOneConfig, this);
 
         this.entities = [];
         this.insertEntity(this.background);
         this.insertEntity(new Parallax('parallax1', 10));
         this.insertEntity(new Parallax('parallax2', 5));
-        this.insertEntity(this.ship);
+        this.insertEntity(this.character);
+
+        $(this).on('spaceKeyDown', this.shootBullets);
+        $(this).on('fKeyDown', this.missileLaunch);
+        $(this).on('rKeyDown', this.laserShooting);
+
+        $(this).on('upKeyDown', this.upCharacter);
+        $(this).on('downKeyDown', this.downCharacter);
+        $(this).on('leftKeyDown', this.leftCharacter);
+        $(this).on('rightKeyDown', this.rightCharacter);
+
+        $(this).on('upKeyUp', this.upCharacter);
+        $(this).on('downKeyUp', this.downCharacter);
+        $(this).on('leftKeyUp', this.leftCharacter);
+        $(this).on('rightKeyUp', this.rightCharacter);
+
+        $(this.background).on('scenarioEnded', this.showStarbase);
+        $(this.startBase).on('phaseEnded', this.ended);
+
+        $(this).on('update', this.enterEnemy);
     }
 
     Space.prototype = new Scenario();
 
-    Space.prototype.updates = function () {
-        var self = this;
+    Space.prototype.enterEnemy = function(event) {
+        var self = event.target;
 
-        if (this.background.ended()) {
-            var i = this.entities.indexOf(this.startBase);
+        self.timer++;
+        if (self.timer === 200) {
+            self.timer = 0;
 
-            if (i < 0) {
-                this.insertEntity(this.startBase);
-            } else {
-                if (this.startBase.collided(this.ship)) {
-                    this.ended = true;
-                }
-            }
+            self.threaten(new Asteroid(AsteroidConfig, self));
         }
-
-        _.each(this.entities, function (entity) {
-            if (entity instanceof Entity) {
-                self.detectsCollision(entity);
-            }
-
-            entity.updates();
-        });
-
-        this.timer++;
-        if (this.timer === 200) {
-            this.timer = 0;
-            this.insertEntity(new Asteroid(AsteroidConfig));
-        }
-
-        this.draw();
     };
 
-    Space.prototype.start = function () {
-        var self = this;
+    Space.prototype.ended = function(event) {
+        var owner = event.target.owner;
+        
+        $(owner).trigger('phaseEnded');
+    };
 
-        this.draw();
+    Space.prototype.showStarbase = function(event) {
+        var owner = event.target.owner;
 
-        $(document).bind('keydown', function (e) {
-            e.preventDefault();
+        var i = owner.entities.indexOf(owner.startBase);
+        if (i < 0) {
+            owner.insertEntity(owner.startBase);
+        }
+    };
 
-            switch (e.keyCode) {
-                case 32:
-                    self.insertEntity(new Bullet(self.ship, BulletConfig));
-                    break;
-                case 70:
-                    self.insertEntity(new Missile(self.ship, MissileConfig));
-                    break;
-                case 82:
-                    self.insertEntity(new Laser(self.ship, LaserConfig));
-                    break;
-                case 37:
-                    self.ship.left(true);
-                    break;
-                case 38:
-                    self.ship.up(true);
-                    break;
-                case 39:
-                    self.ship.right(true);
-                    break;
-                case 40:
-                    self.ship.down(true);
-                    break;
-            }
-        });
+    // Direction
+    
+    Space.prototype.upCharacter = function (event, pressed) {
+        var self = event.target;
 
-        $(document).bind('keyup', function (e) {
-            e.preventDefault();
+        self.character.up(pressed);
+    };
 
-            switch (e.keyCode) {
-                case 37:
-                    self.ship.left(false);
-                    break;
-                case 38:
-                    self.ship.up(false);
-                    break;
-                case 39:
-                    self.ship.right(false);
-                    break;
-                case 40:
-                    self.ship.down(false);
-                    break;
-            }
-        });
+    Space.prototype.downCharacter = function (event, pressed) {
+        var self = event.target;
+
+        self.character.down(pressed);
+    };
+
+    Space.prototype.leftCharacter = function (event, pressed) {
+        var self = event.target;
+
+        self.character.left(pressed);
     };
     
+    Space.prototype.rightCharacter = function (event, pressed) {
+        var self = event.target;
+
+        self.character.right(pressed);
+    };
+
+    // Munitions
+
+    Space.prototype.missileLaunch = function (event) {
+        var self = event.target;
+
+        self.shoot(new Missile(MissileConfig, self));
+    };
+
+    Space.prototype.laserShooting = function (event) {
+        var self = event.target;
+
+        self.shoot(new Laser(LaserConfig, self));
+    };
+
+    Space.prototype.shootBullets = function(event) {
+        var self = event.target;
+        
+        self.shoot(new Bullet(BulletConfig, self));
+    };
+
     return Space;
 
 });

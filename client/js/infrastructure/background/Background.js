@@ -1,31 +1,28 @@
-﻿define([], function () {
+﻿define([
+    'jquery'
+], function ($) {
 
-    function Background(imageName, value) {
+    function Background(config, owner) {
+        this.config = config;
+
+        this.owner = owner;
+        this.pos = config.pos;
+        
         this.image = new Image();
-        this.image.src = "../../client/img/scenarios/" + imageName + ".png";
-
-        this.pos = { x: 0 };
-
-        this.speed = value;
+        this.image.src = "../../client/img/scenarios/" + config.image.name + ".png";
     }
 
     Background.prototype.draw = function (context) {
         context.drawImage(this.image, this.pos.x, 0);
-        context.drawImage(this.image, this.pos.x + this.width(), 0);
+        context.drawImage(this.image, this.pos.x + this.config.width, 0);
     };
 
     Background.prototype.updates = function () {
-        if ((Math.abs(this.pos.x) + 895) < this.width()) {
-            this.pos.x = this.pos.x - this.speed;
+        if ((Math.abs(this.pos.x) + 895) < this.config.width) {
+            this.pos.x = this.pos.x - this.config.speed;
+        } else {
+            $(this).trigger('scenarioEnded');
         }
-    };
-    
-    Background.prototype.width = function () {
-        return 3091;
-    };
-
-    Background.prototype.ended = function () {
-        return (Math.abs(this.pos.x)  + 895) >= this.width();
     };
 
     return Background;

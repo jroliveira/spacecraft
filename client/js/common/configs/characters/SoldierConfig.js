@@ -15,6 +15,10 @@
     SoldierConfig.health = 50;
 
     SoldierConfig.damage = 100;
+    
+    SoldierConfig.speed = { up: 2, left: 2, right: 2, down: 2 };
+
+    SoldierConfig.canvas = { width: 895, height: 600 };
 
     return SoldierConfig;
 

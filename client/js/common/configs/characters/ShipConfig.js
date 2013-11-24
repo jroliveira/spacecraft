@@ -16,6 +16,10 @@
 
     ShipConfig.damage = 100;
 
+    ShipConfig.speed = { up: 2, left: 4, right: 2, down: 2 };
+
+    ShipConfig.canvas = { width: 895, height: 600 };
+
     return ShipConfig;
 
 });

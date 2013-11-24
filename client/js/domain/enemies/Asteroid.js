@@ -4,9 +4,10 @@
     'domain/enemies/Enemy'
 ], function (HealthBar, Enemy) {
 
-    function Asteroid(config) {
+    function Asteroid(config, owner) {
         this.config = config;
-        
+
+        this.owner = owner;
         this.pos = this.initPos();
         this.health = config.health;
         

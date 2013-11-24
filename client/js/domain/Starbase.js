@@ -3,12 +3,14 @@
     
     'infrastructure/HealthBar',
 
-    'domain/Entity'
-], function ($, HealthBar, Entity) {
+    'domain/Entity',
+    'domain/characters/Character'
+], function ($, HealthBar, Entity, Character) {
 
-    function Starbase(config) {
+    function Starbase(config, owner) {
         this.config = config;
 
+        this.owner = owner;
         this.pos = config.pos;
         this.health = config.health;
 
@@ -23,7 +25,11 @@
 
     // Damage
 
-    Starbase.prototype.damages = function (damage) { };
+    Starbase.prototype.damages = function (obstacle) {
+        if (obstacle instanceof Character) {
+            $(this).trigger('phaseEnded');
+        }
+    };
     
     // Health
 

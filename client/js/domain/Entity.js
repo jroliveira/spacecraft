@@ -1,4 +1,6 @@
-﻿define([], function () {
+﻿define([
+    'jquery'
+], function ($) {
 
     function Entity() { }
 
@@ -12,10 +14,11 @@
 
     // Damage
 
-    Entity.prototype.damages = function (damage) {
-        var health = this.health - damage;
-
+    Entity.prototype.damages = function (obstacle) {
+        var health = this.health - obstacle.config.damage;
         this.setHealth(health);
+        
+        $(this).trigger('damage');
     };
     
     Entity.prototype.destroyed = function () {

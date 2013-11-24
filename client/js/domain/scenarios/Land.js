@@ -12,72 +12,48 @@
         this.$canvas = $canvas;
         this.context = context;
         
-        this.ended = false;
-
-        this.soldier = new Soldier(SoldierConfig);
+        this.character = new Soldier(SoldierConfig);
 
         this.entities = [];
-        this.insertEntity(this.soldier);
+        this.insertEntity(this.character);
+        
+        $(this).on('upKeyDown', this.upCharacter);
+        $(this).on('downKeyDown', this.downCharacter);
+        $(this).on('leftKeyDown', this.leftCharacter);
+        $(this).on('rightKeyDown', this.rightCharacter);
+
+        $(this).on('upKeyUp', this.upCharacter);
+        $(this).on('downKeyUp', this.downCharacter);
+        $(this).on('leftKeyUp', this.leftCharacter);
+        $(this).on('rightKeyUp', this.rightCharacter);
     }
 
     Land.prototype = new Scenario();
+    
+    // Direction
 
-    Land.prototype.updates = function () {
-        var self = this;
+    Land.prototype.upCharacter = function (event, pressed) {
+        var self = event.target;
 
-        _.each(this.entities, function (entity) {
-            if (entity instanceof Entity) {
-                self.detectsCollision(entity);
-            }
-
-            entity.updates();
-        });
-
-        this.draw();
+        self.character.up(pressed);
     };
 
-    Land.prototype.start = function () {
-        var self = this;
+    Land.prototype.downCharacter = function (event, pressed) {
+        var self = event.target;
 
-        this.draw();
+        self.character.down(pressed);
+    };
 
-        $(document).bind('keydown', function (e) {
-            e.preventDefault();
+    Land.prototype.leftCharacter = function (event, pressed) {
+        var self = event.target;
 
-            switch (e.keyCode) {
-                case 37:
-                    self.soldier.left(true);
-                    break;
-                case 38:
-                    self.soldier.up(true);
-                    break;
-                case 39:
-                    self.soldier.right(true);
-                    break;
-                case 40:
-                    self.soldier.down(true);
-                    break;
-            }
-        });
+        self.character.left(pressed);
+    };
 
-        $(document).bind('keyup', function (e) {
-            e.preventDefault();
+    Land.prototype.rightCharacter = function (event, pressed) {
+        var self = event.target;
 
-            switch (e.keyCode) {
-                case 37:
-                    self.soldier.left(false);
-                    break;
-                case 38:
-                    self.soldier.up(false);
-                    break;
-                case 39:
-                    self.soldier.right(false);
-                    break;
-                case 40:
-                    self.soldier.down(false);
-                    break;
-            }
-        });
+        self.character.right(pressed);
     };
     
     return Land;
