@@ -2,6 +2,7 @@
     'jquery',
     'underscore',
 
+    'infrastructure/inputs/Keyboard',
     'infrastructure/background/Background',
     'infrastructure/background/Parallax',
 
@@ -25,6 +26,7 @@
     $,
     _,
 
+    Keyboard,
     Background,
     Parallax,
 
@@ -49,7 +51,7 @@
     function Space($canvas, context) {
         this.$canvas = $canvas;
         this.context = context;
-
+        
         this.timer = 0;
 
         this.character = new Ship(ShipConfig);
@@ -62,19 +64,16 @@
         this.insertEntity(new Parallax('parallax2', 5));
         this.insertEntity(this.character);
 
-        $(this).on('spaceKeyDown', this.shootBullets);
-        $(this).on('fKeyDown', this.missileLaunch);
-        $(this).on('rKeyDown', this.laserShooting);
+        this.input = new Keyboard(this);
 
-        $(this).on('upKeyDown', this.upCharacter);
-        $(this).on('downKeyDown', this.downCharacter);
-        $(this).on('leftKeyDown', this.leftCharacter);
-        $(this).on('rightKeyDown', this.rightCharacter);
+        $(this.input).on('space', this.shootBullets);
+        $(this.input).on('f', this.missileLaunch);
+        $(this.input).on('r', this.laserShooting);
 
-        $(this).on('upKeyUp', this.upCharacter);
-        $(this).on('downKeyUp', this.downCharacter);
-        $(this).on('leftKeyUp', this.leftCharacter);
-        $(this).on('rightKeyUp', this.rightCharacter);
+        $(this.input).on('up', this.upCharacter);
+        $(this.input).on('down', this.downCharacter);
+        $(this.input).on('left', this.leftCharacter);
+        $(this.input).on('right', this.rightCharacter);
 
         $(this.background).on('scenarioEnded', this.showStarbase);
         $(this.startBase).on('phaseEnded', this.ended);
@@ -113,25 +112,25 @@
     // Direction
     
     Space.prototype.upCharacter = function (event, pressed) {
-        var self = event.target;
+        var self = event.target.owner;
 
         self.character.up(pressed);
     };
 
     Space.prototype.downCharacter = function (event, pressed) {
-        var self = event.target;
+        var self = event.target.owner;
 
         self.character.down(pressed);
     };
 
     Space.prototype.leftCharacter = function (event, pressed) {
-        var self = event.target;
+        var self = event.target.owner;
 
         self.character.left(pressed);
     };
     
     Space.prototype.rightCharacter = function (event, pressed) {
-        var self = event.target;
+        var self = event.target.owner;
 
         self.character.right(pressed);
     };
@@ -139,19 +138,19 @@
     // Munitions
 
     Space.prototype.missileLaunch = function (event) {
-        var self = event.target;
+        var self = event.target.owner;
 
         self.shoot(new Missile(MissileConfig, self));
     };
 
     Space.prototype.laserShooting = function (event) {
-        var self = event.target;
+        var self = event.target.owner;
 
         self.shoot(new Laser(LaserConfig, self));
     };
 
     Space.prototype.shootBullets = function(event) {
-        var self = event.target;
+        var self = event.target.owner;
         
         self.shoot(new Bullet(BulletConfig, self));
     };

@@ -1,12 +1,15 @@
 ﻿define([
+    'jquery',
     'underscore',
+    
+    'infrastructure/inputs/Keyboard',
     
     'common/configs/characters/SoldierConfig',
 
     'domain/Entity',
     'domain/scenarios/Scenario',
     'domain/characters/Soldier'
-], function (_, SoldierConfig, Entity, Scenario, Soldier) {
+], function ($, _, Keyboard, SoldierConfig, Entity, Scenario, Soldier) {
 
     function Land($canvas, context) {
         this.$canvas = $canvas;
@@ -17,15 +20,12 @@
         this.entities = [];
         this.insertEntity(this.character);
         
-        $(this).on('upKeyDown', this.upCharacter);
-        $(this).on('downKeyDown', this.downCharacter);
-        $(this).on('leftKeyDown', this.leftCharacter);
-        $(this).on('rightKeyDown', this.rightCharacter);
+        this.input = new Keyboard(this);
 
-        $(this).on('upKeyUp', this.upCharacter);
-        $(this).on('downKeyUp', this.downCharacter);
-        $(this).on('leftKeyUp', this.leftCharacter);
-        $(this).on('rightKeyUp', this.rightCharacter);
+        $(this.input).on('up', this.upCharacter);
+        $(this.input).on('down', this.downCharacter);
+        $(this.input).on('left', this.leftCharacter);
+        $(this.input).on('right', this.rightCharacter);
     }
 
     Land.prototype = new Scenario();
