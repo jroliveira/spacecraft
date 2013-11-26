@@ -22,7 +22,7 @@
 
     Enemy.prototype.wasDestroyed = function (event) {
         var self = event.target;
-
+        
         if (self.destroyed()) {
             $(self).trigger('destroy', [self]);
         }

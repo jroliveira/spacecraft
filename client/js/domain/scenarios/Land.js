@@ -20,41 +20,10 @@
         this.entities = [];
         this.insertEntity(this.character);
         
-        this.input = new Keyboard(this);
-
-        $(this.input).on('up', this.upCharacter);
-        $(this.input).on('down', this.downCharacter);
-        $(this.input).on('left', this.leftCharacter);
-        $(this.input).on('right', this.rightCharacter);
+        this.input = new Keyboard();
     }
 
     Land.prototype = new Scenario();
-    
-    // Direction
-
-    Land.prototype.upCharacter = function (event, pressed) {
-        var self = event.target;
-
-        self.character.up(pressed);
-    };
-
-    Land.prototype.downCharacter = function (event, pressed) {
-        var self = event.target;
-
-        self.character.down(pressed);
-    };
-
-    Land.prototype.leftCharacter = function (event, pressed) {
-        var self = event.target;
-
-        self.character.left(pressed);
-    };
-
-    Land.prototype.rightCharacter = function (event, pressed) {
-        var self = event.target;
-
-        self.character.right(pressed);
-    };
     
     return Land;
 

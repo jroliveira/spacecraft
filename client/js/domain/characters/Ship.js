@@ -2,9 +2,29 @@
     'jquery',
     
     'infrastructure/HealthBar',
+    
+    'common/configs/munitions/BulletConfig',
+    'common/configs/munitions/MissileConfig',
+    'common/configs/munitions/LaserConfig',
 
-    'domain/characters/Character'
-], function ($, HealthBar, Character) {
+    'domain/characters/Character',
+    'domain/munitions/Missile',
+    'domain/munitions/Bullet',
+    'domain/munitions/Laser'
+], function (
+    $,
+    
+    HealthBar,
+    
+    BulletConfig,
+    MissileConfig,
+    LaserConfig,
+
+    Character,
+    Missile,
+    Bullet,
+    Laser
+) {
 
     function Ship(config) {
         this.config = config;
@@ -15,10 +35,14 @@
 
         this.keys = { up: false, down: false, right: false, left: false };
 
-        $(this).on('upMove', this.lift);
-        $(this).on('downMove', this.lower);
-        $(this).on('rightMove', this.toRight);
-        $(this).on('leftMove', this.toLeft);
+        $(document).on('up', $.proxy(this.lift, this));
+        $(document).on('down', $.proxy(this.lower, this));
+        $(document).on('left', $.proxy(this.toLeft, this));
+        $(document).on('right', $.proxy(this.toRight, this));
+        
+        $(document).on('space', $.proxy(this.shootBullets, this));
+        $(document).on('f', $.proxy(this.missileLaunch, this));
+        $(document).on('r', $.proxy(this.laserShooting, this));
 
         this.imageSprite = new Image();
         this.imageSprite.src = "../../client/img/characters/shipSprite.png";
@@ -27,48 +51,74 @@
 
     Ship.prototype = new Character();
 
+    // Munitions
+
+    Ship.prototype.missileLaunch = function (event, pressed) {
+        if (!pressed) return;
+
+        var munition = new Missile(MissileConfig, this);
+        
+        $(this).trigger('shot', [munition]);
+    };
+
+    Ship.prototype.laserShooting = function (event, pressed) {
+        if (!pressed) return;
+
+        var munition = new Laser(LaserConfig, this);
+        
+        $(this).trigger('shot', [munition]);
+    };
+
+    Ship.prototype.shootBullets = function (event, pressed) {
+        if (!pressed) return;
+
+        var munition = new Bullet(BulletConfig, this);
+        
+        $(this).trigger('shot', [munition]);
+    };
+
     // Move
 
-    Ship.prototype.lift = function (event) {
-        var self = event.target;
+    Ship.prototype.lift = function (event, move) {
+        this.keys.up = move;
 
-        if (self.keys.up) {
-            self.sprite.row = (self.sprite.row === 2) ? 0 : self.sprite.row + 1;
+        if (move) {
+            this.sprite.row = (this.sprite.row === 2) ? 0 : this.sprite.row + 1;
 
-            if (self.sprite.col <= 0) {
-                self.sprite.col = 0;
+            if (this.sprite.col <= 0) {
+                this.sprite.col = 0;
             } else {
-                self.sprite.col--;
+                this.sprite.col--;
             }
         }
     };
 
-    Ship.prototype.lower = function (event) {
-        var self = event.target;
+    Ship.prototype.lower = function (event, move) {
+        this.keys.down = move;
+        
+        if (move) {
+            this.sprite.row = (this.sprite.row === 2) ? 0 : this.sprite.row + 1;
 
-        if (self.keys.down) {
-            self.sprite.row = (self.sprite.row === 2) ? 0 : self.sprite.row + 1;
-
-            if (self.sprite.col >= 2)
-                self.sprite.col = 2;
+            if (this.sprite.col >= 2)
+                this.sprite.col = 2;
             else
-                self.sprite.col++;
+                this.sprite.col++;
         }
     };
 
-    Ship.prototype.toLeft = function (event) {
-        var self = event.target;
-
-        if (self.keys.left) {
-            self.sprite.row = (self.sprite.row === 2) ? 0 : self.sprite.row + 1;
+    Ship.prototype.toLeft = function (event, move) {
+        this.keys.left = move;
+        
+        if (move) {
+            this.sprite.row = (this.sprite.row === 2) ? 0 : this.sprite.row + 1;
         }
     };
 
-    Ship.prototype.toRight = function (event) {
-        var self = event.target;
-
-        if (self.keys.right) {
-            self.sprite.row = (self.sprite.row === 2) ? 0 : self.sprite.row + 1;
+    Ship.prototype.toRight = function (event, move) {
+        this.keys.right = move;
+        
+        if (move) {
+            this.sprite.row = (this.sprite.row === 2) ? 0 : this.sprite.row + 1;
         }
     };
 

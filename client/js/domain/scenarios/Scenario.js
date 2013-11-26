@@ -53,14 +53,14 @@
     
     // Config
 
-    Scenario.prototype.shoot = function (munition) {
-        $(munition).on('destroy', this.removeEntity);
+    Scenario.prototype.shoot = function (event, munition) {
+        $(munition).on('destroy', $.proxy(this.removeEntity, this));
 
         this.insertEntity(munition);
     };
 
     Scenario.prototype.threaten = function(enemy) {
-        $(enemy).on('destroy', this.removeEntity);
+        $(enemy).on('destroy', $.proxy(this.removeEntity, this));
 
         this.insertEntity(enemy);
     };
@@ -70,9 +70,9 @@
     };
 
     Scenario.prototype.removeEntity = function (event, entity) {
-        var i = entity.owner.entities.indexOf(entity);
+        var i = this.entities.indexOf(entity);
 
-        delete entity.owner.entities[i];
+        delete this.entities[i];
     };
 
     return Scenario;

@@ -4,9 +4,7 @@
     'infrastructure/inputs/Input'
 ], function ($, Input) {
 
-    function Keyboard(owner) {
-        this.owner = owner;
-    }
+    function Keyboard() { }
 
     Keyboard.prototype = new Input();
 

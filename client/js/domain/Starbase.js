@@ -7,10 +7,9 @@
     'domain/characters/Character'
 ], function ($, HealthBar, Entity, Character) {
 
-    function Starbase(config, owner) {
+    function Starbase(config) {
         this.config = config;
 
-        this.owner = owner;
         this.pos = config.pos;
         this.health = config.health;
 
@@ -27,7 +26,7 @@
 
     Starbase.prototype.damages = function (obstacle) {
         if (obstacle instanceof Character) {
-            $(this).trigger('phaseEnded');
+            $(document).trigger('phaseEnded');
         }
     };
     

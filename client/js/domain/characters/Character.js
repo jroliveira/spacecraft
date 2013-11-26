@@ -77,32 +77,6 @@
         }
     };
 
-    // Move
-
-    Character.prototype.up = function (move) {
-        this.keys.up = move;
-
-        $(this).trigger('upMove');
-    };
-
-    Character.prototype.down = function (move) {
-        this.keys.down = move;
-
-        $(this).trigger('downMove');
-    };
-
-    Character.prototype.left = function (move) {
-        this.keys.left = move;
-        
-        $(this).trigger('leftMove');
-    };
-
-    Character.prototype.right = function (move) {
-        this.keys.right = move;
-        
-        $(this).trigger('rightMove');
-    };
-
     // Config
 
     Character.prototype.currentRowSprite = function () {
@@ -111,10 +85,6 @@
 
     Character.prototype.currentColSprite = function () {
         return this.sprite.col * this.config.image.height;
-    };
-
-    Character.prototype.initPos = function () {
-        return { x: 1, y: 10 };
     };
 
     return Character;

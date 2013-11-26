@@ -15,10 +15,10 @@
 
         this.keys = { up: false, down: false, right: false, left: false };
 
-        $(this).on('upMove', this.lift);
-        $(this).on('downMove', this.lower);
-        $(this).on('rightMove', this.toRight);
-        $(this).on('leftMove', this.toLeft);
+        $(document).on('up', $.proxy(this.lift, this));
+        $(document).on('down', $.proxy(this.lower, this));
+        $(document).on('left', $.proxy(this.toLeft, this));
+        $(document).on('right', $.proxy(this.toRight, this));
 
         this.imageSprite = new Image();
         this.imageSprite.src = "../../client/img/characters/soldierSprite.png";
@@ -29,39 +29,39 @@
 
     // Move
 
-    Soldier.prototype.lift = function (event) {
-        var self = event.target;
+    Soldier.prototype.lift = function (event, move) {
+        this.keys.up = move;
 
-        if (self.keys.up) {
-            self.sprite.row = (self.sprite.row === 2) ? 0 : self.sprite.row + 1;
-            self.sprite.col = 3;
+        if (this.keys.up) {
+            this.sprite.row = (this.sprite.row === 2) ? 0 : this.sprite.row + 1;
+            this.sprite.col = 3;
         }
     };
 
-    Soldier.prototype.lower = function (event) {
-        var self = event.target;
-
-        if (self.keys.down) {
-            self.sprite.row = (self.sprite.row === 2) ? 0 : self.sprite.row + 1;
-            self.sprite.col = 0;
+    Soldier.prototype.lower = function (event, move) {
+        this.keys.down = move;
+        
+        if (this.keys.down) {
+            this.sprite.row = (this.sprite.row === 2) ? 0 : this.sprite.row + 1;
+            this.sprite.col = 0;
         }
     };
 
-    Soldier.prototype.toLeft = function (event) {
-        var self = event.target;
-
-        if (self.keys.left) {
-            self.sprite.row = (self.sprite.row === 2) ? 0 : self.sprite.row + 1;
-            self.sprite.col = 1;
+    Soldier.prototype.toLeft = function (event, move) {
+        this.keys.left = move;
+        
+        if (this.keys.left) {
+            this.sprite.row = (this.sprite.row === 2) ? 0 : this.sprite.row + 1;
+            this.sprite.col = 1;
         }
     };
 
-    Soldier.prototype.toRight = function (event) {
-        var self = event.target;
-
-        if (self.keys.right) {
-            self.sprite.row = (self.sprite.row === 2) ? 0 : self.sprite.row + 1;
-            self.sprite.col = 2;
+    Soldier.prototype.toRight = function (event, move) {
+        this.keys.right = move;
+        
+        if (this.keys.right) {
+            this.sprite.row = (this.sprite.row === 2) ? 0 : this.sprite.row + 1;
+            this.sprite.col = 2;
         }
     };
 

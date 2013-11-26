@@ -10,7 +10,7 @@
             var context = $canvas.getContext('2d');
             
             var fase = new Space($canvas, context);
-            $(fase).on('phaseEnded', function() {
+            $(document).on('phaseEnded', function() {
                 fase = new Land($canvas, context);
                 fase.start();
             });

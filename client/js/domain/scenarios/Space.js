@@ -6,9 +6,6 @@
     'infrastructure/background/Background',
     'infrastructure/background/Parallax',
 
-    'common/configs/munitions/BulletConfig',
-    'common/configs/munitions/MissileConfig',
-    'common/configs/munitions/LaserConfig',
     'common/configs/enemies/AsteroidConfig',
     'common/configs/characters/ShipConfig',
     'common/configs/StarbaseConfig',
@@ -18,10 +15,7 @@
     'domain/scenarios/Scenario',
     'domain/characters/Ship',
     'domain/Starbase',
-    'domain/enemies/Asteroid',
-    'domain/munitions/Missile',
-    'domain/munitions/Bullet',
-    'domain/munitions/Laser'
+    'domain/enemies/Asteroid'
 ], function (
     $,
     _,
@@ -30,9 +24,6 @@
     Background,
     Parallax,
 
-    BulletConfig,
-    MissileConfig,
-    LaserConfig,
     AsteroidConfig,
     ShipConfig,
     StarbaseConfig,
@@ -42,10 +33,7 @@
     Scenario,
     Ship,
     Starbase,
-    Asteroid,
-    Missile,
-    Bullet,
-    Laser
+    Asteroid
 ) {
 
     function Space($canvas, context) {
@@ -64,20 +52,10 @@
         this.insertEntity(new Parallax('parallax2', 5));
         this.insertEntity(this.character);
 
-        this.input = new Keyboard(this);
+        this.input = new Keyboard();
 
-        $(this.input).on('space', this.shootBullets);
-        $(this.input).on('f', this.missileLaunch);
-        $(this.input).on('r', this.laserShooting);
-
-        $(this.input).on('up', this.upCharacter);
-        $(this.input).on('down', this.downCharacter);
-        $(this.input).on('left', this.leftCharacter);
-        $(this.input).on('right', this.rightCharacter);
-
+        $(this.character).on('shot', $.proxy(this.shoot, this));
         $(this.background).on('scenarioEnded', this.showStarbase);
-        $(this.startBase).on('phaseEnded', this.ended);
-
         $(this).on('update', this.enterEnemy);
     }
 
@@ -94,12 +72,6 @@
         }
     };
 
-    Space.prototype.ended = function(event) {
-        var owner = event.target.owner;
-        
-        $(owner).trigger('phaseEnded');
-    };
-
     Space.prototype.showStarbase = function(event) {
         var owner = event.target.owner;
 
@@ -107,52 +79,6 @@
         if (i < 0) {
             owner.insertEntity(owner.startBase);
         }
-    };
-
-    // Direction
-    
-    Space.prototype.upCharacter = function (event, pressed) {
-        var self = event.target.owner;
-
-        self.character.up(pressed);
-    };
-
-    Space.prototype.downCharacter = function (event, pressed) {
-        var self = event.target.owner;
-
-        self.character.down(pressed);
-    };
-
-    Space.prototype.leftCharacter = function (event, pressed) {
-        var self = event.target.owner;
-
-        self.character.left(pressed);
-    };
-    
-    Space.prototype.rightCharacter = function (event, pressed) {
-        var self = event.target.owner;
-
-        self.character.right(pressed);
-    };
-
-    // Munitions
-
-    Space.prototype.missileLaunch = function (event) {
-        var self = event.target.owner;
-
-        self.shoot(new Missile(MissileConfig, self));
-    };
-
-    Space.prototype.laserShooting = function (event) {
-        var self = event.target.owner;
-
-        self.shoot(new Laser(LaserConfig, self));
-    };
-
-    Space.prototype.shootBullets = function(event) {
-        var self = event.target.owner;
-        
-        self.shoot(new Bullet(BulletConfig, self));
     };
 
     return Space;

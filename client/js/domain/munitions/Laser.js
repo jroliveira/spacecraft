@@ -4,11 +4,10 @@
     'domain/munitions/Munition'
 ], function (HealthBar, Munition) {
 
-    function Laser(config, owner) {
+    function Laser(config, character) {
         this.config = config;
         
-        this.owner = owner;
-        this.pos = owner.character.initPosShot();
+        this.pos = character.initPosShot();
         this.health = config.health;
 
         this.image = new Image();
