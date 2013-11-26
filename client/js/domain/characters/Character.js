@@ -1,20 +1,16 @@
 ﻿define([
     'jquery',
     
-    'infrastructure/HealthBar',
-
-    'domain/Entity'
-], function ($, HealthBar, Entity) {
+    'domain/Living'
+], function ($, Living) {
 
     function Character() {
-        $(this).on('damage', this.wasDestroyed);
+        $(this).on('collided', this.damages);
     }
 
-    Character.prototype = new Entity();
+    Character.prototype = new Living();
 
     Character.prototype.draw = function (context) {
-        this.healthBar.draw(context);
-
         context.drawImage(
             this.imageSprite,
             this.currentRowSprite(),
@@ -57,8 +53,6 @@
 
             this.pos.x += this.config.speed.right;
         }
-
-        $(this).trigger('update');
     };
     
     Character.prototype.respawn = function () {
@@ -69,8 +63,11 @@
 
     // Damage
 
-    Character.prototype.wasDestroyed = function (event) {
+    Character.prototype.damages = function (event, obstacle) {
         var self = event.target;
+
+        self.health = self.health - obstacle.health;
+        self.setHealth(self.health);
         
         if (self.destroyed()) {
             self.respawn();

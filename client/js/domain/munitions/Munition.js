@@ -1,14 +1,14 @@
 ﻿define([
     'jquery',
 
-    'domain/Entity'
-], function ($, Entity) {
+    'domain/Living'
+], function ($, Living) {
 
     function Munition() {
-        $(this).on('damage', this.wasDestroyed);
+        $(this).on('collided', this.damages);
     }
 
-    Munition.prototype = new Entity();
+    Munition.prototype = new Living();
 
     Munition.prototype.updates = function () {
         var width = 895 - this.config.width;
@@ -20,17 +20,14 @@
         }
     };
 
-    // Health
-
-    Munition.prototype.showHealthBar = function () {
-        return false;
-    };
-
     // Damage
 
-    Munition.prototype.wasDestroyed = function (event) {
+    Munition.prototype.damages = function (event, obstacle) {
         var self = event.target;
-        
+
+        self.health = self.health - obstacle.health;
+        self.setHealth(self.health);
+
         if (self.destroyed()) {
             $(self).trigger('destroy', [self]);
         }

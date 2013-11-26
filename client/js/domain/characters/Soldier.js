@@ -27,7 +27,7 @@
 
     Soldier.prototype = new Character();
 
-    // Move
+    // Direction
 
     Soldier.prototype.lift = function (event, move) {
         this.keys.up = move;

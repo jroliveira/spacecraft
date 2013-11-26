@@ -1,6 +1,5 @@
 ﻿define([
     'jquery',
-    'underscore',
 
     'infrastructure/inputs/Keyboard',
     'infrastructure/background/Background',
@@ -11,14 +10,12 @@
     'common/configs/StarbaseConfig',
     'common/configs/phases/FaseOneConfig',
 
-    'domain/Entity',
     'domain/scenarios/Scenario',
     'domain/characters/Ship',
     'domain/Starbase',
     'domain/enemies/Asteroid'
 ], function (
     $,
-    _,
 
     Keyboard,
     Background,
@@ -29,7 +26,6 @@
     StarbaseConfig,
     FaseOneConfig,
 
-    Entity,
     Scenario,
     Ship,
     Starbase,
@@ -43,8 +39,8 @@
         this.timer = 0;
 
         this.character = new Ship(ShipConfig);
-        this.startBase = new Starbase(StarbaseConfig, this);
-        this.background = new Background(FaseOneConfig, this);
+        this.background = new Background(FaseOneConfig);
+        this.starBase = new Starbase(StarbaseConfig);
 
         this.entities = [];
         this.insertEntity(this.background);
@@ -55,7 +51,7 @@
         this.input = new Keyboard();
 
         $(this.character).on('shot', $.proxy(this.shoot, this));
-        $(this.background).on('scenarioEnded', this.showStarbase);
+        $(this.background).on('scenarioEnded', $.proxy(this.showStarbase, this));
         $(this).on('update', this.enterEnemy);
     }
 
@@ -72,12 +68,10 @@
         }
     };
 
-    Space.prototype.showStarbase = function(event) {
-        var owner = event.target.owner;
-
-        var i = owner.entities.indexOf(owner.startBase);
+    Space.prototype.showStarbase = function () {
+        var i = this.entities.indexOf(this.starBase);
         if (i < 0) {
-            owner.insertEntity(owner.startBase);
+            this.insertEntity(this.starBase);
         }
     };
 

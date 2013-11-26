@@ -17,7 +17,7 @@
         });
     };
 
-    Scenario.prototype.updates = function() {
+    Scenario.prototype.updates = function () {
         var self = this;
 
         _.each(this.entities, function (entity) {
@@ -33,7 +33,7 @@
         $(this).trigger('update');
     };
 
-    Scenario.prototype.start = function() {
+    Scenario.prototype.start = function () {
         this.input.configure();
         this.draw();
     };
@@ -44,13 +44,13 @@
         _.each(this.entities, function (obstacle) {
             if ((obstacle instanceof Entity) && (obstacle != entity)) {
                 if (entity.collided(obstacle)) {
-                    entity.damages(obstacle);
-                    obstacle.damages(entity);
+                    $(entity).trigger('collided', [obstacle]);
+                    $(obstacle).trigger('collided', [entity]);
                 }
             }
         });
     };
-    
+
     // Config
 
     Scenario.prototype.shoot = function (event, munition) {
@@ -59,7 +59,7 @@
         this.insertEntity(munition);
     };
 
-    Scenario.prototype.threaten = function(enemy) {
+    Scenario.prototype.threaten = function (enemy) {
         $(enemy).on('destroy', $.proxy(this.removeEntity, this));
 
         this.insertEntity(enemy);

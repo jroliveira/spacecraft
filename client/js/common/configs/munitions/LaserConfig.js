@@ -12,6 +12,10 @@
 
     LaserConfig.speed = 7;
     
+    LaserConfig.canvas = { width: 895, height: 600 };
+    
+    LaserConfig.showHealthBar = false;
+    
     return LaserConfig;
 
 });

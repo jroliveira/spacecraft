@@ -20,6 +20,8 @@
 
     ShipConfig.canvas = { width: 895, height: 600 };
 
+    ShipConfig.showHealthBar = false;
+
     return ShipConfig;
 
 });

@@ -6,10 +6,9 @@
     
     'common/configs/characters/SoldierConfig',
 
-    'domain/Entity',
     'domain/scenarios/Scenario',
     'domain/characters/Soldier'
-], function ($, _, Keyboard, SoldierConfig, Entity, Scenario, Soldier) {
+], function ($, _, Keyboard, SoldierConfig, Scenario, Soldier) {
 
     function Land($canvas, context) {
         this.$canvas = $canvas;

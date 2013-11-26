@@ -9,6 +9,8 @@
     FaseOneConfig.speed = 2.5;
 
     FaseOneConfig.width = 3091;
+    
+    FaseOneConfig.canvas = { width: 895, height: 600 };
 
     return FaseOneConfig;
 

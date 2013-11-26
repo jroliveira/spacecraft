@@ -77,7 +77,7 @@
         $(this).trigger('shot', [munition]);
     };
 
-    // Move
+    // Direction
 
     Ship.prototype.lift = function (event, move) {
         this.keys.up = move;

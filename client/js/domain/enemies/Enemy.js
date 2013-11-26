@@ -1,14 +1,14 @@
 ﻿define([
     'jquery',
     
-    'domain/Entity'
-], function ($, Entity) {
+    'domain/Living'
+], function ($, Living) {
 
     function Enemy() {
-        $(this).on('damage', this.wasDestroyed);
+        $(this).on('collided', this.damages);
     }
 
-    Enemy.prototype = new Entity();
+    Enemy.prototype = new Living();
 
     Enemy.prototype.updates = function () {
         if (this.pos.x <= 0) {
@@ -20,9 +20,12 @@
 
     // Damage
 
-    Enemy.prototype.wasDestroyed = function (event) {
+    Enemy.prototype.damages = function (event, obstacle) {
         var self = event.target;
         
+        self.health = self.health - obstacle.health;
+        self.setHealth(self.health);
+
         if (self.destroyed()) {
             $(self).trigger('destroy', [self]);
         }

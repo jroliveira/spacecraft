@@ -1,40 +1,11 @@
-﻿define([
-    'jquery'
-], function ($) {
+﻿define([], function () {
 
     function Entity() { }
 
+    Entity.prototype.updates = function () { };
+
     Entity.prototype.draw = function (context) {
-        if (this.showHealthBar()) {
-            this.healthBar.draw(context);
-        }
-
         context.drawImage(this.image, this.pos.x, this.pos.y);
-    };
-
-    // Damage
-
-    Entity.prototype.damages = function (obstacle) {
-        var health = this.health - obstacle.config.damage;
-        this.setHealth(health);
-        
-        $(this).trigger('damage');
-    };
-    
-    Entity.prototype.destroyed = function () {
-        return this.health <= 0;
-    };
-    
-    // Health
-
-    Entity.prototype.setHealth = function (health) {
-        this.health = health;
-        
-        this.healthBar.updates(this.health);
-    };
-
-    Entity.prototype.showHealthBar = function () {
-        return true;
     };
 
     // Collision

@@ -12,6 +12,10 @@
 
     AsteroidConfig.speed = 1.5;
     
+    AsteroidConfig.canvas = { width: 895, height: 600 };
+    
+    AsteroidConfig.showHealthBar = true;
+    
     return AsteroidConfig;
 
 });

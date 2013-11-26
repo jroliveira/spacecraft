@@ -12,6 +12,10 @@
 
     MissileConfig.speed = 5;
     
+    MissileConfig.canvas = { width: 895, height: 600 };
+    
+    MissileConfig.showHealthBar = false;
+    
     return MissileConfig;
 
 });

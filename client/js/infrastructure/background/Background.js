@@ -2,10 +2,9 @@
     'jquery'
 ], function ($) {
 
-    function Background(config, owner) {
+    function Background(config) {
         this.config = config;
 
-        this.owner = owner;
         this.pos = config.pos;
         
         this.image = new Image();
@@ -18,7 +17,7 @@
     };
 
     Background.prototype.updates = function () {
-        if ((Math.abs(this.pos.x) + 895) < this.config.width) {
+        if ((Math.abs(this.pos.x) + this.config.canvas.width) < this.config.width) {
             this.pos.x = this.pos.x - this.config.speed;
         } else {
             $(this).trigger('scenarioEnded');

@@ -12,6 +12,8 @@
 
     StarbaseConfig.damage = 0;
     
+    StarbaseConfig.canvas = { width: 895, height: 600 };
+    
     return StarbaseConfig;
 
 });

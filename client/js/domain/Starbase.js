@@ -12,6 +12,8 @@
 
         this.pos = config.pos;
         this.health = config.health;
+        
+        $(this).on('collided', this.phaseEnded);
 
         this.image = new Image();
         this.image.src = "../../client/img/starbase.png";
@@ -24,7 +26,7 @@
 
     // Damage
 
-    Starbase.prototype.damages = function (obstacle) {
+    Starbase.prototype.phaseEnded = function (event, obstacle) {
         if (obstacle instanceof Character) {
             $(document).trigger('phaseEnded');
         }
