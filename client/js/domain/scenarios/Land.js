@@ -1,6 +1,5 @@
 ﻿define([
     'jquery',
-    'underscore',
     
     'infrastructure/inputs/Keyboard',
     
@@ -8,10 +7,11 @@
 
     'domain/scenarios/Scenario',
     'domain/characters/Soldier'
-], function ($, _, Keyboard, SoldierConfig, Scenario, Soldier) {
+], function ($, Keyboard, SoldierConfig, Scenario, Soldier) {
 
-    function Land($canvas, context) {
-        this.$canvas = $canvas;
+    function Land(context, config) {
+        this.config = config;
+        
         this.context = context;
         
         this.character = new Soldier(SoldierConfig);

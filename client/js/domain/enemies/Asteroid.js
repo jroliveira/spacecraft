@@ -9,10 +9,6 @@
 
         this.pos = this.initPos();
         this.health = config.health;
-        
-        this.image = new Image();
-        this.image.src = "../../client/img/enemies/asteroid.png";
-        this.healthBar = new HealthBar(this);
     }
 
     Asteroid.prototype = new Enemy();

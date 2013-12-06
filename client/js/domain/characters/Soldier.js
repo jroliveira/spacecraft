@@ -19,10 +19,6 @@
         $(document).on('down', $.proxy(this.lower, this));
         $(document).on('left', $.proxy(this.toLeft, this));
         $(document).on('right', $.proxy(this.toRight, this));
-
-        this.imageSprite = new Image();
-        this.imageSprite.src = "../../client/img/characters/soldierSprite.png";
-        this.healthBar = new HealthBar(this);
     }
 
     Soldier.prototype = new Character();

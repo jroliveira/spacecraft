@@ -1,4 +1,6 @@
-﻿define([], function () {
+﻿define([
+    'infrastructure/components/Img'
+], function (Img) {
 
     function LaserConfig() { }
 
@@ -15,6 +17,10 @@
     LaserConfig.canvas = { width: 895, height: 600 };
     
     LaserConfig.showHealthBar = false;
+    
+    LaserConfig.components = [Img];
+    
+    LaserConfig.image = { src: '../../client/img/munitions/laser.png' };
     
     return LaserConfig;
 

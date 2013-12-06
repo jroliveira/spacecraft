@@ -1,4 +1,7 @@
-﻿define([], function () {
+﻿define([
+    'infrastructure/HealthBar',
+    'infrastructure/components/Img'
+], function (HealthBar, Img) {
 
     function AsteroidConfig() { }
 
@@ -15,6 +18,10 @@
     AsteroidConfig.canvas = { width: 895, height: 600 };
     
     AsteroidConfig.showHealthBar = true;
+
+    AsteroidConfig.components = [Img, HealthBar];
+    
+    AsteroidConfig.image = { src: '../../client/img/enemies/asteroid.png' };
     
     return AsteroidConfig;
 

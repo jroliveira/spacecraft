@@ -43,10 +43,6 @@
         $(document).on('space', $.proxy(this.shootBullets, this));
         $(document).on('f', $.proxy(this.missileLaunch, this));
         $(document).on('r', $.proxy(this.laserShooting, this));
-
-        this.imageSprite = new Image();
-        this.imageSprite.src = "../../client/img/characters/shipSprite.png";
-        this.healthBar = new HealthBar(this);
     }
 
     Ship.prototype = new Character();

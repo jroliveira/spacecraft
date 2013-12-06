@@ -10,20 +10,6 @@
 
     Character.prototype = new Living();
 
-    Character.prototype.draw = function (context) {
-        context.drawImage(
-            this.imageSprite,
-            this.currentRowSprite(),
-            this.currentColSprite(),
-            this.config.image.width,
-            this.config.image.height,
-            this.pos.x,
-            this.pos.y,
-            this.config.width,
-            this.config.height
-        );
-    };
-
     Character.prototype.updates = function () {
         if (this.keys.up) {
             if (this.pos.y <= 10) {

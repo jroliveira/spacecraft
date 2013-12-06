@@ -10,10 +10,10 @@
     Scenario.prototype.draw = function () {
         var self = this;
 
-        this.context.clearRect(0, 0, this.$canvas.width, this.$canvas.height);
+        this.context.clearRect(0, 0, this.config.canvas.width, this.config.canvas.height);
 
-        _.each(this.entities, function (entity) {
-            entity.draw(self.context);
+        _.each(this.components, function (component) {
+            component.draw(self.context);
         });
     };
 
@@ -30,7 +30,7 @@
 
         this.draw();
 
-        $(this).trigger('update');
+        $(this).trigger('updated');
     };
 
     Scenario.prototype.start = function () {
@@ -74,7 +74,7 @@
 
         delete this.entities[i];
     };
-
+    
     return Scenario;
 
 });

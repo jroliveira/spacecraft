@@ -3,13 +3,15 @@
 
     'infrastructure/inputs/Keyboard',
     'infrastructure/background/Background',
-    'infrastructure/background/Parallax',
-
+    
     'common/configs/enemies/AsteroidConfig',
     'common/configs/characters/ShipConfig',
     'common/configs/StarbaseConfig',
-    'common/configs/phases/FaseOneConfig',
+    'common/configs/phases/PhaseOneConfig',
+    'common/configs/effects/ParallaxOneConfig',
+    'common/configs/effects/ParallaxTwoConfig',
 
+    'domain/effects/Parallax',
     'domain/scenarios/Scenario',
     'domain/characters/Ship',
     'domain/Starbase',
@@ -19,40 +21,45 @@
 
     Keyboard,
     Background,
-    Parallax,
-
+    
     AsteroidConfig,
     ShipConfig,
     StarbaseConfig,
-    FaseOneConfig,
+    PhaseOneConfig,
+    ParallaxOneConfig,
+    ParallaxTwoConfig,
 
+    Parallax,
     Scenario,
     Ship,
     Starbase,
     Asteroid
 ) {
 
-    function Space($canvas, context) {
-        this.$canvas = $canvas;
+    function Space(context, config) {
+        this.config = config;
+        
         this.context = context;
         
         this.timer = 0;
 
         this.character = new Ship(ShipConfig);
-        this.background = new Background(FaseOneConfig);
+        this.background = new Background(PhaseOneConfig);
         this.starBase = new Starbase(StarbaseConfig);
+
+        this.components = [];
 
         this.entities = [];
         this.insertEntity(this.background);
-        this.insertEntity(new Parallax('parallax1', 10));
-        this.insertEntity(new Parallax('parallax2', 5));
+        this.insertEntity(new Parallax(ParallaxOneConfig));
+        this.insertEntity(new Parallax(ParallaxTwoConfig));
         this.insertEntity(this.character);
 
         this.input = new Keyboard();
 
         $(this.character).on('shot', $.proxy(this.shoot, this));
         $(this.background).on('scenarioEnded', $.proxy(this.showStarbase, this));
-        $(this).on('update', this.enterEnemy);
+        $(this).on('updated', this.enterEnemy);
     }
 
     Space.prototype = new Scenario();

@@ -2,11 +2,7 @@
 
     function Entity() { }
 
-    Entity.prototype.updates = function () { };
-
-    Entity.prototype.draw = function (context) {
-        context.drawImage(this.image, this.pos.x, this.pos.y);
-    };
+    Entity.prototype.updates = function() { };
 
     // Collision
 

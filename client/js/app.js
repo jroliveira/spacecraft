@@ -1,17 +1,20 @@
 ﻿define([
     'jquery',
+    
+    'common/configs/scenarios/ScenarioConfig',
+
     'domain/scenarios/Space',
     'domain/scenarios/Land'
-], function ($, Space, Land) {
+], function ($, ScenarioConfig, Space, Land) {
     
     return {
         initialize: function () {
             var $canvas = ($('canvas'))[0];
             var context = $canvas.getContext('2d');
             
-            var fase = new Space($canvas, context);
+            var fase = new Space(context, ScenarioConfig);
             $(document).on('phaseEnded', function() {
-                fase = new Land($canvas, context);
+                fase = new Land(context, ScenarioConfig);
                 fase.start();
             });
 

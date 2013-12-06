@@ -1,4 +1,6 @@
-﻿define([], function () {
+﻿define([
+    'infrastructure/components/Img'
+], function (Img) {
 
     function BulletConfig() { }
     
@@ -15,6 +17,10 @@
     BulletConfig.canvas = { width: 895, height: 600 };
     
     BulletConfig.showHealthBar = false;
+    
+    BulletConfig.components = [Img];
+    
+    BulletConfig.image = { src: '../../client/img/munitions/bullet.png' };
     
     return BulletConfig;
 
