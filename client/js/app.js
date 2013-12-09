@@ -3,28 +3,33 @@
     
     'common/configs/scenarios/ScenarioConfig',
 
-    'domain/scenarios/Space',
-    'domain/scenarios/Land'
-], function ($, ScenarioConfig, Space, Land) {
+    'domain/scenarios/Scenario',
+    'domain/phases/FirstPhase',
+    'domain/phases/StarbasePhase'
+], function ($, ScenarioConfig, Scenario, FirstPhase, StarbasePhase) {
     
     return {
         initialize: function () {
-            var $canvas = ($('canvas'))[0];
-            var context = $canvas.getContext('2d');
-            
-            var fase = new Space(context, ScenarioConfig);
-            $(document).on('phaseEnded', function() {
-                fase = new Land(context, ScenarioConfig);
-                fase.start();
+            $(document).on('phaseEnded', function () {
+                fase = new StarbasePhase();
+
+                scenario = new Scenario(context, fase, ScenarioConfig);
+                scenario.start();
             });
 
             function loop() {
-                fase.updates();
-
+                scenario.draw();
                 window.setTimeout(loop, 1000 / 60);
             }
+            
+            var context = ($('canvas'))[0].getContext('2d');
 
-            fase.start();
+            // Começa o jogo.
+            
+            var fase = new FirstPhase();
+
+            var scenario = new Scenario(context, fase, ScenarioConfig);
+            scenario.start();
 
             loop();
         }

@@ -15,11 +15,7 @@
     Img.prototype = new Component();
 
     Img.prototype.draw = function () {
-        this.context.drawImage(
-            this.image,
-            this.entity.pos.x,
-            this.entity.pos.y
-        );
+        this.context.drawImage(this.image, this.entity.pos.x, this.entity.pos.y);
     };
 
     return Img;

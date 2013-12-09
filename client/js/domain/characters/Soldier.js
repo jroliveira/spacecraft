@@ -1,10 +1,8 @@
 ﻿define([
     'jquery',
     
-    'infrastructure/HealthBar',
-
     'domain/characters/Character'
-], function ($, HealthBar, Character) {
+], function ($, Character) {
 
     function Soldier(config) {
         this.config = config;

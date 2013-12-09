@@ -1,8 +1,6 @@
 ﻿define([
-    'infrastructure/HealthBar',
-
     'domain/enemies/Enemy'
-], function (HealthBar, Enemy) {
+], function (Enemy) {
 
     function Asteroid(config) {
         this.config = config;

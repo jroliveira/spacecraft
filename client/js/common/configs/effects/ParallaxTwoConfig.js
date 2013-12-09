@@ -8,9 +8,9 @@
     
     ParallaxTwoConfig.speed = 5;
 
-    ParallaxTwoConfig.width = 3091;
+    ParallaxTwoConfig.width = 800;
     
-    ParallaxTwoConfig.canvas = { width: 800, height: 801 };
+    ParallaxTwoConfig.canvas = { width: 895, height: 600 };
 
     return ParallaxTwoConfig;
 

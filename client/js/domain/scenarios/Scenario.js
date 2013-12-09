@@ -2,10 +2,17 @@
     'jquery',
     'underscore',
 
-    'domain/Entity'
-], function ($, _, Entity) {
+    'infrastructure/inputs/Keyboard'
+], function ($, _, Keyboard) {
 
-    function Scenario() { }
+    function Scenario(context, phase, config) {
+        this.config = config;
+        
+        this.phase = phase;
+        this.context = context;
+        
+        this.input = new Keyboard();
+    }
 
     Scenario.prototype.draw = function () {
         var self = this;
@@ -15,22 +22,6 @@
         _.each(this.components, function (component) {
             component.draw(self.context);
         });
-    };
-
-    Scenario.prototype.updates = function () {
-        var self = this;
-
-        _.each(this.entities, function (entity) {
-            if (entity instanceof Entity) {
-                self.detectsCollision(entity);
-            }
-
-            entity.updates();
-        });
-
-        this.draw();
-
-        $(this).trigger('updated');
     };
 
     Scenario.prototype.start = function () {
@@ -51,30 +42,6 @@
         });
     };
 
-    // Config
-
-    Scenario.prototype.shoot = function (event, munition) {
-        $(munition).on('destroy', $.proxy(this.removeEntity, this));
-
-        this.insertEntity(munition);
-    };
-
-    Scenario.prototype.threaten = function (enemy) {
-        $(enemy).on('destroy', $.proxy(this.removeEntity, this));
-
-        this.insertEntity(enemy);
-    };
-
-    Scenario.prototype.insertEntity = function (entity) {
-        this.entities.push(entity);
-    };
-
-    Scenario.prototype.removeEntity = function (event, entity) {
-        var i = this.entities.indexOf(entity);
-
-        delete this.entities[i];
-    };
-    
     return Scenario;
 
 });

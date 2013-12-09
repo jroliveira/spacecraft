@@ -1,8 +1,6 @@
 ﻿define([
     'jquery',
     
-    'infrastructure/HealthBar',
-    
     'common/configs/munitions/BulletConfig',
     'common/configs/munitions/MissileConfig',
     'common/configs/munitions/LaserConfig',
@@ -13,8 +11,6 @@
     'domain/munitions/Laser'
 ], function (
     $,
-    
-    HealthBar,
     
     BulletConfig,
     MissileConfig,

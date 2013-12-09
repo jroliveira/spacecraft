@@ -1,5 +1,5 @@
 ﻿define([
-    'infrastructure/HealthBar',
+    'infrastructure/components/HealthBar',
     'infrastructure/components/Img'
 ], function (HealthBar, Img) {
 

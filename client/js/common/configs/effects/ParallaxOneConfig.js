@@ -8,9 +8,9 @@
     
     ParallaxOneConfig.speed = 10;
 
-    ParallaxOneConfig.width = 3091;
+    ParallaxOneConfig.width = 800;
     
-    ParallaxOneConfig.canvas = { width: 800, height: 608 };
+    ParallaxOneConfig.canvas = { width: 895, height: 600 };
 
     return ParallaxOneConfig;
 

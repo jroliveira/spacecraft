@@ -1,8 +1,6 @@
 ﻿define([
-    'infrastructure/HealthBar',
-    
     'domain/munitions/Munition'
-], function (HealthBar, Munition) {
+], function (Munition) {
 
     function Missile(config, character) {
         this.config = config;
