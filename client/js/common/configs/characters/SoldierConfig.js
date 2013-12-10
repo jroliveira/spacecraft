@@ -5,11 +5,11 @@
 
     function SoldierConfig() { }
     
-    SoldierConfig.image = { width: 32, height: 32 };
+    SoldierConfig.image = { width: 32, height: 32, src: '../../client/img/characters/soldierSprite.png' };
 
     SoldierConfig.pos = { x: 1, y: 10 };
 
-    SoldierConfig.sprite = { row: 0, col: 0, src: '../../client/img/characters/soldierSprite.png' };
+    SoldierConfig.sprite = { row: 0, col: 0 };
 
     SoldierConfig.width = SoldierConfig.image.width * 1.5;
 

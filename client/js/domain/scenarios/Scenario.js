@@ -8,36 +8,51 @@
     function Scenario(context, phase, config) {
         this.config = config;
         
-        this.phase = phase;
         this.context = context;
         
+        this.phase = phase;
+        $(this.phase).on('insertedEntity', $.proxy(this.insertComponent, this));
+        $(this.phase).on('deletedEntity', $.proxy(this.deletedComponent, this));
+        
+        this.components = [];
+
         this.input = new Keyboard();
     }
 
     Scenario.prototype.draw = function () {
-        var self = this;
-
         this.context.clearRect(0, 0, this.config.canvas.width, this.config.canvas.height);
 
         _.each(this.components, function (component) {
-            component.draw(self.context);
+            component.draw();
         });
     };
 
     Scenario.prototype.start = function () {
         this.input.configure();
+        this.phase.start();
         this.draw();
     };
 
-    // Collision
+    // Config
 
-    Scenario.prototype.detectsCollision = function (entity) {
-        _.each(this.entities, function (obstacle) {
-            if ((obstacle instanceof Entity) && (obstacle != entity)) {
-                if (entity.collided(obstacle)) {
-                    $(entity).trigger('collided', [obstacle]);
-                    $(obstacle).trigger('collided', [entity]);
-                }
+    Scenario.prototype.insertComponent = function (event, entity) {
+        var self = this;
+        
+        _.each(entity.config.components, function (type) {
+            var component = new type(entity, self.context);
+
+            self.components.push(component);
+        });
+    };
+
+    Scenario.prototype.removeComponent = function (event, entity) {
+        var self = this;
+        
+        _.each(this.components, function (component) {
+            if (component.entity == entity) {
+                var i = self.components.indexOf(component);
+
+                delete self.components[i];
             }
         });
     };

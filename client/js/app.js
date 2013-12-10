@@ -2,22 +2,25 @@
     'jquery',
     
     'common/configs/scenarios/ScenarioConfig',
+    'common/configs/phases/FirstPhaseConfig',
+    'common/configs/phases/StarbasePhaseConfig',
 
     'domain/scenarios/Scenario',
     'domain/phases/FirstPhase',
     'domain/phases/StarbasePhase'
-], function ($, ScenarioConfig, Scenario, FirstPhase, StarbasePhase) {
+], function ($, ScenarioConfig, FirstPhaseConfig, StarbasePhaseConfig, Scenario, FirstPhase, StarbasePhase) {
     
     return {
         initialize: function () {
             $(document).on('phaseEnded', function () {
-                fase = new StarbasePhase();
+                fase = new StarbasePhase(StarbasePhaseConfig);
 
                 scenario = new Scenario(context, fase, ScenarioConfig);
                 scenario.start();
             });
 
             function loop() {
+                scenario.phase.updates();
                 scenario.draw();
                 window.setTimeout(loop, 1000 / 60);
             }
@@ -26,7 +29,7 @@
 
             // Começa o jogo.
             
-            var fase = new FirstPhase();
+            var fase = new FirstPhase(FirstPhaseConfig);
 
             var scenario = new Scenario(context, fase, ScenarioConfig);
             scenario.start();

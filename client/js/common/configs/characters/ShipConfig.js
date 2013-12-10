@@ -5,11 +5,11 @@
 
     function ShipConfig() { }
     
-    ShipConfig.image = { width: 43, height: 39 };
+    ShipConfig.image = { width: 43, height: 39, src: '../../client/img/characters/shipSprite.png' };
 
     ShipConfig.pos = { x: 1, y: 10 };
 
-    ShipConfig.sprite = { row: 0, col: 0, src: '../../client/img/characters/shipSprite.png' };
+    ShipConfig.sprite = { row: 0, col: 0 };
 
     ShipConfig.width = ShipConfig.image.width * 1.5;
 

@@ -39,22 +39,25 @@
 
         this.timer = 0;
 
+        this.entities = [];
+
         this.character = new Ship(ShipConfig);
         $(this.character).on('shot', $.proxy(this.shoot, this));
-        
+
         this.background = new MovingBackground(MovingBackgroundOneConfig);
         $(this.background).on('phaseEnded', $.proxy(this.showStarbase, this));
-        
-        this.entities = [];
+
+        //$(this).on('updated', this.enterEnemy);
+    }
+
+    FirstPhase.prototype = new Phase();
+
+    FirstPhase.prototype.start = function () {
         this.insertEntity(this.background);
         this.insertEntity(new Parallax(ParallaxOneConfig));
         this.insertEntity(new Parallax(ParallaxTwoConfig));
         this.insertEntity(this.character);
-        
-        $(this).on('updated', this.enterEnemy);
-    }
-
-    FirstPhase.prototype = new Phase();
+    };
 
     FirstPhase.prototype.enterEnemy = function (event) {
         var self = event.target;

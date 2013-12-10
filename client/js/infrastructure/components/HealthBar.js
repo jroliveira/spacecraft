@@ -2,8 +2,10 @@
     'infrastructure/components/Component'
 ], function (Component) {
 
-    function HealthBar(entity) {
+    function HealthBar(entity, context) {
         this.entity = entity;
+
+        this.context = context;
 
         this.maxHealth = entity.health;
         this.maxWidth = entity.config.width;
@@ -11,22 +13,22 @@
 
     HealthBar.prototype = new Component();
 
-    HealthBar.prototype.fill = function (x, y, width, height, color, context) {
-        context.beginPath();
-        context.rect(x, y, width, height);
-        context.fillStyle = color;
-        context.fill();
-        context.closePath();
+    HealthBar.prototype.fill = function (x, y, width, height, color) {
+        this.context.beginPath();
+        this.context.rect(x, y, width, height);
+        this.context.fillStyle = color;
+        this.context.fill();
+        this.context.closePath();
     };
 
-    HealthBar.prototype.draw = function (context) {
+    HealthBar.prototype.draw = function () {
         var x = this.entity.pos.x;
         var y = this.entity.pos.y - 5;
         var width = this.entity.config.width + 2;
         var height = 5 + 2;
         var color = "white";
 
-        this.fill(x, y, width, height, color, context);
+        this.fill(x, y, width, height, color);
 
         x = this.entity.pos.x + 1;
         y = this.entity.pos.y + 1;
@@ -34,7 +36,7 @@
         height = 5;
         color = "red";
 
-        this.fill(x, y, width, height, color, context);
+        this.fill(x, y, width, height, color);
     };
 
     return HealthBar;

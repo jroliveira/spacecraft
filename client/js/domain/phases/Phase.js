@@ -8,6 +8,8 @@
 
     function Phase() { }
 
+    Phase.prototype.start = function () { };
+
     Phase.prototype.updates = function () {
         var self = this;
 
@@ -41,16 +43,20 @@
         if (entity instanceof Living) {
             $(entity).on('destroy', $.proxy(this.removeEntity, this));
         }
-        
+
         this.entities.push(entity);
+
+        $(this).trigger('insertedEntity', [entity]);
     };
 
     Phase.prototype.removeEntity = function (event, entity) {
         var i = this.entities.indexOf(entity);
 
         delete this.entities[i];
+
+        $(this).trigger('deletedEntity', [entity]);
     };
-    
+
     return Phase;
 
 });

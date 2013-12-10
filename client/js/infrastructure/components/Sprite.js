@@ -1,6 +1,6 @@
 ﻿define([
     'jquery',
-    
+
     'infrastructure/components/Component'
 ], function ($, Component) {
 
@@ -8,13 +8,24 @@
         this.entity = entity;
         this.context = context;
 
+        var self = this;
+
+        this.loaded = false;
+        
         this.image = new Image();
-        this.image.src = entity.config.image;
+        this.image.onload = function () {
+            self.loaded = true;
+        };
+        this.image.src = entity.config.image.src;
     }
 
     Sprite.prototype = new Component();
 
     Sprite.prototype.draw = function () {
+        if (this.loaded === false) {
+            return;
+        }
+        
         this.context.drawImage(
             this.image,
             this.row(),

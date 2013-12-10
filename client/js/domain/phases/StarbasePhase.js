@@ -10,13 +10,16 @@
     function StarbasePhase(config) {
         this.config = config;
         
-        this.character = new Soldier(SoldierConfig);
-
         this.entities = [];
-        this.insertEntity(this.character);
+
+        this.character = new Soldier(SoldierConfig);
     }
 
     StarbasePhase.prototype = new Phase();
+    
+    StarbasePhase.prototype.start = function () {
+        this.insertEntity(this.character);
+    };
     
     return StarbasePhase;
 
