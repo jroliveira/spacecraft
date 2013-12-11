@@ -4,17 +4,23 @@
 
     function ParallaxTwoConfig() { }
 
+    // Domain
+
+    ParallaxTwoConfig.speed = 5;
+    
+    // Component
+
+    ParallaxTwoConfig.components = [ImgContinuous];
+
     ParallaxTwoConfig.image = { src: '../../client/img/parallax/parallax2.png' };
 
-    ParallaxTwoConfig.pos = { x: 0 };
-    
-    ParallaxTwoConfig.speed = 5;
+    // Config
 
     ParallaxTwoConfig.width = 800;
-    
+
     ParallaxTwoConfig.canvas = { width: 895, height: 600 };
-    
-    ParallaxTwoConfig.components = [ImgContinuous];
+
+    ParallaxTwoConfig.pos = { x: 0 };
 
     return ParallaxTwoConfig;
 

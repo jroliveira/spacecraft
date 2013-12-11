@@ -3,19 +3,25 @@
 ], function (ImgContinuous) {
 
     function ParallaxOneConfig() { }
-
-    ParallaxOneConfig.image = { src: '../../client/img/parallax/parallax1.png' };
-
-    ParallaxOneConfig.pos = { x: 0 };
     
+    // Domain
+
     ParallaxOneConfig.speed = 10;
 
-    ParallaxOneConfig.width = 800;
-    
-    ParallaxOneConfig.canvas = { width: 895, height: 600 };
+    // Component
 
     ParallaxOneConfig.components = [ImgContinuous];
 
+    ParallaxOneConfig.image = { src: '../../client/img/parallax/parallax1.png' };
+
+    // Config
+
+    ParallaxOneConfig.width = 800;
+
+    ParallaxOneConfig.canvas = { width: 895, height: 600 };
+
+    ParallaxOneConfig.pos = { x: 0 };
+    
     return ParallaxOneConfig;
 
 });

@@ -28,8 +28,8 @@
         
         this.context.drawImage(
             this.image,
-            this.row(),
             this.col(),
+            this.row(),
             this.entity.config.image.width,
             this.entity.config.image.height,
             this.entity.pos.x,
@@ -40,11 +40,11 @@
     };
 
     Sprite.prototype.row = function () {
-        return this.entity.sprite.row * this.entity.config.width;
+        return this.entity.sprite.row * this.entity.config.image.height;
     };
 
     Sprite.prototype.col = function () {
-        return this.entity.sprite.col * this.entity.config.height;
+        return this.entity.sprite.col * this.entity.config.image.width;
     };
 
     return Sprite;

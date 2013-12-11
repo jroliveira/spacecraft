@@ -1,25 +1,21 @@
 ﻿define([
     'jquery',
-    
-    'common/configs/munitions/BulletConfig',
-    'common/configs/munitions/MissileConfig',
-    'common/configs/munitions/LaserConfig',
+
+    'common/configs/projectiles/BulletConfig',
+    'common/configs/projectiles/MissileConfig',
+    'common/configs/projectiles/LaserConfig',
 
     'domain/characters/Character',
-    'domain/munitions/Missile',
-    'domain/munitions/Bullet',
-    'domain/munitions/Laser'
+    'domain/projectiles/Projectile'
 ], function (
     $,
-    
+
     BulletConfig,
     MissileConfig,
     LaserConfig,
 
     Character,
-    Missile,
-    Bullet,
-    Laser
+    Projectile
 ) {
 
     function Ship(config) {
@@ -35,7 +31,7 @@
         $(document).on('down', $.proxy(this.lower, this));
         $(document).on('left', $.proxy(this.toLeft, this));
         $(document).on('right', $.proxy(this.toRight, this));
-        
+
         $(document).on('space', $.proxy(this.shootBullets, this));
         $(document).on('f', $.proxy(this.missileLaunch, this));
         $(document).on('r', $.proxy(this.laserShooting, this));
@@ -48,24 +44,24 @@
     Ship.prototype.missileLaunch = function (event, pressed) {
         if (!pressed) return;
 
-        var munition = new Missile(MissileConfig, this);
-        
+        var munition = new Projectile(MissileConfig, this);
+
         $(this).trigger('shot', [munition]);
     };
 
     Ship.prototype.laserShooting = function (event, pressed) {
         if (!pressed) return;
 
-        var munition = new Laser(LaserConfig, this);
-        
+        var munition = new Projectile(LaserConfig, this);
+
         $(this).trigger('shot', [munition]);
     };
 
     Ship.prototype.shootBullets = function (event, pressed) {
         if (!pressed) return;
 
-        var munition = new Bullet(BulletConfig, this);
-        
+        var munition = new Projectile(BulletConfig, this);
+
         $(this).trigger('shot', [munition]);
     };
 
@@ -75,43 +71,31 @@
         this.keys.up = move;
 
         if (move) {
-            this.sprite.row = (this.sprite.row === 2) ? 0 : this.sprite.row + 1;
-
-            if (this.sprite.col <= 0) {
-                this.sprite.col = 0;
+            if (this.sprite.row <= 0) {
+                this.sprite.row = 0;
             } else {
-                this.sprite.col--;
+                this.sprite.row--;
             }
         }
     };
 
     Ship.prototype.lower = function (event, move) {
         this.keys.down = move;
-        
-        if (move) {
-            this.sprite.row = (this.sprite.row === 2) ? 0 : this.sprite.row + 1;
 
-            if (this.sprite.col >= 2)
-                this.sprite.col = 2;
+        if (move) {
+            if (this.sprite.row >= 2)
+                this.sprite.row = 2;
             else
-                this.sprite.col++;
+                this.sprite.row++;
         }
     };
 
     Ship.prototype.toLeft = function (event, move) {
         this.keys.left = move;
-        
-        if (move) {
-            this.sprite.row = (this.sprite.row === 2) ? 0 : this.sprite.row + 1;
-        }
     };
 
     Ship.prototype.toRight = function (event, move) {
         this.keys.right = move;
-        
-        if (move) {
-            this.sprite.row = (this.sprite.row === 2) ? 0 : this.sprite.row + 1;
-        }
     };
 
     // Config

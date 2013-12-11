@@ -4,23 +4,27 @@
 
     function BulletConfig() { }
     
-    BulletConfig.width = 9;
-
-    BulletConfig.height = 8;
+    // Domain
 
     BulletConfig.health = 1;
-    
+
     BulletConfig.damage = 3;
 
     BulletConfig.speed = 3;
     
-    BulletConfig.canvas = { width: 895, height: 600 };
-    
-    BulletConfig.showHealthBar = false;
-    
+    // Component
+
     BulletConfig.components = [Img];
+
+    BulletConfig.image = { src: '../../client/img/projectiles/bullet.png' };
+
+    // Config
+
+    BulletConfig.width = 9;
+
+    BulletConfig.height = 8;
     
-    BulletConfig.image = { src: '../../client/img/munitions/bullet.png' };
+    BulletConfig.canvas = { width: 895, height: 600 };
     
     return BulletConfig;
 

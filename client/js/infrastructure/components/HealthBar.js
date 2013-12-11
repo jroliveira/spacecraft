@@ -31,7 +31,7 @@
         this.fill(x, y, width, height, color);
 
         x = this.entity.pos.x + 1;
-        y = this.entity.pos.y + 1;
+        y = this.entity.pos.y - 5 + 1;
         width = this.maxWidth * this.entity.health / this.maxHealth;
         height = 5;
         color = "red";

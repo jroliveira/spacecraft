@@ -47,7 +47,7 @@
         this.background = new MovingBackground(MovingBackgroundOneConfig);
         $(this.background).on('phaseEnded', $.proxy(this.showStarbase, this));
 
-        //$(this).on('updated', this.enterEnemy);
+        //$(this).on('updated', $.proxy(this.enterEnemy, this));
     }
 
     FirstPhase.prototype = new Phase();
@@ -66,7 +66,7 @@
         if (self.timer === 200) {
             self.timer = 0;
 
-            self.threaten(new Asteroid(AsteroidConfig, self));
+            this.threaten(new Asteroid(AsteroidConfig));
         }
     };
 
@@ -76,10 +76,10 @@
         this.insertEntity(enemy);
     };
 
-    FirstPhase.prototype.shoot = function (event, munition) {
-        $(munition).on('destroy', $.proxy(this.removeEntity, this));
+    FirstPhase.prototype.shoot = function (event, projectile) {
+        $(projectile).on('destroy', $.proxy(this.removeEntity, this));
 
-        this.insertEntity(munition);
+        this.insertEntity(projectile);
     };
 
     FirstPhase.prototype.showStarbase = function () {

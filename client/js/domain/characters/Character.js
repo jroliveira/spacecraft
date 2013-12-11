@@ -50,10 +50,13 @@
     // Damage
 
     Character.prototype.damages = function (event, obstacle) {
+        if (!(obstacle instanceof Living)) {
+            return;
+        }
+
         var self = event.target;
 
-        self.health = self.health - obstacle.health;
-        self.setHealth(self.health);
+        self.health = self.health - obstacle.config.damage;
         
         if (self.destroyed()) {
             self.respawn();

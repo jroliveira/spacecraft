@@ -12,7 +12,7 @@
         
         this.phase = phase;
         $(this.phase).on('insertedEntity', $.proxy(this.insertComponent, this));
-        $(this.phase).on('deletedEntity', $.proxy(this.deletedComponent, this));
+        $(this.phase).on('deletedEntity', $.proxy(this.removeComponent, this));
         
         this.components = [];
 
