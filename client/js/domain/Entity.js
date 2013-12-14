@@ -2,7 +2,7 @@
 
     function Entity() { }
 
-    Entity.prototype.updates = function() { };
+    Entity.prototype.updates = function () { };
 
     // Collision
 
@@ -14,7 +14,9 @@
         return this.pos.y + this.config.height;
     };
 
-    Entity.prototype.collided = function (obstacle) {
+    Entity.prototype.resolvesCollision = function (obstacle) { };
+
+    Entity.prototype.collidedWith = function (obstacle) {
         return (this.pos.x <= obstacle.horizontal()
             && obstacle.pos.x <= this.horizontal()
             && this.pos.y <= obstacle.vertical()

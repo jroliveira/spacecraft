@@ -22,6 +22,7 @@
             function loop() {
                 scenario.phase.updates();
                 scenario.draw();
+
                 window.setTimeout(loop, 1000 / 60);
             }
             

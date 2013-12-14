@@ -1,12 +1,10 @@
 ﻿define([
     'jquery',
-    
+
     'domain/Living'
 ], function ($, Living) {
 
-    function Enemy() {
-        $(this).on('collided', this.damages);
-    }
+    function Enemy() { }
 
     Enemy.prototype = new Living();
 
@@ -20,17 +18,15 @@
 
     // Damage
 
-    Enemy.prototype.damages = function (event, obstacle) {
+    Enemy.prototype.resolvesCollision = function (obstacle) {
         if (!(obstacle instanceof Living)) {
             return;
         }
-        
-        var self = event.target;
-        
-        self.health = self.health - obstacle.config.damage;
-        
-        if (self.destroyed()) {
-            $(self).trigger('destroy', [self]);
+
+        this.health = this.health - obstacle.config.damage;
+
+        if (this.destroyed()) {
+            $(this).trigger('destroy', [this]);
         }
     };
 

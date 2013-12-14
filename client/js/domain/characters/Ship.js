@@ -39,6 +39,75 @@
 
     Ship.prototype = new Character();
 
+    Ship.prototype.moves = function () {
+        if (this.iCanMove() === false) {
+            return;
+        }
+        
+        if (this.sprite.col === 2) {
+            this.sprite.col = 0;
+        } else {
+            this.sprite.col++;
+        }
+    };
+
+    Ship.prototype.stop = function () {
+        this.sprite.col = 0;
+    };
+
+    // Direction
+
+    Ship.prototype.lift = function (event, move) {
+        this.keys.up = move;
+
+        if (move) {
+            this.moves();
+
+            if (this.sprite.row <= 0) {
+                this.sprite.row = 0;
+            } else {
+                this.sprite.row--;
+            }
+        } else {
+            this.stop();
+        }
+    };
+
+    Ship.prototype.lower = function (event, move) {
+        this.keys.down = move;
+
+        if (move) {
+            this.moves();
+
+            if (this.sprite.row >= 2)
+                this.sprite.row = 2;
+            else
+                this.sprite.row++;
+        } else {
+            this.stop();
+        }
+    };
+
+    Ship.prototype.toLeft = function (event, move) {
+        this.keys.left = move;
+
+        if (move) {
+            this.moves();
+        } else {
+            this.stop();
+        }
+    };
+
+    Ship.prototype.toRight = function (event, move) {
+        this.keys.right = move;
+        
+        if (move) {
+            this.moves();
+        } else {
+            this.stop();
+        }
+    };
+
     // Munitions
 
     Ship.prototype.missileLaunch = function (event, pressed) {
@@ -63,39 +132,6 @@
         var munition = new Projectile(BulletConfig, this);
 
         $(this).trigger('shot', [munition]);
-    };
-
-    // Direction
-
-    Ship.prototype.lift = function (event, move) {
-        this.keys.up = move;
-
-        if (move) {
-            if (this.sprite.row <= 0) {
-                this.sprite.row = 0;
-            } else {
-                this.sprite.row--;
-            }
-        }
-    };
-
-    Ship.prototype.lower = function (event, move) {
-        this.keys.down = move;
-
-        if (move) {
-            if (this.sprite.row >= 2)
-                this.sprite.row = 2;
-            else
-                this.sprite.row++;
-        }
-    };
-
-    Ship.prototype.toLeft = function (event, move) {
-        this.keys.left = move;
-    };
-
-    Ship.prototype.toRight = function (event, move) {
-        this.keys.right = move;
     };
 
     // Config

@@ -13,6 +13,8 @@
 
     SoldierConfig.speed = { up: 2, left: 2, right: 2, down: 2 };
     
+    SoldierConfig.timeNextMove = 15;
+    
     // Component
 
     SoldierConfig.components = [Sprite, HealthBar];

@@ -1,14 +1,30 @@
 ﻿define([
     'jquery',
-    
+
     'domain/Living'
 ], function ($, Living) {
 
     function Character() {
-        $(this).on('collided', this.damages);
+        this.timeNextMove = 0;
     }
 
     Character.prototype = new Living();
+
+    Character.prototype.iCanMove = function () {
+        this.timeNextMove++;
+
+        if (this.timeNextMove < this.config.timeNextMove) {
+            return false;
+        }
+
+        this.timeNextMove = 0;
+
+        return true;
+    };
+
+    Character.prototype.moves = function () { };
+
+    Character.prototype.stop = function () { };
 
     Character.prototype.updates = function () {
         if (this.keys.up) {
@@ -40,7 +56,7 @@
             this.pos.x += this.config.speed.right;
         }
     };
-    
+
     Character.prototype.respawn = function () {
         this.pos = this.config.pos;
         this.sprite = this.config.sprite;
@@ -49,17 +65,15 @@
 
     // Damage
 
-    Character.prototype.damages = function (event, obstacle) {
+    Character.prototype.resolvesCollision = function (obstacle) {
         if (!(obstacle instanceof Living)) {
             return;
         }
 
-        var self = event.target;
+        this.health = this.health - obstacle.config.damage;
 
-        self.health = self.health - obstacle.config.damage;
-        
-        if (self.destroyed()) {
-            self.respawn();
+        if (this.destroyed()) {
+            this.respawn();
         }
     };
 

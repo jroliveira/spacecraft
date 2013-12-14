@@ -13,6 +13,8 @@
 
     ShipConfig.speed = { up: 2, left: 2, right: 2, down: 2 };
     
+    ShipConfig.timeNextMove = 5;
+    
     // Component
 
     ShipConfig.components = [Sprite, HealthBar];

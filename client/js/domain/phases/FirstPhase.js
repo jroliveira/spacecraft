@@ -47,7 +47,7 @@
         this.background = new MovingBackground(MovingBackgroundOneConfig);
         $(this.background).on('phaseEnded', $.proxy(this.showStarbase, this));
 
-        //$(this).on('updated', $.proxy(this.enterEnemy, this));
+        $(this).on('updated', $.proxy(this.enterEnemy, this));
     }
 
     FirstPhase.prototype = new Phase();

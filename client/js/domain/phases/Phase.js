@@ -29,9 +29,9 @@
     Phase.prototype.detectsCollision = function (entity) {
         _.each(this.entities, function (obstacle) {
             if ((obstacle instanceof Entity) && (obstacle != entity)) {
-                if (entity.collided(obstacle)) {
-                    $(entity).trigger('collided', [obstacle]);
-                    $(obstacle).trigger('collided', [entity]);
+                if (entity.collidedWith(obstacle)) {
+                    entity.resolvesCollision(obstacle);
+                    obstacle.resolvesCollision(entity);
                 }
             }
         });

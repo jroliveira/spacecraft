@@ -9,8 +9,6 @@
 
         this.pos = character.initPosShot();
         this.health = config.health;
-        
-        $(this).on('collided', this.damages);
     }
 
     Projectile.prototype = new Living();
@@ -27,17 +25,15 @@
 
     // Damage
 
-    Projectile.prototype.damages = function (event, obstacle) {
+    Projectile.prototype.resolvesCollision = function (obstacle) {
         if (!(obstacle instanceof Living)) {
             return;
         }
         
-        var self = event.target;
-
-        self.health = self.health - obstacle.config.damage;
+        this.health = this.health - obstacle.config.damage;
         
-        if (self.destroyed()) {
-            $(self).trigger('destroy', [self]);
+        if (this.destroyed()) {
+            $(this).trigger('destroy', [this]);
         }
     };
 
