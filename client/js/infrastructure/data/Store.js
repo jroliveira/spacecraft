@@ -1,37 +1,70 @@
 ﻿define([
+    'jquery',
+    'underscore',
     'db'
-], function (database) {
+], function (
+    $,
+    _,
+    db
+) {
 
     return {
 
+        insertProjectiles: function () {
+            var self = this;
+
+            var urls = [
+                '../../client/js/common/configs/projectiles/bullet.json',
+                '../../client/js/common/configs/projectiles/missile.json',
+                '../../client/js/common/configs/projectiles/laser.json'
+            ];
+
+            _.each(urls, function (url) {
+                $.get(url, function () { })
+                    .done(function (data) {
+                        var json = JSON.stringify(eval("(" + data + ")"));
+                        var obj = $.parseJSON(json);
+                        self.session.projectiles.add(obj);
+                    })
+                    .fail(function (e) {
+                        console.log(e);
+                    });
+            });
+        },
+
         configure: function () {
-            
-            // Projectiles
-            this.db.projectiles.add({ health: 1, damage: 3, speed: 3, type: 'bullet' });
-            this.db.projectiles.add({ health: 1, damage: 5, speed: 5, type: 'missile' });
-            this.db.projectiles.add({ health: 1, damage: 10, speed: 7, type: 'laser' });
-            
+            this.insertProjectiles();
         },
 
         initialize: function () {
             var self = this;
 
-            this.db = null;
+            this.session = null;
 
-            database.open({
+            db.open({
                 server: 'spacecraft',
-                version: 1,
+                version: 5,
                 schema: {
                     projectiles: {
                         key: { keyPath: 'type', autoIncrement: false }
                     },
-                    
+
+                    projectiles: {
+                        key: { keyPath: 'type', autoIncrement: false }
+                    },
                 }
             }).done(function (s) {
-                self.db = s;
+                self.session = s;
 
                 self.configure();
             });
+        },
+
+        getBy: function (table, value, onsuccess) {
+            this.session.get(table, value)
+                        .done(function (data) {
+                            onsuccess(data);
+                        });
         }
     };
 

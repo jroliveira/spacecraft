@@ -1,18 +1,14 @@
 ﻿define([
     'jquery',
 
-    'common/configs/projectiles/BulletConfig',
-    'common/configs/projectiles/MissileConfig',
-    'common/configs/projectiles/LaserConfig',
+    'infrastructure/data/Store',
 
     'domain/characters/Character',
     'domain/projectiles/Projectile'
 ], function (
     $,
 
-    BulletConfig,
-    MissileConfig,
-    LaserConfig,
+    Store,
 
     Character,
     Projectile
@@ -43,7 +39,7 @@
         if (this.iCanMove() === false) {
             return;
         }
-        
+
         if (this.sprite.col === 2) {
             this.sprite.col = 0;
         } else {
@@ -100,7 +96,7 @@
 
     Ship.prototype.toRight = function (event, move) {
         this.keys.right = move;
-        
+
         if (move) {
             this.moves();
         } else {
@@ -113,25 +109,37 @@
     Ship.prototype.missileLaunch = function (event, pressed) {
         if (!pressed) return;
 
-        var munition = new Projectile(MissileConfig, this);
+        var self = this;
 
-        $(this).trigger('shot', [munition]);
+        Store.getBy('projectiles', 'missile', function (data) {
+            var munition = new Projectile(data, self);
+
+            $(self).trigger('shot', [munition]);
+        });
     };
 
     Ship.prototype.laserShooting = function (event, pressed) {
         if (!pressed) return;
 
-        var munition = new Projectile(LaserConfig, this);
+        var self = this;
 
-        $(this).trigger('shot', [munition]);
+        Store.getBy('projectiles', 'laser', function (data) {
+            var munition = new Projectile(data, self);
+
+            $(self).trigger('shot', [munition]);
+        });
     };
 
     Ship.prototype.shootBullets = function (event, pressed) {
         if (!pressed) return;
 
-        var munition = new Projectile(BulletConfig, this);
+        var self = this;
 
-        $(this).trigger('shot', [munition]);
+        Store.getBy('projectiles', 'bullet', function (data) {
+            var munition = new Projectile(data, self);
+
+            $(self).trigger('shot', [munition]);
+        });
     };
 
     // Config

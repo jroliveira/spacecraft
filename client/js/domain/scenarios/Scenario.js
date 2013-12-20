@@ -2,8 +2,10 @@
     'jquery',
     'underscore',
 
-    'infrastructure/inputs/Keyboard'
-], function ($, _, Keyboard) {
+    'infrastructure/inputs/Keyboard',
+        
+    'infrastructure/components/Img'
+], function ($, _, Keyboard, Img) {
 
     function Scenario(context, phase, config) {
         this.config = config;
@@ -38,7 +40,9 @@
     Scenario.prototype.insertComponent = function (event, entity) {
         var self = this;
         
-        _.each(entity.config.components, function (type) {
+        _.each(entity.config.components, function (name) {
+            var type = eval(name);
+            
             var component = new type(entity, self.context);
 
             self.components.push(component);
