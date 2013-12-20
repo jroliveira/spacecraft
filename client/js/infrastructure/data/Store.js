@@ -9,6 +9,21 @@
 ) {
 
     return {
+        
+        insert: function (urls, onsuccess) {
+            _.each(urls, function (url) {
+                $.get(url, function () { })
+                    .done(function (data) {
+                        var json = JSON.stringify(eval("(" + data + ")"));
+                        var obj = $.parseJSON(json);
+
+                        onsuccess(obj);
+                    })
+                    .fail(function (e) {
+                        console.log(e);
+                    });
+            });
+        },
 
         insertProjectiles: function () {
             var self = this;
@@ -19,21 +34,26 @@
                 '../../client/js/common/configs/projectiles/laser.json'
             ];
 
-            _.each(urls, function (url) {
-                $.get(url, function () { })
-                    .done(function (data) {
-                        var json = JSON.stringify(eval("(" + data + ")"));
-                        var obj = $.parseJSON(json);
-                        self.session.projectiles.add(obj);
-                    })
-                    .fail(function (e) {
-                        console.log(e);
-                    });
+            this.insert(urls, function (obj) {
+                self.session.projectiles.add(obj);
+            });
+        },
+        
+        insertEnemies: function () {
+            var self = this;
+
+            var urls = [
+                '../../client/js/common/configs/enemies/asteroid.json'
+            ];
+            
+            this.insert(urls, function (obj) {
+                self.session.enemies.add(obj);
             });
         },
 
         configure: function () {
             this.insertProjectiles();
+            this.insertEnemies();
         },
 
         initialize: function () {
@@ -43,15 +63,15 @@
 
             db.open({
                 server: 'spacecraft',
-                version: 5,
+                version: 7,
                 schema: {
                     projectiles: {
                         key: { keyPath: 'type', autoIncrement: false }
                     },
 
-                    projectiles: {
+                    enemies: {
                         key: { keyPath: 'type', autoIncrement: false }
-                    },
+                    }
                 }
             }).done(function (s) {
                 self.session = s;

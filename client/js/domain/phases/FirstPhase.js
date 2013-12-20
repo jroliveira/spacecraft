@@ -1,8 +1,9 @@
 ﻿define([
     'jquery',
+    
+    'infrastructure/data/Store',
 
     'common/configs/StarbaseConfig',
-    'common/configs/enemies/AsteroidConfig',
     'common/configs/characters/ShipConfig',
     'common/configs/effects/ParallaxOneConfig',
     'common/configs/effects/ParallaxTwoConfig',
@@ -18,8 +19,9 @@
 ], function (
     $,
 
+    Store,
+
     StarbaseConfig,
-    AsteroidConfig,
     ShipConfig,
     ParallaxOneConfig,
     ParallaxTwoConfig,
@@ -66,7 +68,9 @@
         if (self.timer === 200) {
             self.timer = 0;
 
-            this.threaten(new Asteroid(AsteroidConfig));
+            Store.getBy('enemies', 'asteroid', function (data) {
+                self.threaten(new Asteroid(data));
+            });
         }
     };
 

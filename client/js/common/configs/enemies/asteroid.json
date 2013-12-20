@@ -1,0 +1,22 @@
+﻿{
+  'type': 'asteroid',
+
+  'health': 10,
+  'damage': 20,
+  'speed': 1.5,
+
+  'components': [
+    'Img',
+	'HealthBar'
+  ],
+  'image': {
+    'src': '../../client/img/enemies/asteroid.png'
+  },
+
+  'width': 95,
+  'height': 93,
+  'canvas': {
+    'width': 895,
+    'height': 600
+  }
+}

@@ -4,8 +4,9 @@
 
     'infrastructure/inputs/Keyboard',
         
-    'infrastructure/components/Img'
-], function ($, _, Keyboard, Img) {
+    'infrastructure/components/Img',
+    'infrastructure/components/HealthBar'
+], function ($, _, Keyboard, Img, HealthBar) {
 
     function Scenario(context, phase, config) {
         this.config = config;
