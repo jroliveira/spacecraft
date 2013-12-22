@@ -15,7 +15,7 @@
         } else if (this.notifyPhaseEnded === false) {
             this.notifyPhaseEnded = true;
             
-            $(this).trigger('phaseEnded');
+            $(this).trigger('ended');
         }
     };
 

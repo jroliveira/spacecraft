@@ -9,47 +9,51 @@
 ) {
 
     return {
+        
+        insert: function (urls, onsuccess) {
+            _.each(urls, function (url) {
+                $.get(url, function () { })
+                    .done(function (data) {
+                        var json = JSON.stringify(eval("(" + data + ")"));
+                        var obj = $.parseJSON(json);
 
-        insert: function (url, onsuccess) {
-            $.get(url, function () { })
-                .done(function (data) {
-                    _.each(data, function (item) {
-                        onsuccess(item);
+                        onsuccess(obj);
+                    })
+                    .fail(function (e) {
+                        console.log(e);
                     });
-                })
-                .fail(function (e) {
-                    console.log(e);
-                });
+            });
         },
 
         insertProjectiles: function () {
             var self = this;
 
-            this.insert('/api/projectiles', function (obj) {
+            var urls = [
+                '../../client/js/common/configs/projectiles/bullet.json',
+                '../../client/js/common/configs/projectiles/missile.json',
+                '../../client/js/common/configs/projectiles/laser.json'
+            ];
+
+            this.insert(urls, function (obj) {
                 self.session.projectiles.add(obj);
             });
         },
-
+        
         insertEnemies: function () {
             var self = this;
 
-            this.insert('/api/enemies', function (obj) {
+            var urls = [
+                '../../client/js/common/configs/enemies/asteroid.json'
+            ];
+            
+            this.insert(urls, function (obj) {
                 self.session.enemies.add(obj);
-            });
-        },
-        
-        insertCharacters: function () {
-            var self = this;
-
-            this.insert('/api/characters', function (obj) {
-                self.session.characters.add(obj);
             });
         },
 
         configure: function () {
             this.insertProjectiles();
             this.insertEnemies();
-            this.insertCharacters();
         },
 
         initialize: function () {
@@ -59,17 +63,13 @@
 
             db.open({
                 server: 'spacecraft',
-                version: 8,
+                version: 7,
                 schema: {
                     projectiles: {
                         key: { keyPath: 'type', autoIncrement: false }
                     },
 
                     enemies: {
-                        key: { keyPath: 'type', autoIncrement: false }
-                    },
-                    
-                    characters: {
                         key: { keyPath: 'type', autoIncrement: false }
                     }
                 }

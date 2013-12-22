@@ -1,20 +1,12 @@
 ﻿define([
     'jquery',
-    
+
     'infrastructure/data/Store',
 
     'common/configs/StarbaseConfig',
-    'common/configs/characters/ShipConfig',
-    'common/configs/effects/ParallaxOneConfig',
-    'common/configs/effects/ParallaxTwoConfig',
-    'common/configs/effects/MovingBackgroundOneConfig',
-
-    'common/effects/MovingBackground',
-    'common/effects/Parallax',
 
     'domain/phases/Phase',
     'domain/Starbase',
-    'domain/characters/Ship',
     'domain/enemies/Asteroid'
 ], function (
     $,
@@ -22,17 +14,9 @@
     Store,
 
     StarbaseConfig,
-    ShipConfig,
-    ParallaxOneConfig,
-    ParallaxTwoConfig,
-    MovingBackgroundOneConfig,
-
-    MovingBackground,
-    Parallax,
 
     Phase,
     Starbase,
-    Ship,
     Asteroid
 ) {
 
@@ -43,11 +27,11 @@
 
         this.entities = [];
 
-        this.character = new Ship(ShipConfig);
+        this.character = new config.entities.character.entity(config.entities.character.config);
         $(this.character).on('shot', $.proxy(this.shoot, this));
 
-        this.background = new MovingBackground(MovingBackgroundOneConfig);
-        $(this.background).on('phaseEnded', $.proxy(this.showStarbase, this));
+        this.background = new config.entities.background.entity(config.entities.background.config);
+        $(this.background).on('ended', $.proxy(this.showStarbase, this));
 
         $(this).on('updated', $.proxy(this.enterEnemy, this));
     }
@@ -56,8 +40,8 @@
 
     FirstPhase.prototype.start = function () {
         this.insertEntity(this.background);
-        this.insertEntity(new Parallax(ParallaxOneConfig));
-        this.insertEntity(new Parallax(ParallaxTwoConfig));
+        this.insertEntity(new this.config.entities.effect01.entity(this.config.entities.effect01.config));
+        this.insertEntity(new this.config.entities.effect02.entity(this.config.entities.effect02.config));
         this.insertEntity(this.character);
     };
 

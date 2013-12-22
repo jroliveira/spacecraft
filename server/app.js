@@ -4,14 +4,20 @@
     'path',
     'consolidate',
 
-    'server/routes/home'
+    'server/routes/home',
+    'server/routes/api/projectiles',
+    'server/routes/api/enemies',
+    'server/routes/api/characters'
 ], function (
     express,
     module,
     path,
     consolidate,
     
-    home
+    home,
+    projectiles,
+    enemies,
+    characters
 ) {
     
     var dirname = path.dirname(module.uri);
@@ -26,6 +32,12 @@
     });
     
     app.get('/', home.index);
+
+    app.get('/api/projectiles', projectiles.get);
+    
+    app.get('/api/enemies', enemies.get);
+    
+    app.get('/api/characters', characters.get);
 
     return app;
 
