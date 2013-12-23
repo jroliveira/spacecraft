@@ -8,8 +8,10 @@
 
     function Phase() { }
 
-    Phase.prototype.start = function () { };
+    Phase.prototype.configure = function () { };
 
+    Phase.prototype.start = function () { };
+    
     Phase.prototype.updates = function () {
         var self = this;
 

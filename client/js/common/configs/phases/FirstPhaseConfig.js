@@ -22,11 +22,13 @@
 
     function FirstPhaseConfig() { }
 
+    FirstPhaseConfig.character = { type: Ship, config: ShipConfig };
+
+    FirstPhaseConfig.phase = { type: MovingBackground, config: MovingBackgroundOneConfig };
+
     FirstPhaseConfig.entities = {
-        character: { entity: Ship, config: ShipConfig },
-        background: { entity: MovingBackground, config: MovingBackgroundOneConfig },
-        effect01: { entity: Parallax, config: ParallaxOneConfig },
-        effect02: { entity: Parallax, config: ParallaxTwoConfig }
+        effect01: { type: Parallax, config: ParallaxOneConfig },
+        effect02: { type: Parallax, config: ParallaxTwoConfig }
     };
 
     return FirstPhaseConfig;

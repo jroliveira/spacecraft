@@ -13,7 +13,7 @@
 ], function (
     $,
     
-    Store,
+    store,
     
     ScenarioConfig,
     FirstPhaseConfig,
@@ -27,7 +27,7 @@
     return {
 
         initialize: function () {
-            Store.initialize();
+            store.initialize();
             
             this.start();
         },

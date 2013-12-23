@@ -32,6 +32,7 @@
 
     Scenario.prototype.start = function () {
         this.input.configure();
+        this.phase.configure();
         this.phase.start();
         this.draw();
     };

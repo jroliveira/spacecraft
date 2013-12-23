@@ -1,5 +1,6 @@
 ﻿define([
     'jquery',
+    'underscore',
 
     'infrastructure/data/Store',
 
@@ -10,8 +11,9 @@
     'domain/enemies/Asteroid'
 ], function (
     $,
+    _,
 
-    Store,
+    store,
 
     StarbaseConfig,
 
@@ -22,26 +24,31 @@
 
     function FirstPhase(config) {
         this.config = config;
-
         this.timer = 0;
 
         this.entities = [];
-
-        this.character = new config.entities.character.entity(config.entities.character.config);
-        $(this.character).on('shot', $.proxy(this.shoot, this));
-
-        this.background = new config.entities.background.entity(config.entities.background.config);
-        $(this.background).on('ended', $.proxy(this.showStarbase, this));
-
-        $(this).on('updated', $.proxy(this.enterEnemy, this));
+        
+        this.character = new config.character.type(config.character.config);
+        this.phase = new config.phase.type(config.phase.config);
     }
 
     FirstPhase.prototype = new Phase();
 
+    FirstPhase.configure = function () {
+        $(this.phase).on('ended', $.proxy(this.showStarbase, this));
+        $(this.character).on('shot', $.proxy(this.shoot, this));
+        
+        $(this).on('updated', $.proxy(this.enterEnemy, this));
+    };
+
     FirstPhase.prototype.start = function () {
-        this.insertEntity(this.background);
-        this.insertEntity(new this.config.entities.effect01.entity(this.config.entities.effect01.config));
-        this.insertEntity(new this.config.entities.effect02.entity(this.config.entities.effect02.config));
+        var self = this;
+        
+        this.insertEntity(this.phase);
+        _.each(this.config.entities, function (entity) {
+            self.insertEntity(new entity.type(entity.config));
+        });
+        
         this.insertEntity(this.character);
     };
 
@@ -52,7 +59,7 @@
         if (self.timer === 200) {
             self.timer = 0;
 
-            Store.getBy('enemies', 'asteroid', function (data) {
+            store.getBy('enemies', 'asteroid', function (data) {
                 self.threaten(new Asteroid(data));
             });
         }

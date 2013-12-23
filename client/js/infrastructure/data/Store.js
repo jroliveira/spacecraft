@@ -1,55 +1,23 @@
 ﻿define([
     'jquery',
     'underscore',
-    'db'
+    'db',
+        
+    'infrastructure/data/LoadSettingsFake'
 ], function (
     $,
     _,
-    db
+    db,
+    
+    loadSettings
 ) {
 
     return {
 
-        insert: function (url, onsuccess) {
-            $.get(url, function () { })
-                .done(function (data) {
-                    _.each(data, function (item) {
-                        onsuccess(item);
-                    });
-                })
-                .fail(function (e) {
-                    console.log(e);
-                });
-        },
-
-        insertProjectiles: function () {
-            var self = this;
-
-            this.insert('/api/projectiles', function (obj) {
-                self.session.projectiles.add(obj);
-            });
-        },
-
-        insertEnemies: function () {
-            var self = this;
-
-            this.insert('/api/enemies', function (obj) {
-                self.session.enemies.add(obj);
-            });
-        },
-        
-        insertCharacters: function () {
-            var self = this;
-
-            this.insert('/api/characters', function (obj) {
-                self.session.characters.add(obj);
-            });
-        },
-
         configure: function () {
-            this.insertProjectiles();
-            this.insertEnemies();
-            this.insertCharacters();
+            loadSettings.projectiles(this.session);
+            loadSettings.enemies(this.session);
+            loadSettings.characters(this.session);
         },
 
         initialize: function () {
