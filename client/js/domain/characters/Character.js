@@ -24,37 +24,38 @@
 
     Character.prototype.moves = function () { };
 
+    Character.prototype.isMoving = function () {
+        return this.keys.up || this.keys.down || this.keys.left || this.keys.right;
+    };
+
     Character.prototype.stop = function () { };
 
     Character.prototype.updates = function () {
         if (this.keys.up) {
-            if (this.pos.y <= 10) {
-                return;
-            }
+            if (this.pos.y <= 10) return;
 
             this.pos.y -= this.config.speed.up;
         }
+
         if (this.keys.down) {
-            if ((this.pos.y + this.config.height) >= this.config.canvas.height) {
-                return;
-            }
+            if ((this.pos.y + this.config.height) >= this.config.canvas.height) return;
 
             this.pos.y += this.config.speed.down;
         }
+
         if (this.keys.left) {
-            if (this.pos.x <= 0) {
-                return;
-            }
+            if (this.pos.x <= 0) return;
 
             this.pos.x -= this.config.speed.left;
         }
+
         if (this.keys.right) {
-            if ((this.pos.x + this.config.width) >= this.config.canvas.width) {
-                return;
-            }
+            if ((this.pos.x + this.config.width) >= this.config.canvas.width) return;
 
             this.pos.x += this.config.speed.right;
         }
+
+        this.isMoving() ? this.moves() : this.stop();
     };
 
     Character.prototype.respawn = function () {

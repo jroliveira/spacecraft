@@ -23,15 +23,9 @@
     Soldier.prototype = new Character();
 
     Soldier.prototype.moves = function () {
-        if (this.iCanMove() === false) {
-            return;
-        }
-        
-        if (this.sprite.col === 2) {
-            this.sprite.col = 0;
-        } else {
-            this.sprite.col++;
-        }
+        if (this.iCanMove() === false) return;
+
+        this.sprite.col = (this.sprite.col === 2) ? 0 : this.sprite.col + 1;
     };
 
     Soldier.prototype.stop = function () {
@@ -43,49 +37,29 @@
     Soldier.prototype.lift = function (event, move) {
         this.keys.up = move;
 
-        if (move) {
-            this.moves();
-
+        if (move)
             this.sprite.row = 3;
-        } else {
-            this.stop();
-        }
     };
 
     Soldier.prototype.lower = function (event, move) {
         this.keys.down = move;
 
-        if (move) {
-            this.moves();
-
+        if (move)
             this.sprite.row = 0;
-        } else {
-            this.stop();
-        }
     };
 
     Soldier.prototype.toLeft = function (event, move) {
         this.keys.left = move;
 
-        if (move) {
-            this.moves();
-
+        if (move)
             this.sprite.row = 1;
-        } else {
-            this.stop();
-        }
     };
 
     Soldier.prototype.toRight = function (event, move) {
         this.keys.right = move;
 
-        if (this.keys.right) {
-            this.moves();
-
+        if (this.keys.right)
             this.sprite.row = 2;
-        } else {
-            this.stop();
-        }
     };
 
     return Soldier;

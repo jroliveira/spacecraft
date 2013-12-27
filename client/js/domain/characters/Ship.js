@@ -8,7 +8,7 @@
 ], function (
     $,
 
-    Store,
+    store,
 
     Character,
     Projectile
@@ -36,15 +36,9 @@
     Ship.prototype = new Character();
 
     Ship.prototype.moves = function () {
-        if (this.iCanMove() === false) {
-            return;
-        }
+        if (this.iCanMove() === false) return;
 
-        if (this.sprite.col === 2) {
-            this.sprite.col = 0;
-        } else {
-            this.sprite.col++;
-        }
+        this.sprite.col = (this.sprite.col === 2) ? 0 : this.sprite.col + 1;
     };
 
     Ship.prototype.stop = function () {
@@ -56,52 +50,23 @@
     Ship.prototype.lift = function (event, move) {
         this.keys.up = move;
 
-        if (move) {
-            this.moves();
-
-            if (this.sprite.row <= 0) {
-                this.sprite.row = 0;
-            } else {
-                this.sprite.row--;
-            }
-        } else {
-            this.stop();
-        }
+        if (move)
+            this.sprite.row = (this.sprite.row <= 0) ? 0 : this.sprite.row - 1;
     };
 
     Ship.prototype.lower = function (event, move) {
         this.keys.down = move;
 
-        if (move) {
-            this.moves();
-
-            if (this.sprite.row >= 2)
-                this.sprite.row = 2;
-            else
-                this.sprite.row++;
-        } else {
-            this.stop();
-        }
+        if (move)
+            this.sprite.row = (this.sprite.row >= 2) ? 2 : this.sprite.row + 1;
     };
 
     Ship.prototype.toLeft = function (event, move) {
         this.keys.left = move;
-
-        if (move) {
-            this.moves();
-        } else {
-            this.stop();
-        }
     };
 
     Ship.prototype.toRight = function (event, move) {
         this.keys.right = move;
-
-        if (move) {
-            this.moves();
-        } else {
-            this.stop();
-        }
     };
 
     // Munitions
@@ -111,7 +76,7 @@
 
         var self = this;
 
-        Store.getBy('projectiles', 'missile', function (data) {
+        store.getBy('projectiles', 'missile', function (data) {
             var munition = new Projectile(data, self);
 
             $(self).trigger('shot', [munition]);
@@ -123,7 +88,7 @@
 
         var self = this;
 
-        Store.getBy('projectiles', 'laser', function (data) {
+        store.getBy('projectiles', 'laser', function (data) {
             var munition = new Projectile(data, self);
 
             $(self).trigger('shot', [munition]);
@@ -135,7 +100,7 @@
 
         var self = this;
 
-        Store.getBy('projectiles', 'bullet', function (data) {
+        store.getBy('projectiles', 'bullet', function (data) {
             var munition = new Projectile(data, self);
 
             $(self).trigger('shot', [munition]);

@@ -13,7 +13,7 @@
         this.height = 100;
 
         this.image = new Image();
-        this.image.src = "../img/loadingSprite.png";
+        this.image.src = "../../client/img/loadingSprite.png";
     }
 
     Loader.prototype = new Component();
