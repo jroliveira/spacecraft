@@ -4,8 +4,6 @@
 
     'infrastructure/data/Store',
 
-    'common/configs/StarbaseConfig',
-
     'domain/phases/Phase',
     'domain/Starbase',
     'domain/enemies/Asteroid'
@@ -14,8 +12,6 @@
     _,
 
     store,
-
-    StarbaseConfig,
 
     Phase,
     Starbase,
@@ -34,7 +30,7 @@
 
     FirstPhase.prototype = new Phase();
 
-    FirstPhase.configure = function () {
+    FirstPhase.prototype.configure = function () {
         $(this.phase).on('ended', $.proxy(this.showStarbase, this));
         $(this.character).on('shot', $.proxy(this.shoot, this));
         
@@ -60,25 +56,21 @@
             self.timer = 0;
 
             store.getBy('enemies', 'asteroid', function (data) {
-                self.threaten(new Asteroid(data));
+                self.insertEntity(new Asteroid(data));
             });
         }
     };
 
-    FirstPhase.prototype.threaten = function (enemy) {
-        $(enemy).on('destroy', $.proxy(this.removeEntity, this));
-
-        this.insertEntity(enemy);
-    };
-
     FirstPhase.prototype.shoot = function (event, projectile) {
-        $(projectile).on('destroy', $.proxy(this.removeEntity, this));
-
         this.insertEntity(projectile);
     };
 
     FirstPhase.prototype.showStarbase = function () {
-        this.insertEntity(new Starbase(StarbaseConfig));
+        var self = this;
+        
+        store.getBy('entities', 'starbase', function (data) {
+            self.insertEntity(new Starbase(data));
+        });
     };
 
     return FirstPhase;

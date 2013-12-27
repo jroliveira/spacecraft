@@ -2,22 +2,35 @@
     'jquery',
     'underscore',
     'db',
-        
+
     'infrastructure/data/LoadSettingsFake'
 ], function (
     $,
     _,
     db,
-    
+
     loadSettings
 ) {
 
     return {
 
         configure: function () {
-            loadSettings.projectiles(this.session);
-            loadSettings.enemies(this.session);
-            loadSettings.characters(this.session);
+            var defer = $.Deferred();
+
+            $.when(
+                
+                loadSettings.projectiles(this.session),
+                loadSettings.enemies(this.session),
+                loadSettings.characters(this.session),
+                loadSettings.entities(this.session)
+            
+            ).then(function () {
+                
+                defer.resolve();
+                
+            });
+
+            return defer.promise();
         },
 
         initialize: function () {
@@ -27,7 +40,7 @@
 
             db.open({
                 server: 'spacecraft',
-                version: 8,
+                version: 9,
                 schema: {
                     projectiles: {
                         key: { keyPath: 'type', autoIncrement: false }
@@ -36,8 +49,12 @@
                     enemies: {
                         key: { keyPath: 'type', autoIncrement: false }
                     },
-                    
+
                     characters: {
+                        key: { keyPath: 'type', autoIncrement: false }
+                    },
+
+                    entities: {
                         key: { keyPath: 'type', autoIncrement: false }
                     }
                 }

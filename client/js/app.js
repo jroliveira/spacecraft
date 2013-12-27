@@ -1,64 +1,79 @@
 ﻿define([
     'jquery',
-    
+    'libs/raf/requestAnimationFrame',
+
     'infrastructure/data/Store',
+    'infrastructure/components/Loader',
 
     'common/configs/scenarios/ScenarioConfig',
     'common/configs/phases/FirstPhaseConfig',
     'common/configs/phases/StarbasePhaseConfig',
 
-    'domain/scenarios/Scenario',
+    'domain/scenarios/Main',
     'domain/phases/FirstPhase',
     'domain/phases/StarbasePhase'
 ], function (
     $,
-    
+    raf,
+
     store,
-    
+    Loader,
+
     ScenarioConfig,
     FirstPhaseConfig,
     StarbasePhaseConfig,
-    
-    Scenario,
+
+    Main,
     FirstPhase,
     StarbasePhase
 ) {
-    
-    return {
 
-        initialize: function () {
-            store.initialize();
-            
-            this.start();
+    return {
+        
+        wait: function(time) {
+            var defer = $.Deferred();
+
+            setTimeout(function () { defer.resolve(); }, time);
+
+            return defer.promise();
         },
         
-        start: function() {
-            $(document).on('phaseEnded', function () {
-                fase = new StarbasePhase(StarbasePhaseConfig);
+        initialize: function () {
+            
+            function scenarioLoop() {
+                window.requestAnimationFrame(scenarioLoop);
 
-                scenario = new Scenario(context, fase, ScenarioConfig);
+                scenario.updates();
+                scenario.draw();
+            }
+            
+            $(document).on('phaseEnded', function () {
+                phase = new StarbasePhase(StarbasePhaseConfig);
+
+                scenario = new Main(context, phase, ScenarioConfig);
                 scenario.start();
             });
 
-            function loop() {
-                scenario.phase.updates();
-                scenario.draw();
-
-                window.setTimeout(loop, 1000 / 60);
-            }
-
             var context = ($('canvas'))[0].getContext('2d');
+            var scenario = new Loader(context);
+            var phase;
+            
+            scenarioLoop();
 
-            // Começa o jogo.
+            $.when(
+                
+                this.wait(3000),
+                store.initialize()
 
-            var fase = new FirstPhase(FirstPhaseConfig);
-
-            var scenario = new Scenario(context, fase, ScenarioConfig);
-            scenario.start();
-
-            loop();
+            ).then(function () {
+                
+                phase = new FirstPhase(FirstPhaseConfig);
+                scenario = new Main(context, phase, ScenarioConfig);
+                scenario.start();
+                
+            });
         }
-        
+
     };
-    
+
 });
