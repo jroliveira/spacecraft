@@ -3,7 +3,7 @@
     'underscore',
     'db',
 
-    'infrastructure/data/LoadSettingsFake'
+    'infrastructure/data/LoadSettings'
 ], function (
     $,
     _,

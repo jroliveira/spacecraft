@@ -7,7 +7,8 @@
     'server/routes/home',
     'server/routes/api/projectiles',
     'server/routes/api/enemies',
-    'server/routes/api/characters'
+    'server/routes/api/characters',
+    'server/routes/api/entities'
 ], function (
     express,
     module,
@@ -17,7 +18,8 @@
     home,
     projectiles,
     enemies,
-    characters
+    characters,
+    entities
 ) {
     
     var dirname = path.dirname(module.uri);
@@ -38,6 +40,8 @@
     app.get('/api/enemies', enemies.get);
     
     app.get('/api/characters', characters.get);
+    
+    app.get('/api/entities', entities.get);
 
     return app;
 
