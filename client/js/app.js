@@ -2,28 +2,36 @@
     'jquery',
     'libs/raf/requestAnimationFrame',
 
-    'infrastructure/data/Store',
-    'infrastructure/components/Loader',
+    'infrastructure/inputs/Keyboard',
 
-    'common/configs/scenarios/ScenarioConfig',
+    'infrastructure/data/Store',
+
+    'common/configs/scenarios/MainConfig',
+    'common/configs/scenarios/LoadingConfig',
     'common/configs/phases/FirstPhaseConfig',
     'common/configs/phases/StarbasePhaseConfig',
 
     'domain/scenarios/Main',
+    'domain/scenarios/Loading',
+    'domain/scenarios/Start',
     'domain/phases/FirstPhase',
     'domain/phases/StarbasePhase'
 ], function (
     $,
     raf,
+    
+    Keyboard,
 
     store,
-    Loader,
 
-    ScenarioConfig,
+    MainConfig,
+    LoadingConfig,
     FirstPhaseConfig,
     StarbasePhaseConfig,
 
     Main,
+    Loading,
+    Start,
     FirstPhase,
     StarbasePhase
 ) {
@@ -40,6 +48,9 @@
         
         initialize: function () {
             
+            var input = new Keyboard();
+            input.bind();
+
             function scenarioLoop() {
                 window.requestAnimationFrame(scenarioLoop);
 
@@ -49,13 +60,20 @@
             
             $(document).on('phaseEnded', function () {
                 phase = new StarbasePhase(StarbasePhaseConfig);
-
-                scenario = new Main(context, phase, ScenarioConfig);
+                scenario = new Main(context, phase, MainConfig);
+                scenario.start();
+            });
+            
+            $(document).on('mainPhase', function () {
+                phase = new FirstPhase(FirstPhaseConfig);
+                scenario = new Main(context, phase, MainConfig);
                 scenario.start();
             });
 
             var context = ($('canvas'))[0].getContext('2d');
-            var scenario = new Loader(context);
+            var scenario = new Loading(context, LoadingConfig);
+            scenario.start();
+            
             var phase;
             
             scenarioLoop();
@@ -66,9 +84,8 @@
                 store.initialize()
 
             ).then(function () {
-                
-                phase = new FirstPhase(FirstPhaseConfig);
-                scenario = new Main(context, phase, ScenarioConfig);
+
+                scenario = new Start(context, MainConfig);
                 scenario.start();
                 
             });

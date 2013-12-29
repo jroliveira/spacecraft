@@ -4,10 +4,14 @@
 
     Input.prototype.configure = function () { };
 
+    Input.prototype.enter = function (pressed) {
+        $(document).trigger('enter', [pressed]);
+    };
+
     Input.prototype.space = function (pressed) {
         $(document).trigger('space', [pressed]);
     };
-
+    
     Input.prototype.f = function (pressed) {
         $(document).trigger('f', [pressed]);
     };

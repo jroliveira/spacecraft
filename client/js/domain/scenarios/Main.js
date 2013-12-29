@@ -2,8 +2,6 @@
     'jquery',
     'underscore',
 
-    'infrastructure/inputs/Keyboard',
-    
     'infrastructure/components/Img',
     'infrastructure/components/HealthBar',
         
@@ -11,8 +9,6 @@
 ], function (
     $,
     _,
-    
-    Keyboard,
     
     Img,
     HealthBar,
@@ -30,8 +26,6 @@
         $(this.phase).on('deletedEntity', $.proxy(this.removeComponent, this));
 
         this.components = [];
-
-        this.input = new Keyboard();
     }
     
     Main.prototype = new Scenario();
@@ -49,7 +43,6 @@
     };
 
     Main.prototype.start = function () {
-        this.input.configure();
         this.phase.configure();
         this.phase.start();
         this.draw();

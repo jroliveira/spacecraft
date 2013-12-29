@@ -15,9 +15,9 @@
 ) {
 
     function Loading(context, config) {
-        this.config = config;
-
         this.context = context;
+
+        this.config = config;
 
         this.components = [];
     }
@@ -39,7 +39,7 @@
     };
 
     Loading.prototype.start = function () {
-        this.components.push(new Loader(context));
+        this.components.push(new Loader(this.context));
     };
 
     return Loading;

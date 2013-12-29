@@ -8,13 +8,21 @@
 
     Keyboard.prototype = new Input();
 
-    Keyboard.prototype.configure = function () {
+    Keyboard.prototype.unbind = function () {
+        $(document).unbind('keydown');
+        $(document).unbind('keyup');
+    };
+
+    Keyboard.prototype.bind = function () {
         var self = this;
 
         $(document).bind('keydown', function (e) {
             e.preventDefault();
 
             switch (e.keyCode) {
+                case 13:
+                    self.enter(true);
+                    break;
                 case 32:
                     self.space(true);
                     break;
@@ -43,6 +51,9 @@
             e.preventDefault();
 
             switch (e.keyCode) {
+                case 13:
+                    self.enter(false);
+                    break;
                 case 32:
                     self.space(false);
                     break;
