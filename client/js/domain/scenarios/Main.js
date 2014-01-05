@@ -4,8 +4,13 @@
 
     'infrastructure/components/Img',
     'infrastructure/components/HealthBar',
+    
+    'common/configs/scenarios/MainConfig',
+    'common/configs/phases/StarbasePhaseConfig',
         
-    'domain/scenarios/Scenario'
+    'domain/scenarios/Scenario',
+    'domain/scenarios/Main',
+    'domain/phases/StarbasePhase'
 ], function (
     $,
     _,
@@ -13,30 +18,26 @@
     Img,
     HealthBar,
     
-    Scenario
+    MainConfig,
+    StarbasePhaseConfig,
+    
+    Scenario,
+    Main,
+    StarbasePhase
 ) {
 
-    function Main(context, phase, config) {
-        this.config = config;
-
+    function Main(context, config, phase) {
         this.context = context;
-
+        this.config = config;
         this.phase = phase;
+        this.components = [];
+        
         $(this.phase).on('insertedEntity', $.proxy(this.insertComponent, this));
         $(this.phase).on('deletedEntity', $.proxy(this.removeComponent, this));
-
-        this.components = [];
+        $(document).on('phaseEnded', $.proxy(this.changeScenario, this));
     }
     
     Main.prototype = new Scenario();
-
-    Main.prototype.draw = function () {
-        this.context.clearRect(0, 0, this.config.canvas.width, this.config.canvas.height);
-
-        _.each(this.components, function (component) {
-            component.draw();
-        });
-    };
 
     Main.prototype.updates = function () {
         this.phase.updates();
@@ -45,7 +46,13 @@
     Main.prototype.start = function () {
         this.phase.configure();
         this.phase.start();
-        this.draw();
+    };
+    
+    Main.prototype.changeScenario = function (event) {
+        var phase = new StarbasePhase(StarbasePhaseConfig),
+            scenario = new Main(this.context, MainConfig, phase);
+        
+        $(document).trigger('changeScenario', [scenario]);
     };
 
     // Config

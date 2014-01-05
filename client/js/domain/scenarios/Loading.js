@@ -16,21 +16,11 @@
 
     function Loading(context, config) {
         this.context = context;
-
         this.config = config;
-
         this.components = [];
     }
 
     Loading.prototype = new Scenario();
-
-    Loading.prototype.draw = function () {
-        this.context.clearRect(0, 0, this.config.canvas.width, this.config.canvas.height);
-
-        _.each(this.components, function (component) {
-            component.draw();
-        });
-    };
 
     Loading.prototype.updates = function () {
         _.each(this.components, function (component) {
