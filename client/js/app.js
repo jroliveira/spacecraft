@@ -1,6 +1,6 @@
 ﻿define([
     'jquery',
-    'libs/raf/requestAnimationFrame',
+    'wait',
 
     'infrastructure/inputs/Keyboard',
     'infrastructure/data/Store',
@@ -12,7 +12,7 @@
     'domain/scenarios/Start'
 ], function (
     $,
-    raf,
+    wait,
     
     Keyboard,
     store,
@@ -35,14 +35,6 @@
 
     return {
         
-        wait: function(time) {
-            var defer = $.Deferred();
-
-            setTimeout(function () { defer.resolve(); }, time);
-
-            return defer.promise();
-        },
-        
         initialize: function () {
             $(document).on('changeScenario', this.changeScenario);
 
@@ -57,7 +49,7 @@
 
             $.when(
                 
-                this.wait(3000),
+                $.wait(3000),
                 store.initialize()
 
             ).then(function () {

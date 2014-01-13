@@ -1,6 +1,8 @@
 ﻿{
   'type': 'ship',
 
+  'entity': 'Ship',
+
   'health': 50,
   'damage': 100,
   'speed': {

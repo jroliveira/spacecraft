@@ -1,6 +1,7 @@
 ﻿define([
     'jquery',
     'underscore',
+    'wait',
 
     'infrastructure/components/Text',
     
@@ -13,6 +14,7 @@
 ], function (
     $,
     _,
+    wait,
 
     Text,
     
@@ -42,10 +44,23 @@
     };
 
     Start.prototype.changeScenario = function (event, pressed) {
-        var phase = new FirstPhase(FirstPhaseConfig),
-            scenario = new Main(this.context, MainConfig, phase);
+        if (!pressed) return;
 
-        $(document).trigger('changeScenario', [scenario]);
+        var phase,
+            self = this;
+        
+        $.when(
+            
+            $.wait(1000),
+            phase = new FirstPhase(FirstPhaseConfig)
+        
+        
+        ).then(function () {
+            
+            var scenario = new Main(self.context, MainConfig, phase);
+            $(document).trigger('changeScenario', [scenario]);
+            
+        });
     };
 
     return Start;

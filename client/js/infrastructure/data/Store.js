@@ -40,7 +40,7 @@
 
             db.open({
                 server: 'spacecraft',
-                version: 12,
+                version: 15,
                 schema: {
                     projectiles: {
                         key: { keyPath: 'type', autoIncrement: false }

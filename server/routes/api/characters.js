@@ -4,7 +4,7 @@
 
     exports.get = function (req, res) {
         res.json([{
-            'type': 'ship',
+            'type': 'Ship',
 
             'health': 50,
             'damage': 100,
@@ -21,7 +21,7 @@
             'pos': { 'x': 1, 'y': 10 },
             'sprite': { 'row': 0, 'col': 0 }
         }, {
-            'type': 'soldier',
+            'type': 'Soldier',
 
             'health': 50,
             'damage': 100,
@@ -30,7 +30,7 @@
             'timeNextMove': 15,
 
             'components': ['Sprite', 'HealthBar'],
-            'image': { 'width': 32, 'height': 32, 'src': '../../client/img/characters/shipSprite.png' },
+            'image': { 'width': 32, 'height': 32, 'src': '../../client/img/characters/soldierSprite.png' },
 
             'width': 32 * 1.5,
             'height': 32 * 1.5,

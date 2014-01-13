@@ -1,9 +1,11 @@
 ﻿define([
     'jquery',
     'underscore',
+    'wait',
 
     'infrastructure/components/Img',
     'infrastructure/components/HealthBar',
+    'infrastructure/components/Sprite',
     
     'common/configs/scenarios/MainConfig',
     'common/configs/phases/StarbasePhaseConfig',
@@ -14,9 +16,11 @@
 ], function (
     $,
     _,
+    wait,
     
     Img,
     HealthBar,
+    Sprite,
     
     MainConfig,
     StarbasePhaseConfig,
@@ -49,10 +53,21 @@
     };
     
     Main.prototype.changeScenario = function (event) {
-        var phase = new StarbasePhase(StarbasePhaseConfig),
-            scenario = new Main(this.context, MainConfig, phase);
-        
-        $(document).trigger('changeScenario', [scenario]);
+        var phase,
+            self = this;
+
+        $.when(
+
+            $.wait(1000),
+            phase = new StarbasePhase(StarbasePhaseConfig)
+
+
+        ).then(function () {
+
+            var scenario = new Main(self.context, MainConfig, phase);
+            $(document).trigger('changeScenario', [scenario]);
+
+        });
     };
 
     // Config

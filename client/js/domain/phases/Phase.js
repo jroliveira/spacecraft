@@ -4,13 +4,28 @@
 
     'domain/Entity',
     'domain/Living'
-], function ($, _, Entity, Living) {
+], function (
+    $,
+    _,
+    
+    Entity,
+    Living
+) {
 
     function Phase() { }
 
     Phase.prototype.configure = function () { };
 
-    Phase.prototype.start = function () { };
+    Phase.prototype.start = function () {
+        var self = this;
+
+        this.insertEntity(this.phase);
+        _.each(this.config.entities, function (entity) {
+            self.insertEntity(new entity.type(entity.config));
+        });
+
+        this.insertEntity(this.character);
+    };
     
     Phase.prototype.updates = function () {
         var self = this;
@@ -22,7 +37,7 @@
 
             entity.updates();
         });
-
+        
         $(this).trigger('updated');
     };
 

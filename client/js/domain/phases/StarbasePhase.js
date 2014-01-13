@@ -1,25 +1,40 @@
 ﻿define([
     'jquery',
+    'underscore',
     
-    'common/configs/characters/SoldierConfig',
+    'infrastructure/data/Store',
 
     'domain/phases/Phase',
     'domain/characters/Soldier'
-], function ($, SoldierConfig, Phase, Soldier) {
+], function (
+    $,
+    _,
+    
+    store,
+
+    Phase,
+    Soldier
+) {
 
     function StarbasePhase(config) {
+        var defer = $.Deferred();
+        
         this.config = config;
         
-        this.entities = [];
+        var self = this;
 
-        this.character = new Soldier(SoldierConfig);
+        store.getBy('characters', config.character.type, function (data) {
+            var type = eval(data.type);
+            self.character = new type(data);
+
+            defer.resolve();
+        });
+
+        this.phase = new config.phase.type(config.phase.config);
+        this.entities = [];
     }
 
     StarbasePhase.prototype = new Phase();
-    
-    StarbasePhase.prototype.start = function () {
-        this.insertEntity(this.character);
-    };
     
     return StarbasePhase;
 

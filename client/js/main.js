@@ -2,7 +2,8 @@
     paths: {
         jquery: 'libs/jquery/jquery',
         underscore: 'libs/underscore/underscore',
-        db: 'libs/db/db'
+        db: 'libs/db/db',
+        wait: 'libs/wait'
     },
 
     shim: {
@@ -14,6 +15,10 @@
         },
         db: {
             exports: 'db'
+        },
+        wait: {
+            deps: ['jquery'],
+            exports: 'wait'
         }
     }
 });

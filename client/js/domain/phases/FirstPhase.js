@@ -6,7 +6,8 @@
 
     'domain/phases/Phase',
     'domain/Starbase',
-    'domain/enemies/Asteroid'
+    'domain/enemies/Asteroid',
+    'domain/characters/Ship'
 ], function (
     $,
     _,
@@ -15,17 +16,27 @@
 
     Phase,
     Starbase,
-    Asteroid
+    Asteroid,
+    Ship
 ) {
 
     function FirstPhase(config) {
+        var defer = $.Deferred();
+        
         this.config = config;
         this.timer = 0;
 
-        this.entities = [];
-        
-        this.character = new config.character.type(config.character.config);
+        var self = this;
+
+        store.getBy('characters', config.character.type, function (data) {
+            var type = eval(data.type);
+            self.character = new type(data);
+            
+            defer.resolve();
+        });
+
         this.phase = new config.phase.type(config.phase.config);
+        this.entities = [];
     }
 
     FirstPhase.prototype = new Phase();
@@ -35,17 +46,6 @@
         $(this.character).on('shot', $.proxy(this.shoot, this));
         
         $(this).on('updated', $.proxy(this.enterEnemy, this));
-    };
-
-    FirstPhase.prototype.start = function () {
-        var self = this;
-        
-        this.insertEntity(this.phase);
-        _.each(this.config.entities, function (entity) {
-            self.insertEntity(new entity.type(entity.config));
-        });
-        
-        this.insertEntity(this.character);
     };
 
     FirstPhase.prototype.enterEnemy = function (event) {

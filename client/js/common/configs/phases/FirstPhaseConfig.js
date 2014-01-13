@@ -1,28 +1,20 @@
 ﻿define([
-    'common/configs/characters/ShipConfig',
     'common/configs/effects/ParallaxOneConfig',
     'common/configs/effects/ParallaxTwoConfig',
-    'common/configs/effects/MovingBackgroundOneConfig',
-
-    'common/effects/MovingBackground',
-    'common/effects/Parallax',
-
-    'domain/characters/Ship'
+    'common/configs/backgrounds/MovingBackgroundOneConfig',
+    'common/backgrounds/MovingBackground',
+    'common/effects/Parallax'
 ], function (
-    ShipConfig,
     ParallaxOneConfig,
     ParallaxTwoConfig,
     MovingBackgroundOneConfig,
-
     MovingBackground,
-    Parallax,
-
-    Ship
+    Parallax
 ) {
 
     function FirstPhaseConfig() { }
 
-    FirstPhaseConfig.character = { type: Ship, config: ShipConfig };
+    FirstPhaseConfig.character = { type: 'Ship' };
 
     FirstPhaseConfig.phase = { type: MovingBackground, config: MovingBackgroundOneConfig };
 
