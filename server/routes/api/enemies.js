@@ -1,4 +1,4 @@
-﻿define([
+define([
     'exports'
 ], function (exports) {
 
