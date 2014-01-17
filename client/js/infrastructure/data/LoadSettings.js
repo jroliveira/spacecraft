@@ -21,9 +21,11 @@
             var defer = $.Deferred();
             
             this.load('/api/projectiles', function (obj) {
-                session.projectiles.add(obj);
+                session.projectiles.clear().done(function() {
+                    session.projectiles.add(obj);
 
-                defer.resolve();
+                    defer.resolve();
+                });
             });
             
             return defer.promise();
@@ -33,9 +35,11 @@
             var defer = $.Deferred();
             
             this.load('/api/enemies', function (obj) {
-                session.enemies.add(obj);
+                session.enemies.clear().done(function() {
+                    session.enemies.add(obj);
                 
-                defer.resolve();
+                    defer.resolve();
+                });     
             });
             
             return defer.promise();
@@ -45,9 +49,11 @@
             var defer = $.Deferred();
             
             this.load('/api/characters', function (obj) {
-                session.characters.add(obj);
+                session.characters.clear().done(function() {
+                    session.characters.add(obj);
                 
-                defer.resolve();
+                    defer.resolve();
+                });
             });
             
             return defer.promise();
@@ -57,9 +63,11 @@
             var defer = $.Deferred();
             
             this.load('/api/entities', function (obj) {
-                session.entities.add(obj);
+                session.entities.clear().done(function() {
+                    session.entities.add(obj);
                 
-                defer.resolve();
+                    defer.resolve();
+                });
             });
             
             return defer.promise();
