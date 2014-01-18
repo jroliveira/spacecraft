@@ -11,8 +11,8 @@ define([
 
             'width': 250,
             'height': 140,
-            'canvas': { 'width': 895, 'height': 600 },
-            'pos': { 'x': 630, 'y': 450 }
+            'canvas': { 'width': 1170, 'height': 600 },
+            'pos': { 'x': 890, 'y': 450 }
         }]);
     };
 

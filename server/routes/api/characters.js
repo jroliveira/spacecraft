@@ -17,7 +17,7 @@ define([
 
             'width': 43 * 1.5,
             'height': 39 * 1.5,
-            'canvas': { 'width': 895, 'height': 600 },
+            'canvas': { 'width': 1170, 'height': 600 },
             'pos': { 'x': 1, 'y': 10 },
             'sprite': { 'row': 0, 'col': 0 }
         }, {
@@ -34,7 +34,7 @@ define([
 
             'width': 32 * 1.5,
             'height': 32 * 1.5,
-            'canvas': { 'width': 895, 'height': 600 },
+            'canvas': { 'width': 1170, 'height': 600 },
             'pos': { 'x': 1, 'y': 10 },
             'sprite': { 'row': 0, 'col': 0 }
         }]);

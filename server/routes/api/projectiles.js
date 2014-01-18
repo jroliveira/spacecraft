@@ -15,7 +15,7 @@ define([
 
             'width': 9,
             'height': 8,
-            'canvas': { 'width': 895, 'height': 600 }
+            'canvas': { 'width': 1170, 'height': 600 }
         }, {
             'type': 'laser',
 
@@ -28,7 +28,7 @@ define([
 
             'width': 39,
             'height': 17,
-            'canvas': { 'width': 895, 'height': 600 }
+            'canvas': { 'width': 1170, 'height': 600 }
         }, {
             'type': 'missile',
 
@@ -41,7 +41,7 @@ define([
 
             'width': 51,
             'height': 10,
-            'canvas': { 'width': 895, 'height': 600 }
+            'canvas': { 'width': 1170, 'height': 600 }
         }]);
     };
 

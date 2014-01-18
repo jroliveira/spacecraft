@@ -1,0 +1,39 @@
+﻿body, html {
+    height: 100%;
+    padding-bottom: 0px;
+    padding-top: 0px;
+}
+
+#wrap {
+    min-height: 100%;
+    position: relative;
+}
+
+header {
+    padding-top: 10px;
+}
+
+article {
+    padding-top: 10px;
+    padding-bottom: 80px;
+}
+
+footer {
+    color: #666;
+    background: #222;
+    padding: 17px 0 18px 0;
+    border-top: 1px solid #000;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+footer a {
+    color: #999;
+}
+
+footer a:hover {
+    color: #efefef;
+}

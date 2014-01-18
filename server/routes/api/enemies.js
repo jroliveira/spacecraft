@@ -15,7 +15,7 @@ define([
 
             'width': 95,
             'height': 93,
-            'canvas': { 'width': 895, 'height': 600 }
+            'canvas': { 'width': 1170, 'height': 600 }
         }]);
     };
 

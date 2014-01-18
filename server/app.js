@@ -9,8 +9,7 @@ define([
     'server/routes/api/characters',
     'server/routes/api/entities',
      
-    'server/routes/home',
-    'server/routes/projectile'
+    'server/routes/home'
 ], function (
     express,
     module,
@@ -22,8 +21,7 @@ define([
     characters,
     entities,
      
-    home,
-    projectile
+    home
 ) {
     
     var dirname = path.dirname(module.uri);
@@ -45,8 +43,9 @@ define([
     
     // Pages
     app.get('/', home.index);
-    app.get('/projectiles', projectile.index);
-    app.get('/projectile/create', projectile.create);
+    app.get('/game', home.index);
+    app.get('/projectiles', home.index);
+    app.get('/projectile/create', home.index);
 
     return app;
 
