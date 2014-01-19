@@ -1,4 +1,4 @@
-﻿{
+{
   "name": "spacecraft",
   "version": "0.0.1",
   "description": "Spacecraft",
@@ -11,8 +11,10 @@
 
   "dependencies": {
 	"consolidate": "0.9.x",
-	"underscore":"1.4.4",
+	"underscore": "1.4.4",
     "express": "3.4.4",
-    "requirejs": ">=2.1.9"
+    "requirejs": ">=2.1.9",
+	"mongoose": "3.8.4",
+    "mongodb": "1.3.23"
   }
 }

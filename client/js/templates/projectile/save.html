@@ -5,6 +5,7 @@
 <hr />
 
 <div class="form-horizontal">
+    
     <div class="form-group">
         <label for="type" class="col-sm-2 control-label">Type</label>
         <div class="col-sm-4">
@@ -12,6 +13,7 @@
                 <span class="input-group-addon"><span class="glyphicon glyphicon-leaf"></span></span>
                 <input type="text" id="type" value="<%- type %>" class="form-control" placeholder="Type">
             </div>
+            <span class="help-block"></span>
         </div>
     </div>
     
@@ -22,6 +24,7 @@
                 <span class="input-group-addon"><span class="glyphicon glyphicon-heart"></span></span>
                 <input type="text" id="health" value="<%- health %>" class="form-control" placeholder="Health">
             </div>
+            <span class="help-block"></span>
         </div>
     </div>
     
@@ -32,6 +35,7 @@
                 <span class="input-group-addon"><span class="glyphicon glyphicon-screenshot"></span></span>
                 <input type="text" id="damage" value="<%- damage %>" class="form-control" placeholder="Damage">
             </div>
+            <span class="help-block"></span>
         </div>
     </div>
     
@@ -42,6 +46,83 @@
                 <span class="input-group-addon"><span class="glyphicon glyphicon-dashboard"></span></span>
                 <input type="text" id="speed" value="<%- speed %>" class="form-control" placeholder="Speed">
             </div>
+            <span class="help-block"></span>
         </div>
     </div>
+    
+    <div class="form-group">
+        <label for="width" class="col-sm-2 control-label">Width</label>
+        <div class="col-sm-4">
+            <div class="input-group">
+                <span class="input-group-addon"><span class="glyphicon glyphicon-dashboard"></span></span>
+                <input type="text" id="width" value="<%- width %>" class="form-control" placeholder="Width">
+            </div>
+            <span class="help-block"></span>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label for="height" class="col-sm-2 control-label">Height</label>
+        <div class="col-sm-4">
+            <div class="input-group">
+                <span class="input-group-addon"><span class="glyphicon glyphicon-dashboard"></span></span>
+                <input type="text" id="height" value="<%- height %>" class="form-control" placeholder="Height">
+            </div>
+            <span class="help-block"></span>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label for="canvas_width" class="col-sm-2 control-label">Canvas Width</label>
+        <div class="col-sm-4">
+            <div class="input-group">
+                <span class="input-group-addon"><span class="glyphicon glyphicon-dashboard"></span></span>
+                <input type="text" id="canvas_width" value="<%- canvas.width %>" class="form-control" placeholder="Canvas Width">
+            </div>
+            <span class="help-block"></span>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label for="canvas_height" class="col-sm-2 control-label">Canvas Height</label>
+        <div class="col-sm-4">
+            <div class="input-group">
+                <span class="input-group-addon"><span class="glyphicon glyphicon-dashboard"></span></span>
+                <input type="text" id="canvas_height" value="<%- canvas.height %>" class="form-control" placeholder="Canvas Height">
+            </div>
+            <span class="help-block"></span>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label for="component" class="col-sm-2 control-label">Components</label>
+        <div class="col-sm-4">
+            <div class="input-group">
+                <span class="input-group-addon"><span class="glyphicon glyphicon-dashboard"></span></span>
+                <input type="text" id="component" value="<%- components[0] %>" class="form-control" placeholder="Components">
+            </div>
+            <span class="help-block"></span>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label for="image_src" class="col-sm-2 control-label">Image</label>
+        <div class="col-sm-4">
+            <div class="input-group">
+                <span class="input-group-addon"><span class="glyphicon glyphicon-dashboard"></span></span>
+                <input type="text" id="image_src" value="<%- image.src %>" class="form-control" placeholder="Image">
+            </div>
+            <span class="help-block"></span>
+        </div>
+    </div>  
+    
+    <hr/>
+    
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <a id="back" href="#" class="btn btn-link"><span class="glyphicon glyphicon-circle-arrow-left"></span> Back</a>
+            <button id="submit" type="submit" class="btn btn-success">Send</button>
+        </div>
+    </div>    
+    
 </div>

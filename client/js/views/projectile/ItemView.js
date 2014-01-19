@@ -3,11 +3,15 @@ define([
     'underscore',
     'backbone',
     
+    'views/AlertView',
+    
     'text!templates/projectile/item.html'
 ], function (
     $,
     _,
     Backbone,
+     
+    AlertView,
 
     template
 ) {
@@ -36,11 +40,22 @@ define([
         
         destroy: function (e) {
             e.preventDefault();
+            
+            this.model.destroy({
+                success: function () {
+                    var view = new AlertView({ type: 'success', message: 'Conta deletada com sucesso!' });
+                    view.render();
+                },
+                error: function () {
+                    var view = new AlertView({ type: 'error', message: 'Erro ao deletar a conta!' });
+                    view.render();
+                }
+            });
         },
         
         goEdit: function (e) {
             e.preventDefault();
-            Backbone.history.navigate('conta/editar/' + this.model.get('id'), { trigger: true });
+            Backbone.history.navigate('projectile/edit/' + this.model.get('_id'), { trigger: true });
         },
         
         onClose: function() {

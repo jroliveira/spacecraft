@@ -16,9 +16,9 @@ define([
 
         el: $('article'),
 
-        initialize: function () {
-            this.type = this.options.type;
-            this.message = this.options.message;
+        initialize: function (options) {
+            this.type = options.type;
+            this.message = options.message;
 
             this.$el.find('div.alert').remove();
         },

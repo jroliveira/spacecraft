@@ -77,7 +77,7 @@ define([
         
         appRouter.on('route:editProjectile', function (id) {
             var self = this,
-                model = new Projectile({ id: id });
+                model = new Projectile({ _id: id });
             
             model.fetch({
                 success: function () {

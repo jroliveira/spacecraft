@@ -45,7 +45,7 @@ define([
         goBack: function (e) {
             e.preventDefault();
             this.close();
-            Backbone.history.navigate('contas', { trigger: true });
+            Backbone.history.navigate('projectiles', { trigger: true });
         },
 
         enter: function (e) {
@@ -55,23 +55,31 @@ define([
         submit: function (e) {
             e.preventDefault();
 
-            var account = {
-                id: this.model.get('id'),
-                name: $('#name').val(),
-                email: $('#email').val(),
-                password: $('#password').val(),
-                confirmPassword: $('#confirmPassword').val()
+            var projectile = {
+                type: $('#type').val(),
+                health: $('#health').val(),
+                damage: $('#damage').val(),
+                speed: $('#speed').val(),
+                width: $('#width').val(),
+                canvas: {
+                    width: $('#canvas_width').val(),
+                    height: $('#canvas_height').val()
+                },
+                components: [ $('#component').val() ],
+                image: {
+                    src: $('#image_src').val()
+                }
             };
 
-            this.model.save(account, {
+            this.model.save(projectile, {
                 success: function (model, response) {
-                    var view = new AlertView({ type: 'success', message: 'Conta salva com sucesso!' });
+                    var view = new AlertView({ type: 'success', message: 'Projectile successfully saved!' });
                     view.render();
 
                     $(':input').not(':button, :submit, :reset, :hidden').val('').removeAttr('checked').removeAttr('selected');
                 },
                 error: function (model, response) {
-                    var view = new AlertView({ type: 'error', message: 'Erro ao atualizar a conta!' });
+                    var view = new AlertView({ type: 'danger', message: 'Error updating the projectile!' });
                     view.render();
                 }
             });
@@ -81,9 +89,9 @@ define([
 
         showErrors: function (model, errors) {
             _.each(errors, function (error) {
-                var $controlGroup = $('#' + error.name).closest('.control-group');
-                $controlGroup.addClass('error');
-                $controlGroup.find('.help-inline').text(error.message);
+                var $formGroup = $('#' + error.name).closest('.form-group');
+                $formGroup.addClass('has-error');
+                $formGroup.find('.help-block').text(error.message);
             }, this);
         },
 
