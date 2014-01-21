@@ -16,7 +16,7 @@ define([
         }
     };
 
-    var initialize = function () {
+    var initialize = function () {        
         router.initialize();
     };
 

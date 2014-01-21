@@ -26,7 +26,7 @@ define([
             'click #create': 'goCreate'
         },
 
-        initialize: function () {
+        initialize: function () {            
             this.collection.bind("change reset add remove", this.renderItems, this);
         },
 

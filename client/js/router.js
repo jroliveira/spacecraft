@@ -42,16 +42,13 @@ define([
             '*actions': 'defaultAction'
         },
         
-        showView: function (selector, view) {
-            if (this.currentView) {
-                this.currentView.close();
-            }
+        showView: function (selector, view) {            
+            if (this.currentView) this.currentView.close();
 
             var container = view.render();
             $(selector).html(container.el);
-            this.currentView = view;
             
-            return view;
+            this.currentView = view;
         },
         
     });
