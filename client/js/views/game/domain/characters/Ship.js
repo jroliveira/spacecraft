@@ -28,9 +28,8 @@ define([
         $(document).on('left', $.proxy(this.toLeft, this));
         $(document).on('right', $.proxy(this.toRight, this));
 
-        $(document).on('space', $.proxy(this.shootBullets, this));
-        $(document).on('f', $.proxy(this.missileLaunch, this));
-        $(document).on('r', $.proxy(this.laserShooting, this));
+        $(document).on('space', $.proxy(this.firstLaunch, this));
+        $(document).on('f', $.proxy(this.secondLaunch, this));
     }
 
     Ship.prototype = new Character();
@@ -71,36 +70,24 @@ define([
 
     // Munitions
 
-    Ship.prototype.missileLaunch = function (event, pressed) {
+    Ship.prototype.firstLaunch = function (event, pressed) {
         if (!pressed) return;
 
         var self = this;
 
-        store.getBy('projectiles', 'missile', function (data) {
+        store.getBy('projectiles', this.config.projectiles.first, function (data) {
             var munition = new Projectile(data, self);
 
             $(self).trigger('shot', [munition]);
         });
     };
 
-    Ship.prototype.laserShooting = function (event, pressed) {
+    Ship.prototype.secondLaunch = function (event, pressed) {
         if (!pressed) return;
 
         var self = this;
 
-        store.getBy('projectiles', 'laser', function (data) {
-            var munition = new Projectile(data, self);
-
-            $(self).trigger('shot', [munition]);
-        });
-    };
-
-    Ship.prototype.shootBullets = function (event, pressed) {
-        if (!pressed) return;
-
-        var self = this;
-
-        store.getBy('projectiles', 'bullet', function (data) {
+        store.getBy('projectiles', this.config.projectiles.second, function (data) {
             var munition = new Projectile(data, self);
 
             $(self).trigger('shot', [munition]);
