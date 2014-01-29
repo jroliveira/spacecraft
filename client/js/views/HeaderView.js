@@ -13,10 +13,11 @@ define([
 
     var HeaderView = Backbone.View.extend({
 
-        className: 'navbar navbar-default',
+        className: 'navbar navbar-inverse',
 
         events: {
             'click #projectiles': 'goProjectiles',
+            'click #characters': 'goCharacters',
             'click #home': 'goHome',
             'click #game': 'goGame'
         },
@@ -30,6 +31,11 @@ define([
         goProjectiles: function (e) {
             e.preventDefault();
             Backbone.history.navigate('projectiles', { trigger: true });
+        },
+        
+        goCharacters: function (e) {
+            e.preventDefault();
+            Backbone.history.navigate('characters', { trigger: true });
         },
         
         goHome: function(e) {

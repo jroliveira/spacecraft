@@ -9,10 +9,14 @@ define([
     'views/game/GameView',
     'views/projectile/IndexView',
     'views/projectile/SaveView',
+    'views/character/IndexView',
+    'views/character/SaveView',
     
     'models/Projectile',
+    'models/Character',
     
-    'collections/Projectiles'
+    'collections/Projectiles',
+    'collections/Characters'
 ], function (
     $,
     Backbone,
@@ -24,10 +28,14 @@ define([
     GameView,
     ProjectileIndexView,
     ProjectileSaveView,
+    CharacterIndexView,
+    CharacterSaveView,
     
     Projectile,
+    Character,
     
-    Projectiles
+    Projectiles,
+    Characters
 ) {
 
     var AppRouter = Backbone.Router.extend({
@@ -36,6 +44,10 @@ define([
             'projectile/edit/:id': 'editProjectile',
             'projectile/create': 'createProjectile',
             'projectiles': 'listProjectile',
+            
+            'character/edit/:id': 'editCharacter',
+            'character/create': 'createCharacter',
+            'characters': 'listCharacter',
             
             'game': 'game',
 
@@ -98,6 +110,37 @@ define([
             collection.fetch({
                 success: function() {
                     var view = new ProjectileIndexView({ collection: collection });
+                    self.showView('article', view);
+                }
+            });
+        });
+        
+        appRouter.on('route:editCharacter', function (id) {
+            var self = this,
+                model = new Character({ _id: id });
+            
+            model.fetch({
+                success: function () {
+                    var view = new CharacterSaveView({ model: model });
+                    self.showView('article', view);
+                }
+            });
+        });
+        
+        appRouter.on('route:createCharacter', function () {
+            var model = new Character,
+                view = new CharacterSaveView({ model: model });
+            
+            this.showView('article', view);
+        });
+        
+        appRouter.on('route:listCharacter', function () {
+            var self = this,
+                collection = new Characters;
+            
+            collection.fetch({
+                success: function() {
+                    var view = new CharacterIndexView({ collection: collection });
                     self.showView('article', view);
                 }
             });

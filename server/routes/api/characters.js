@@ -1,43 +1,127 @@
 define([
-    'exports'
-], function (exports) {
+    'exports',
+    'mongoose',
+    
+    'server/entities/Character'
+], function (
+    exports, 
+    mongoose,
+     
+    Character
+) {
 
+    exports.all = function (req, res) {        
+        Character.find(function (err, characters) {
+            if (err) {
+                res.json(500, { error: err });
+                console.log(err);
+            } else {
+                res.json(200, characters);
+            }
+        });
+    };
+        
     exports.get = function (req, res) {
-        res.json([{
-            'type': 'Ship',
-
-            'health': 50,
-            'damage': 100,
-            'speed': { 'up': 2, 'left': 2, 'right': 2, 'down': 2 },
-
-            'timeNextMove': 5,
-
-            'components': ['Sprite', 'HealthBar'],
-            'image': { 'width': 43, 'height': 39, 'src': '../../client/img/characters/shipSprite.png' },
-
-            'width': 43 * 1.5,
-            'height': 39 * 1.5,
-            'canvas': { 'width': 1170, 'height': 600 },
-            'pos': { 'x': 1, 'y': 10 },
-            'sprite': { 'row': 0, 'col': 0 }
-        }, {
-            'type': 'Soldier',
-
-            'health': 50,
-            'damage': 100,
-            'speed': { 'up': 2, 'left': 2, 'right': 2, 'down': 2 },
-
-            'timeNextMove': 15,
-
-            'components': ['Sprite', 'HealthBar'],
-            'image': { 'width': 32, 'height': 32, 'src': '../../client/img/characters/soldierSprite.png' },
-
-            'width': 32 * 1.5,
-            'height': 32 * 1.5,
-            'canvas': { 'width': 1170, 'height': 600 },
-            'pos': { 'x': 1, 'y': 10 },
-            'sprite': { 'row': 0, 'col': 0 }
-        }]);
+        Character.findById(req.params._id, function (err, character) {
+            if (err) {
+                res.json(500, { error: err });
+                console.log(err);
+            } else {
+                res.json(200, character);
+            }
+        });
+    };
+        
+    exports.post = function (req, res) {
+        var model = req.body;
+        
+        var character = new Character({
+            type: model.type,
+            
+            health: model.health, 
+            damage: model.damage, 
+            speed: model.speed,
+            
+            timeNextMove: model.timeNextMove,
+            
+            projectiles: model.projectiles,
+            
+            components: model.components,
+            image: model.image,
+            
+            width: model.width,
+            height: model.height, 
+            canvas: model.canvas,
+            pos: model.pos,
+            sprite: model.sprite            
+        });
+        
+        character.save(function (err){
+            if (err) {
+                res.json(500, { error: err });
+                console.log(err);
+            } else {
+                res.json(201, character);
+            }
+        });
+    };
+        
+    exports.put = function (req, res) {
+        var model = req.body;
+        
+        Character.findById(req.params._id, function (err, character) {
+            if (err) {
+                res.json(500, { error: err });
+                console.log(err);
+            } else {
+                character.type = model.type;
+            
+                character.health = model.health;
+                character.damage = model.damage;
+                character.speed = model.speed;
+                
+                character.timeNextMove = model.timeNextMove;
+            
+                character.projectiles = model.projectiles;
+                
+                character.components = model.components;
+                character.image = model.image;
+                
+                character.width = model.width;
+                character.height = model.height;
+                character.canvas = model.canvas;
+                
+                character.pos = model.pos;
+                character.sprite = model.sprite;
+                
+                character.save(function (err){
+                    if (err) {
+                        res.json(500, { error: err });
+                        console.log(err);
+                    } else {
+                        res.json(200, character);
+                    }
+                });
+            }
+        });
+    };
+        
+    exports.delete = function (req, res) {
+        Character.findById(req.params._id, function (err, character) {
+            if (err) {
+                res.json(500, { error: err });
+                console.log(err);
+            } else {
+                character.remove(function (err){
+                    if (err) {
+                        res.json(500, { error: err });
+                        console.log(err);
+                    } else {
+                        res.json(204);
+                    }
+                });
+            }
+        });
     };
 
 });

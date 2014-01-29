@@ -59,6 +59,9 @@ define([
     app.get('/projectiles', home.index);
     app.get('/projectile/create', home.index);
     app.get('/projectile/edit/:id', home.index);
+    app.get('/characters', home.index);
+    app.get('/character/create', home.index);
+    app.get('/character/edit/:id', home.index);
         
     app.get('/setup', setup.index);
 
