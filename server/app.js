@@ -49,8 +49,13 @@ define([
     app.put('/api/projectiles/:_id', projectiles.put);
     app.del('/api/projectiles/:_id', projectiles.delete);
         
+    app.get('/api/characters', characters.all);
+    app.get('/api/characters/:_id', characters.get);
+    app.post('/api/characters', characters.post);
+    app.put('/api/characters/:_id', characters.put);
+    app.del('/api/characters/:_id', characters.delete);
+        
     app.get('/api/enemies', enemies.get);
-    app.get('/api/characters', characters.get);
     app.get('/api/entities', entities.get);
     
     // Pages
