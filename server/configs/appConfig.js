@@ -36,7 +36,9 @@ define([
     var appConfig = function (app) {
 
         app.configure(function () {
-            app.use(express.bodyParser());
+            app.use(express.json());
+            app.use(express.urlencoded());
+            
             app.engine('html', swig.renderFile);
             app.set('views', path.join(dirname, '/../../client/views'));
             app.set('view cache', false);
