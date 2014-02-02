@@ -32,43 +32,57 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a id="home" class="navbar-brand" href="/">spacecraft</a>
-                    </div>
-                    <div class="navbar-collapse collapse">
-                        <ul class="nav navbar-nav">
-                            <li><a id="game" href="/game"><span class="glyphicon glyphicon-plane"></span> Game</a></li>
-                        </ul>
+                        <a id="home" class="navbar-brand" href="#">spacecraft</a>
                     </div>
                 </div>
             </header>
             <article>
-                <div class="row vertical-offset-100">
-                    <div class="col-md-4 col-md-offset-4">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Please sign in</h3>
+                {% if (message) != '' %}
+                    <div class="alert alert-danger">
+                        <button data-dismiss="alert" class="close" type="button">x</button>
+                        {{ message }}
+                    </div>
+                {% endif %}
+                
+                <h4>
+                    <span class="text-danger">spacecraft</span> <small>login</small>
+                </h4>
+                
+                <hr />
+                
+                <form action="/login" method="post" class="form-horizontal">
+                    
+                    <div class="form-group">
+                        <label for="email" class="col-sm-2 control-label">E-mail</label>
+                        <div class="col-sm-4">
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
+                                <input type="text" name="email" class="form-control" placeholder="E-mail">
                             </div>
-                            <div class="panel-body">
-                                <form action="/login" method="post">
-                                    <fieldset>
-                                        <div class="form-group">
-                                            <input class="form-control" placeholder="E-mail" name="email" type="text">
-                                        </div>
-                                        <div class="form-group">
-                                            <input class="form-control" placeholder="Password" name="password" type="password" value="">
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input name="remember" type="checkbox" value="Remember Me"> Remember Me
-                                            </label>
-                                        </div>
-                                        <button class="btn btn-lg btn-success btn-block" type="submit">Login</button>
-                                    </fieldset>
-                                </form>
-                            </div>
+                            <span class="help-block"></span>
                         </div>
                     </div>
-                </div>
+                    
+                    <div class="form-group">
+                        <label for="password" class="col-sm-2 control-label">Password</label>
+                        <div class="col-sm-4">
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                                <input type="password" name="password" class="form-control" placeholder="Password">
+                            </div>
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    
+                    <hr/>
+    
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button id="submit" type="submit" class="btn btn-success"><span class="glyphicon glyphicon-ok-sign"></span>&nbsp; login</button>
+                        </div>
+                    </div>
+                    
+                </form>
             </article>
         </div>
         <div id="push"></div>

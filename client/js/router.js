@@ -54,7 +54,10 @@ define([
             '*actions': 'defaultAction'
         },
         
-        showView: function (selector, view) {            
+        showView: function (selector, view, menu) {  
+            $('.nav > li.active').removeClass('active');
+            $('#' + menu).parent().addClass('active');
+            
             if (this.currentView) this.currentView.close();
 
             var container = view.render();
@@ -74,12 +77,12 @@ define([
         
         appRouter.on('route:defaultAction', function () {
             var view = new HomeIndexView;
-            this.showView('article', view);
+            this.showView('article', view, '');
         });
         
         appRouter.on('route:game', function () {
             var view = new GameView;
-            this.showView('article', view);
+            this.showView('article', view, 'game');
             
             game.initialize();
         });
@@ -91,7 +94,7 @@ define([
             model.fetch({
                 success: function () {
                     var view = new ProjectileSaveView({ model: model });
-                    self.showView('article', view);
+                    self.showView('article', view, 'projectiles');
                 }
             });
         });
@@ -100,7 +103,7 @@ define([
             var model = new Projectile,
                 view = new ProjectileSaveView({ model: model });
             
-            this.showView('article', view);
+            this.showView('article', view, 'projectiles');
         });
         
         appRouter.on('route:listProjectile', function () {
@@ -110,7 +113,7 @@ define([
             collection.fetch({
                 success: function() {
                     var view = new ProjectileIndexView({ collection: collection });
-                    self.showView('article', view);
+                    self.showView('article', view, 'projectiles');
                 }
             });
         });
@@ -122,7 +125,7 @@ define([
             model.fetch({
                 success: function () {
                     var view = new CharacterSaveView({ model: model });
-                    self.showView('article', view);
+                    self.showView('article', view, 'projectiles');
                 }
             });
         });
@@ -131,7 +134,7 @@ define([
             var model = new Character,
                 view = new CharacterSaveView({ model: model });
             
-            this.showView('article', view);
+            this.showView('article', view, 'characters');
         });
         
         appRouter.on('route:listCharacter', function () {
@@ -141,7 +144,7 @@ define([
             collection.fetch({
                 success: function() {
                     var view = new CharacterIndexView({ collection: collection });
-                    self.showView('article', view);
+                    self.showView('article', view, 'characters');
                 }
             });
         });

@@ -23,7 +23,13 @@ define([
         },
 
         render: function () {
-            this.$el.html(template);
+            var self = this;
+            $.getJSON('api/accounts', function (data) {
+                var data = { user: data },
+                compilatedTemplate = _.template(template, data);
+                
+                self.$el.html(compilatedTemplate);
+            });
             
             return this;
         },

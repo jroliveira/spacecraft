@@ -2,14 +2,16 @@ define([
     'exports',
     'mongoose',
     
-    'server/entities/Projectile',
-    'server/entities/Character'
+    'server/models/Projectile',
+    'server/models/Character',
+    'server/models/Account'
 ], function (
     exports,
     mongoose,
      
     Projectile,
-    Character
+    Character,
+    Account
 ) {
     
     exports.index = function(req, res) {
@@ -54,6 +56,10 @@ define([
             })
         ];
         
+        var account = new Account();
+        account.email = 'junolive@gmail.com';
+        account.password = account.generateHash('legal');
+        
         Projectile.remove({}, function (err) {
             projectiles.forEach(function (projectile) {                
                 projectile.save(); 
@@ -64,7 +70,11 @@ define([
                     character.save(); 
                 });
                 
-                res.render('setup/index.html');
+                Account.remove({}, function(err) {
+                    account.save();
+                    
+                    res.render('setup/index.html');
+                });
             });
         });
 

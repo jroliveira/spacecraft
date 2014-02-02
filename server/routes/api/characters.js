@@ -2,7 +2,7 @@ define([
     'exports',
     'mongoose',
     
-    'server/entities/Character'
+    'server/models/Character'
 ], function (
     exports, 
     mongoose,
