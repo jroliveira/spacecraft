@@ -75,10 +75,10 @@ define([
     Main.prototype.insertComponent = function (event, entity) {
         var self = this;
 
-        _.each(entity.config.components, function (name) {
-            var type = eval(name);
+        _.each(entity.config.components, function (config) {
+            var type = eval(config.type);
 
-            var component = new type(entity, self.context);
+            var component = new type(config, entity, self.context);
 
             self.components.push(component);
         });

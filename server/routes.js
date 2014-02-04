@@ -60,7 +60,7 @@ define([
         app.get('/character/create', authorize, home.index);
         app.get('/character/edit/:id', authorize, home.index);
         
-        app.get('/setup', authorize, setup.index);        
+        app.get('/setup', authorize, setup.index);
         
         app.get('/game', authorize, home.index);
         

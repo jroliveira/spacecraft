@@ -10,9 +10,9 @@ define([
 
     // Component
 
-    ParallaxOneConfig.components = [ImgContinuous];
-
-    ParallaxOneConfig.image = { src: '../../client/img/parallax/parallax1.png' };
+    ParallaxOneConfig.components = [
+        { type: ImgContinuous, src: '../../client/img/parallax/parallax1.png' }
+    ];
 
     // Config
 

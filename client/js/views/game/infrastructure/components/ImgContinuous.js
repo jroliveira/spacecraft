@@ -4,7 +4,7 @@ define([
     'views/game/infrastructure/components/Component'
 ], function ($, Component) {
 
-    function ImgContinuous(entity, context) {
+    function ImgContinuous(config, entity, context) {
         this.entity = entity;
         this.context = context;
 
@@ -16,7 +16,7 @@ define([
         this.image.onload = function () {
             self.loaded = true;
         };
-        this.image.src = entity.config.image.src;
+        this.image.src = config.src;
     }
 
     ImgContinuous.prototype = new Component();

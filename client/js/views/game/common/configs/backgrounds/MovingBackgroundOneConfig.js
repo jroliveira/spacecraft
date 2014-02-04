@@ -10,9 +10,9 @@ define([
     
     // Component
 
-    MovingBackgroundOneConfig.components = [ImgContinuous];
-
-    MovingBackgroundOneConfig.image = { src: '../../client/img/backgrounds/background1.png' };
+    MovingBackgroundOneConfig.components = [
+        { type: ImgContinuous, src: '../../client/img/backgrounds/background1.png' }
+    ];
 
     // Config
 

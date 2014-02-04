@@ -6,8 +6,9 @@ define([
         res.json([{
             'type': 'starbase',
 
-            'components': ['Img'],
-            'image': { 'src': '../../client/img/starbase.png' },
+            'components': [
+                { 'type': 'Img', 'src': '../../client/img/starbase.png' }
+            ],
 
             'width': 250,
             'height': 140,

@@ -25,12 +25,7 @@ define([
             second: String
         },
         
-        components: [String],
-        image: {
-            width: Number,
-            height: Number,
-            src: String
-        },
+        components: [mongoose.Schema.Types.Mixed],
         
         width: { type: Number, min: 1, required: true },
         height: { type: Number, min: 1, required: true },

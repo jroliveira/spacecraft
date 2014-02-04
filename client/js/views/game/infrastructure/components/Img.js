@@ -4,7 +4,7 @@ define([
     'views/game/infrastructure/components/Component'
 ], function ($, Component) {
 
-    function Img(entity, context) {
+    function Img(config, entity, context) {
         this.entity = entity;
         this.context = context;
 
@@ -16,7 +16,7 @@ define([
         this.image.onload = function () {
             self.loaded = true;
         };
-        this.image.src = entity.config.image.src;
+        this.image.src = config.src;
     }
 
     Img.prototype = new Component();

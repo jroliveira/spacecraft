@@ -10,8 +10,10 @@ define([
             'damage': 20,
             'speed': 1.5,
 
-            'components': ['Img', 'HealthBar'],
-            'image': { 'src': '../../client/img/enemies/asteroid.png' },
+            'components': [
+                { 'type': 'Img', 'src': '../../client/img/enemies/asteroid.png' },
+                { 'type': 'HealthBar' }
+            ],
 
             'width': 95,
             'height': 93,

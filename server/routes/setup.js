@@ -20,19 +20,25 @@ define([
             new Projectile({
                 type: 'bullet',
                 health: 1, damage: 3, speed: 3,
-                components: ['Img'], image: { src: '../../client/img/projectiles/bullet.png' },
+                components: [
+                    { type: 'Img', src: '../../client/img/projectiles/bullet.png' }
+                ],
                 width: 9, height: 8, canvas: { width: 1170, height: 600 }
             }), 
             new Projectile({
                 type: 'laser',
                 health: 1, damage: 10, speed: 7,
-                components: ['Img'], image: { src: '../../client/img/projectiles/laser.png' },
+                components: [
+                    { type: 'Img', src: '../../client/img/projectiles/laser.png' }
+                ],
                 width: 39, height: 17, canvas: { width: 1170, height: 600 }
             }), 
             new Projectile({
                 type: 'missile',
                 health: 1, damage: 5, speed: 5,
-                components: ['Img'], image: { src: '../../client/img/projectiles/missile.png' },
+                components: [
+                    { type: 'Img', src: '../../client/img/projectiles/missile.png' }
+                ],
                 width: 51, height: 10, canvas: { width: 1170, height: 600 }
             })
         ];
@@ -43,7 +49,10 @@ define([
                 health: 50, damage: 100, speed: { up: 2, left: 2, right: 2, down: 2 },
                 timeNextMove: 5,
                 projectiles: { first: 'bullet', second: 'missile' },
-                components: ['Sprite', 'HealthBar'], image: { width: 43, height: 39, src: '../../client/img/characters/shipSprite.png' },
+                components: [
+                    { type: 'Sprite', src: '../../client/img/characters/shipSprite.png', width: 43, height: 39 },
+                    { type: 'HealthBar' }
+                ],
                 width: 43 * 1.5, height: 39 * 1.5, canvas: { width: 1170, height: 600 }, pos: { x: 1, y: 10 }, sprite: { row: 0, col: 0 }
             }),
             new Character({
@@ -51,7 +60,10 @@ define([
                 health: 50, damage: 100, speed: { up: 2, left: 2, right: 2, down: 2 },
                 timeNextMove: 15,
                 projectiles: { first: 'bullet', second: 'missile' },
-                components: ['Sprite', 'HealthBar'], image: { width: 32, height: 32, src: '../../client/img/characters/soldierSprite.png' },
+                components: [
+                    { type: 'Sprite', src: '../../client/img/characters/soldierSprite.png', width: 32, height: 32 }, 
+                    { type: 'HealthBar' }
+                ],
                 width: 32 * 1.5, height: 32 * 1.5, canvas: { width: 1170, height: 600 }, pos: { x: 1, y: 10 }, sprite: { row: 0, col: 0 }
             })
         ];

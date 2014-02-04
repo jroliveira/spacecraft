@@ -13,10 +13,7 @@ define([
         damage: { type: Number, min: 1, required: true },
         speed: { type: Number, min: 1, required: true },
         
-        components: [String],
-        image: { 
-            src: String
-        },
+        components: [mongoose.Schema.Types.Mixed],
         
         width: { type: Number, min: 1, required: true },
         height: { type: Number, min: 1, required: true },

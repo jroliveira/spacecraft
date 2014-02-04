@@ -2,7 +2,7 @@ define([
     'views/game/infrastructure/components/Component'
 ], function (Component) {
 
-    function HealthBar(entity, context) {
+    function HealthBar(config, entity, context) {
         this.entity = entity;
 
         this.context = context;
