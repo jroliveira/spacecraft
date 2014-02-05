@@ -1,8 +1,16 @@
 define([
     'jquery',
+    
+    'views/game/infrastructure/ImageLoader',
 
     'views/game/infrastructure/components/Component'
-], function ($, Component) {
+], function (
+    $, 
+     
+    imageLoader,
+     
+    Component
+) {
 
     function ImgContinuous(config, entity, context) {
         this.entity = entity;
@@ -16,7 +24,10 @@ define([
         this.image.onload = function () {
             self.loaded = true;
         };
-        this.image.src = config.src;
+        
+        imageLoader.load(config.src, function(base64) {
+            self.image.src = base64;
+        });
     }
 
     ImgContinuous.prototype = new Component();

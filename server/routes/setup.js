@@ -21,7 +21,7 @@ define([
                 type: 'bullet',
                 health: 1, damage: 3, speed: 3,
                 components: [
-                    { type: 'Img', src: '../../client/img/projectiles/bullet.png' }
+                    { type: 'Img', src: 'projectiles_bullet.png' }
                 ],
                 width: 9, height: 8, canvas: { width: 1170, height: 600 }
             }), 
@@ -29,7 +29,7 @@ define([
                 type: 'laser',
                 health: 1, damage: 10, speed: 7,
                 components: [
-                    { type: 'Img', src: '../../client/img/projectiles/laser.png' }
+                    { type: 'Img', src: 'projectiles_laser.png' }
                 ],
                 width: 39, height: 17, canvas: { width: 1170, height: 600 }
             }), 
@@ -37,7 +37,7 @@ define([
                 type: 'missile',
                 health: 1, damage: 5, speed: 5,
                 components: [
-                    { type: 'Img', src: '../../client/img/projectiles/missile.png' }
+                    { type: 'Img', src: 'projectiles_missile.png' }
                 ],
                 width: 51, height: 10, canvas: { width: 1170, height: 600 }
             })
@@ -50,7 +50,7 @@ define([
                 timeNextMove: 5,
                 projectiles: { first: 'bullet', second: 'missile' },
                 components: [
-                    { type: 'Sprite', src: '../../client/img/characters/shipSprite.png', width: 43, height: 39 },
+                    { type: 'Sprite', src: 'characters_shipSprite.png', width: 43, height: 39 },
                     { type: 'HealthBar' }
                 ],
                 width: 43 * 1.5, height: 39 * 1.5, canvas: { width: 1170, height: 600 }, pos: { x: 1, y: 10 }, sprite: { row: 0, col: 0 }
@@ -61,7 +61,7 @@ define([
                 timeNextMove: 15,
                 projectiles: { first: 'bullet', second: 'missile' },
                 components: [
-                    { type: 'Sprite', src: '../../client/img/characters/soldierSprite.png', width: 32, height: 32 }, 
+                    { type: 'Sprite', src: 'characters_soldierSprite.png', width: 32, height: 32 }, 
                     { type: 'HealthBar' }
                 ],
                 width: 32 * 1.5, height: 32 * 1.5, canvas: { width: 1170, height: 600 }, pos: { x: 1, y: 10 }, sprite: { row: 0, col: 0 }

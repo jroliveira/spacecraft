@@ -11,7 +11,7 @@ define([
     // Component
 
     ParallaxTwoConfig.components = [
-        { type: ImgContinuous, src: '../../client/img/parallax/parallax2.png' }
+        { type: ImgContinuous, src: 'parallax_parallax2.png' }
     ];
 
     // Config

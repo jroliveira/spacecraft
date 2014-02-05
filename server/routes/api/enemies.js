@@ -11,7 +11,7 @@ define([
             'speed': 1.5,
 
             'components': [
-                { 'type': 'Img', 'src': '../../client/img/enemies/asteroid.png' },
+                { 'type': 'Img', 'src': 'enemies_asteroid.png' },
                 { 'type': 'HealthBar' }
             ],
 

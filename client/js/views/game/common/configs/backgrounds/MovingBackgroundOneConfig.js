@@ -11,7 +11,7 @@ define([
     // Component
 
     MovingBackgroundOneConfig.components = [
-        { type: ImgContinuous, src: '../../client/img/backgrounds/background1.png' }
+        { type: ImgContinuous, src: 'backgrounds_background1.png' }
     ];
 
     // Config

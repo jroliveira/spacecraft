@@ -22,7 +22,8 @@ define([
                 loadSettings.projectiles(this.session),
                 loadSettings.enemies(this.session),
                 loadSettings.characters(this.session),
-                loadSettings.entities(this.session)
+                loadSettings.entities(this.session),
+                loadSettings.images()
             
             ).then(function () {
                 
@@ -34,6 +35,8 @@ define([
         },
 
         initialize: function () {
+            var defer = $.Deferred();
+            
             var self = this;
 
             this.session = null;
@@ -61,8 +64,19 @@ define([
             }).done(function (s) {
                 self.session = s;
 
-                self.configure();
+                $.when(
+                
+                    self.configure()
+                
+                ).then(function () {
+                    
+                    defer.resolve();
+                    
+                });                
+                
             });
+            
+            return defer.promise();
         },
 
         getBy: function (table, value, onsuccess) {

@@ -8,6 +8,7 @@ define([
     'server/routes/api/characters',
     'server/routes/api/entities',
     'server/routes/api/accounts',
+    'server/routes/api/images',
      
     'server/routes/home',
     'server/routes/setup',
@@ -23,6 +24,7 @@ define([
     characters,
     entities,
     accounts,
+    images,
      
     home,
     setup,
@@ -50,6 +52,8 @@ define([
         app.get('/api/entities', entities.get);
         
         app.get('/api/accounts', accounts.logged);
+        
+        app.get('/api/images/:image', images.base64);
         
         // Pages
         app.get('/projectiles', authorize, home.index);

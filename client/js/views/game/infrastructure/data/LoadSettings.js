@@ -1,7 +1,14 @@
 define([
     'jquery',
-    'underscore'
-], function ($, _) {
+    'underscore',
+    
+    'views/game/infrastructure/ImageLoader'
+], function (
+    $, 
+    _,
+     
+    imageLoader
+) {
 
     return {
 
@@ -68,6 +75,24 @@ define([
                 
                     defer.resolve();
                 });
+            });
+            
+            return defer.promise();
+        },
+        
+        images: function() {
+            var defer = $.Deferred();
+            
+            $.when(
+                
+                imageLoader.load('backgrounds_background1.png', function(base64) { }),
+                imageLoader.load('parallax_parallax1.png', function(base64) { }),
+                imageLoader.load('parallax_parallax2.png', function(base64) { })
+            
+            ).then(function () {
+                
+                defer.resolve();
+                
             });
             
             return defer.promise();

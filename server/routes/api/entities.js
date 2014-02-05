@@ -7,7 +7,7 @@ define([
             'type': 'starbase',
 
             'components': [
-                { 'type': 'Img', 'src': '../../client/img/starbase.png' }
+                { 'type': 'Img', 'src': 'starbase.png' }
             ],
 
             'width': 250,
