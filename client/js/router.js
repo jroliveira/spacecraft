@@ -71,7 +71,7 @@ define([
     var initialize = function () {
         
         this.headerView = new HeaderView;
-        $('header').html(this.headerView.render().el);
+        this.headerView.render();
         
         var appRouter = new AppRouter;
         

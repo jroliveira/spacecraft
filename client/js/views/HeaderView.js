@@ -13,7 +13,7 @@ define([
 
     var HeaderView = Backbone.View.extend({
 
-        className: 'navbar navbar-inverse',
+        el: $('.navbar-collapse.collapse'),
 
         events: {
             'click #projectiles': 'goProjectiles',
