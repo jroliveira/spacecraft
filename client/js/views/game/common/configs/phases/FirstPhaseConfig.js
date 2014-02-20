@@ -1,12 +1,4 @@
-define([
-    'views/game/common/configs/effects/ParallaxOneConfig',
-    'views/game/common/configs/effects/ParallaxTwoConfig',
-    'views/game/common/effects/Parallax'
-], function (
-    ParallaxOneConfig,
-    ParallaxTwoConfig,
-    Parallax
-) {
+define([], function () {
 
     function FirstPhaseConfig() { }
 
@@ -15,8 +7,8 @@ define([
     FirstPhaseConfig.phase = { config: 'oneMoving' };
 
     FirstPhaseConfig.entities = {
-        effect01: { type: Parallax, config: ParallaxOneConfig },
-        effect02: { type: Parallax, config: ParallaxTwoConfig }
+        effect01: { config: 'one' },
+        effect02: { config: 'two' }
     };
 
     return FirstPhaseConfig;

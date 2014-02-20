@@ -94,6 +94,20 @@ define([
             return defer.promise();
         },
         
+        effects: function (session) {
+            var defer = $.Deferred();
+            
+            this.load('/api/effects', function (obj) {
+                session.effects.clear().done(function() {
+                    session.effects.add(obj);
+                
+                    defer.resolve();
+                });
+            });
+            
+            return defer.promise();
+        },
+        
         images: function() {
             var defer = $.Deferred();
             

@@ -1,12 +1,20 @@
 define([
     'jquery',
     'underscore',
+    
+    'views/game/infrastructure/data/Store',
+    
+    'views/game/common/effects/Parallax',
 
     'views/game/domain/Entity',
     'views/game/domain/Living'
 ], function (
     $,
     _,
+     
+    store,
+     
+    Parallax,
     
     Entity,
     Living
@@ -21,7 +29,10 @@ define([
 
         this.insertEntity(this.phase);
         _.each(this.config.entities, function (entity) {
-            self.insertEntity(new entity.type(entity.config));
+            store.getBy('effects', entity.config, function (data) {
+                var type = eval(data.type);
+                self.insertEntity(new type(data));
+            });
         });
 
         this.insertEntity(this.character);
