@@ -23,7 +23,8 @@ define([
                 loadSettings.enemies(this.session),
                 loadSettings.characters(this.session),
                 loadSettings.entities(this.session),
-                loadSettings.images()
+                loadSettings.backgrounds(this.session),
+                loadSettings.images()                
             
             ).then(function () {
                 
@@ -43,7 +44,7 @@ define([
 
             db.open({
                 server: 'spacecraft',
-                version: 15,
+                version: 16,
                 schema: {
                     projectiles: {
                         key: { keyPath: 'type', autoIncrement: false }
@@ -59,6 +60,10 @@ define([
 
                     entities: {
                         key: { keyPath: 'type', autoIncrement: false }
+                    },
+                    
+                    backgrounds: {
+                        key: { keyPath: 'name', autoIncrement: false }
                     }
                 }
             }).done(function (s) {

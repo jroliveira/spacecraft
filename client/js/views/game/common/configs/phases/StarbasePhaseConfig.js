@@ -1,16 +1,10 @@
-define([
-    'views/game/common/configs/backgrounds/BackgroundOneConfig',
-    'views/game/common/backgrounds/Background'
-], function (
-    BackgroundOneConfig,
-    Background
-) {
+define([], function () {
 
     function StarbasePhaseConfig() { }
 
     StarbasePhaseConfig.character = { type: 'Soldier' };
     
-    StarbasePhaseConfig.phase = { type: Background, config: BackgroundOneConfig };
+    StarbasePhaseConfig.phase = { config: 'one' };
 
     StarbasePhaseConfig.entities = null;
 

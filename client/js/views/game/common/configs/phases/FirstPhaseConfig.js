@@ -1,14 +1,10 @@
 define([
     'views/game/common/configs/effects/ParallaxOneConfig',
     'views/game/common/configs/effects/ParallaxTwoConfig',
-    'views/game/common/configs/backgrounds/MovingBackgroundOneConfig',
-    'views/game/common/backgrounds/MovingBackground',
     'views/game/common/effects/Parallax'
 ], function (
     ParallaxOneConfig,
     ParallaxTwoConfig,
-    MovingBackgroundOneConfig,
-    MovingBackground,
     Parallax
 ) {
 
@@ -16,7 +12,7 @@ define([
 
     FirstPhaseConfig.character = { type: 'Ship' };
 
-    FirstPhaseConfig.phase = { type: MovingBackground, config: MovingBackgroundOneConfig };
+    FirstPhaseConfig.phase = { config: 'oneMoving' };
 
     FirstPhaseConfig.entities = {
         effect01: { type: Parallax, config: ParallaxOneConfig },

@@ -3,6 +3,8 @@ define([
     'underscore',
     
     'views/game/infrastructure/data/Store',
+    
+    'views/game/common/backgrounds/Background',
 
     'views/game/domain/phases/Phase',
     'views/game/domain/characters/Soldier'
@@ -11,6 +13,8 @@ define([
     _,
     
     store,
+     
+    Background,
 
     Phase,
     Soldier
@@ -23,14 +27,24 @@ define([
         
         var self = this;
 
-        store.getBy('characters', config.character.type, function (data) {
-            var type = eval(data.type);
-            self.character = new type(data);
-
+        $.when(
+        
+            store.getBy('characters', config.character.type, function (data) {
+                var type = eval(data.type);
+                self.character = new type(data);
+            }),
+            
+            store.getBy('backgrounds', config.phase.config, function(data) {
+                var type = eval(data.type);
+                self.phase = new type(data);
+            })
+            
+        ).then(function () {
+            
             defer.resolve();
+            
         });
 
-        this.phase = new config.phase.type(config.phase.config);
         this.entities = [];
     }
 

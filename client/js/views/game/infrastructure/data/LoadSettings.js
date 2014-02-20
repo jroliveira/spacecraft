@@ -80,6 +80,20 @@ define([
             return defer.promise();
         },
         
+        backgrounds: function (session) {
+            var defer = $.Deferred();
+            
+            this.load('/api/backgrounds', function (obj) {
+                session.backgrounds.clear().done(function() {
+                    session.backgrounds.add(obj);
+                
+                    defer.resolve();
+                });
+            });
+            
+            return defer.promise();
+        },
+        
         images: function() {
             var defer = $.Deferred();
             

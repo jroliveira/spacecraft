@@ -9,6 +9,7 @@ define([
     'server/routes/api/entities',
     'server/routes/api/accounts',
     'server/routes/api/images',
+    'server/routes/api/backgrounds',
      
     'server/routes/home',
     'server/routes/setup',
@@ -25,6 +26,7 @@ define([
     entities,
     accounts,
     images,
+    backgrounds,
      
     home,
     setup,
@@ -50,6 +52,7 @@ define([
     
         app.get('/api/enemies', enemies.get);
         app.get('/api/entities', entities.get);
+        app.get('/api/backgrounds', backgrounds.get);
         
         app.get('/api/accounts', accounts.logged);
         

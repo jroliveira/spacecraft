@@ -4,6 +4,7 @@ define([
     'wait',
 
     'views/game/infrastructure/components/Img',
+    'views/game/infrastructure/components/ImgContinuous',
     'views/game/infrastructure/components/HealthBar',
     'views/game/infrastructure/components/Sprite',
     
@@ -19,6 +20,7 @@ define([
     wait,
     
     Img,
+    ImgContinuous,
     HealthBar,
     Sprite,
     
