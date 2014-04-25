@@ -5,9 +5,6 @@ define([
     'views/game/infrastructure/inputs/Keyboard',
     'views/game/infrastructure/data/Store',
 
-    'views/game/common/configs/scenarios/StartConfig',
-    'views/game/common/configs/scenarios/LoadingConfig',
-
     'views/game/domain/scenarios/Loading',
     'views/game/domain/scenarios/Start'
 ], function (
@@ -16,9 +13,6 @@ define([
     
     Keyboard,
     store,
-
-    StartConfig,
-    LoadingConfig,
 
     Loading,
     Start
@@ -38,23 +32,49 @@ define([
         initialize: function () {
             $(document).on('changeScenario', this.changeScenario);
 
-            var self = this,
+            var startConfig,
+                loadingConfig,
+                self = this,
                 context = ($('canvas'))[0].getContext('2d'),
                 input = new Keyboard();
             
             input.bind();
-            this.changeScenario(null, new Loading(context, LoadingConfig));
             
-            scenarioLoop();
-
             $.when(
-                
-                $.wait(3000),
-                store.initialize()
+
+                store.initialize()                
 
             ).then(function () {
 
-                self.changeScenario(null, new Start(context, StartConfig));
+                $.when(
+                    
+                    $.wait(10),
+                
+                    store.getBy('scenarios', 'loading', function (data) {
+                        loadingConfig = data;
+                    }),
+                    
+                    store.getBy('scenarios', 'start', function (data) {
+                        startConfig = data;
+                    })
+
+                ).then(function () {
+
+                    self.changeScenario(null, new Loading(context, loadingConfig));
+                    
+                    scenarioLoop();
+
+                    $.when(
+
+                        $.wait(3000)
+
+                    ).then(function () {
+
+                        self.changeScenario(null, new Start(context, startConfig));
+
+                    });
+
+                });
                 
             });
         },

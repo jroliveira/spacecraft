@@ -108,6 +108,34 @@ define([
             return defer.promise();
         },
         
+        phases: function (session) {
+            var defer = $.Deferred();
+            
+            this.load('/api/phases', function (obj) {
+                session.phases.clear().done(function() {
+                    session.phases.add(obj);
+                
+                    defer.resolve();
+                });
+            });
+            
+            return defer.promise();
+        },
+        
+        scenarios: function (session) {
+            var defer = $.Deferred();
+            
+            this.load('/api/scenarios', function (obj) {
+                session.scenarios.clear().done(function() {
+                    session.scenarios.add(obj);
+                
+                    defer.resolve();
+                });
+            });
+            
+            return defer.promise();
+        },
+        
         images: function() {
             var defer = $.Deferred();
             
@@ -115,7 +143,13 @@ define([
                 
                 imageLoader.load('backgrounds_background1.png', function(base64) { }),
                 imageLoader.load('parallax_parallax1.png', function(base64) { }),
-                imageLoader.load('parallax_parallax2.png', function(base64) { })
+                imageLoader.load('parallax_parallax2.png', function(base64) { }),
+                imageLoader.load('characters_shipSprite.png', function(base64) { }),
+                imageLoader.load('characters_soldierSprite.png', function(base64) { }),
+                imageLoader.load('enemies_asteroid.png', function(base64) { }),
+                imageLoader.load('projectiles_bullet.png', function(base64) { }),
+                imageLoader.load('projectiles_laser.png', function(base64) { }),
+                imageLoader.load('projectiles_missile.png', function(base64) { })
             
             ).then(function () {
                 

@@ -2,11 +2,10 @@ define([
     'jquery',
     'underscore',
     'wait',
+    
+    'views/game/infrastructure/data/Store',
 
     'views/game/infrastructure/components/Text',
-    
-    'views/game/common/configs/scenarios/MainConfig',
-    'views/game/common/configs/phases/FirstPhaseConfig',
 
     'views/game/domain/scenarios/Scenario',
     'views/game/domain/scenarios/Main',
@@ -15,11 +14,10 @@ define([
     $,
     _,
     wait,
+     
+    store,
 
     Text,
-    
-    MainConfig,
-    FirstPhaseConfig,
 
     Scenario,
     Main,
@@ -47,17 +45,24 @@ define([
         if (!pressed) return;
 
         var phase,
+            mainConfig,
             self = this;
         
         $.when(
             
             $.wait(1000),
-            phase = new FirstPhase(FirstPhaseConfig)
-        
+            
+            store.getBy('phases', 'first', function (data) {
+                phase = new FirstPhase(data);
+            }),
+            
+            store.getBy('scenarios', 'main', function (data) {
+                mainConfig = data;
+            })
         
         ).then(function () {
             
-            var scenario = new Main(self.context, MainConfig, phase);
+            var scenario = new Main(self.context, mainConfig, phase);
             $(document).trigger('changeScenario', [scenario]);
             
         });

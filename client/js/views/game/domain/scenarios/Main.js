@@ -2,14 +2,13 @@ define([
     'jquery',
     'underscore',
     'wait',
+    
+    'views/game/infrastructure/data/Store',
 
     'views/game/infrastructure/components/Img',
     'views/game/infrastructure/components/ImgContinuous',
     'views/game/infrastructure/components/HealthBar',
     'views/game/infrastructure/components/Sprite',
-    
-    'views/game/common/configs/scenarios/MainConfig',
-    'views/game/common/configs/phases/StarbasePhaseConfig',
         
     'views/game/domain/scenarios/Scenario',
     'views/game/domain/scenarios/Main',
@@ -18,14 +17,13 @@ define([
     $,
     _,
     wait,
+     
+    store,
     
     Img,
     ImgContinuous,
     HealthBar,
     Sprite,
-    
-    MainConfig,
-    StarbasePhaseConfig,
     
     Scenario,
     Main,
@@ -56,17 +54,24 @@ define([
     
     Main.prototype.changeScenario = function (event) {
         var phase,
+            mainConfig,
             self = this;
 
         $.when(
 
             $.wait(1000),
-            phase = new StarbasePhase(StarbasePhaseConfig)
-
+            
+            store.getBy('phases', 'starbase', function (data) {
+                phase = new StarbasePhase(data);
+            }),
+            
+            store.getBy('scenarios', 'main', function (data) {
+                mainConfig = data;
+            })
 
         ).then(function () {
 
-            var scenario = new Main(self.context, MainConfig, phase);
+            var scenario = new Main(self.context, mainConfig, phase);
             $(document).trigger('changeScenario', [scenario]);
 
         });
