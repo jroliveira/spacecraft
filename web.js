@@ -8,17 +8,15 @@ requirejs([
     'server/app',
     'socket.io',
     'http'
-], function (app, socket, http) {
-    
-    //var port = process.env.PORT || 4000;
-    //app.listen(port, function () {
-    //    console.log("Listening on " + port);
-    //});
+], function (app, socket, http) {    
 
     var server = http.createServer(app);
     var io = socket.listen(server);
-    
-    server.listen(4000);
+
+    var port = process.env.PORT || 4000;
+    server.listen(port, function () {
+        console.log("Listening on " + port);
+    });
     
     io.sockets.on('connection', function (socket) {
         socket.emit('news', { hello: 'world' });
