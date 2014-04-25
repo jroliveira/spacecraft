@@ -11,8 +11,11 @@ define([
     'server/routes/api/images',
     'server/routes/api/backgrounds',
     'server/routes/api/effects',
+    'server/routes/api/phases',
+    'server/routes/api/scenarios',
      
     'server/routes/home',
+    'server/routes/message',
     'server/routes/setup',
     'server/routes/login',
     'server/routes/logout'
@@ -29,8 +32,11 @@ define([
     images,
     backgrounds,
     effects,
+    phases,
+    scenarios,
      
     home,
+    message,
     setup,
     login,
     logout
@@ -56,6 +62,8 @@ define([
         app.get('/api/entities', entities.get);
         app.get('/api/backgrounds', backgrounds.get);
         app.get('/api/effects', effects.get);
+        app.get('/api/phases', phases.get);
+        app.get('/api/scenarios', scenarios.get);
         
         app.get('/api/accounts', accounts.logged);
         
@@ -73,6 +81,8 @@ define([
         app.get('/setup', authorize, setup.index);
         
         app.get('/game', authorize, home.index);
+        
+        app.get('/message', authorize, message.index);
         
         app.get('/', authorize, home.index);
         

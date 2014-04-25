@@ -17,7 +17,7 @@ define([
     config.mongoose();    
     
     routes.initialize(app);
-        
+
     return app;
 
 });
