@@ -19,9 +19,13 @@ requirejs([
     });
     
     io.sockets.on('connection', function (socket) {
+        socket.emit('message', { msg: 'conectado!', date: new Date(), user: 'junior' });
+        
         socket.on('message', function (msg) {
-            console.log('Message Received: ', msg);
-            socket.broadcast.emit('message', msg);
+            var message = { msg: msg, date: new Date(), user: 'junior' };
+            
+            socket.broadcast.emit('message', message);
         });
+        
     });
 });

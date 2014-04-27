@@ -7,15 +7,19 @@ require.config({
         text: 'libs/require/text',
         db: 'libs/db/db',
         wait: 'libs/wait',
-        bootstrap: 'libs/bootstrap/js/bootstrap'
+        bootstrap: 'libs/bootstrap/js/bootstrap',
+        socketio: '../../socket.io/socket.io',
+        'jquery.format': 'libs/jquery.format-1.2/jquery.format-1.2',
+        datejs: 'libs/datejs/date',
+        'datejs.pt-BR': 'libs/datejs/date-pt-BR'
     },
 
     shim: {
-        underscore: {
-            exports: '_'
-        },
         jquery: {
             exports: '$'
+        },
+        underscore: {
+            exports: '_'
         },
         backbone: {
             deps: ["underscore", "jquery"],
@@ -30,6 +34,18 @@ require.config({
         },
         bootstrap: {
             deps: ["jquery"]
+        },
+        socketio: {
+            exports: 'io'
+        },
+        'jquery.format': {
+            deps: ["jquery"]
+        },
+        datejs: {
+            deps: ["jquery"]
+        },
+        'datejs.pt-BR': {
+            deps: ["jquery", "datejs"]
         }
     }
 });

@@ -18,6 +18,10 @@
         .vertical-offset-100 {
             padding-top:100px;
         }
+        
+        .message {
+            bottom: 40px;            
+        }
 
     </style>
 </head>
@@ -49,33 +53,27 @@
                     <span class="text-danger">spacecraft</span> <small>mensagens</small>
                 </h4>
                 
-                <hr />                
-                
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-5">
-                            <div class="panel panel-primary">
-                                <div class="panel-heading">
-                                    <span class="glyphicon glyphicon-comment"></span> bate-papo
-                                </div>
-                                <div class="panel-body">
-                                    <ul id="messages" class="chat">
-                                    </ul>
-                                </div>
-                                <div class="panel-footer">
-                                    <div class="input-group">
-                                        <input id="message" type="text" class="form-control input-sm" placeholder="Type your message here..." />
-                                        <span class="input-group-btn">
-                                            <button id="send" class="btn btn-warning btn-sm">enviar</button>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <hr />
                 
             </article>
+            
+            <div class="panel panel-primary message">
+                <div class="panel-heading">
+                    <span class="glyphicon glyphicon-comment"></span> bate-papo
+                </div>
+                <div class="panel-body">
+                    <ul id="messages" class="chat">
+                    </ul>
+                </div>
+                <div class="panel-footer">
+                    <div class="input-group">
+                        <input id="message" type="text" class="form-control input-sm" placeholder="Type your message here..." />
+                        <span class="input-group-btn">
+                            <button id="send" class="btn btn-warning btn-sm">enviar</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     
@@ -159,6 +157,11 @@
                 showMessage(message);
 
                 $(this).val('');
+            });
+            
+            $('.message > .panel-heading').click(function(event) {
+                $('.message > .panel-body').toggle();
+                $('.message > .panel-footer').toggle();
             });
             
         });
