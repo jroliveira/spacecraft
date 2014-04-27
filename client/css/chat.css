@@ -16,12 +16,12 @@
     border-bottom: 1px dotted #B3A9A9;
 }
 
-.messages li.left .chat-body {
-    margin-left: 60px;
+.messages div.left .chat-body {
+    margin-left: 45px;
 }
 
-.messages li.right .chat-body {
-    margin-right: 60px;
+.messages div.right .chat-body {
+    margin-right: 45px;
 }
 
 .messages li .chat-body p {

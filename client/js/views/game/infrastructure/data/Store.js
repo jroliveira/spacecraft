@@ -100,10 +100,16 @@ define([
         },
 
         getBy: function (table, value, onsuccess) {
+            var defer = $.Deferred();
+            
             this.session.get(table, value)
                         .done(function (data) {
                             onsuccess(data);
+                            
+                            defer.resolve();
                         });
+            
+            return defer.promise();
         }
     };
 

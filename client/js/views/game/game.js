@@ -42,14 +42,15 @@ define([
             
             $.when(
 
-                store.initialize()                
+                $.wait(1000),
+                store.initialize()
 
             ).then(function () {
 
                 $.when(
                     
-                    $.wait(10),
-                
+                    $.wait(1000),
+                    
                     store.getBy('scenarios', 'loading', function (data) {
                         loadingConfig = data;
                     }),

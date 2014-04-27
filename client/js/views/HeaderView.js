@@ -27,6 +27,7 @@ define([
             $.getJSON('api/accounts', function (data) {
                 var data = { user: data },
                 compilatedTemplate = _.template(template, data);
+                $('#email').val(data.user.email);
                 
                 self.$el.html(compilatedTemplate);
             });

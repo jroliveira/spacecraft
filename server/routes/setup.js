@@ -68,9 +68,16 @@ define([
             })
         ];
         
-        var account = new Account();
-        account.email = 'junolive@gmail.com';
-        account.password = account.generateHash('legal');
+        var accounts = [
+            new Account({
+                email: 'junolive@gmail.com',
+                password: 'legal'
+            }),
+            new Account({
+                email: 'junior@gmail.com',
+                password: 'legal'
+            })
+        ];
         
         Projectile.remove({}, function (err) {
             projectiles.forEach(function (projectile) {                
@@ -83,7 +90,11 @@ define([
                 });
                 
                 Account.remove({}, function(err) {
-                    account.save();
+                    accounts.forEach(function (account) {                        
+                        account.password = account.generateHash(account.password);
+                        
+                        account.save();
+                    });
                     
                     res.render('setup/index.html');
                 });

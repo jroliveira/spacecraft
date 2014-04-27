@@ -1,5 +1,5 @@
 <% if (left) { %>
-    <li class="left clearfix">
+    <div class="left clearfix">
         <span class="chat-img pull-left">
             <img src="http://placehold.it/36/55C1E7/fff&amp;text=<%- letterImage %>" alt="User Avatar" class="img-circle">
         </span>
@@ -10,11 +10,11 @@
             </div>
             <p><%- message %></p>
         </div>
-    </li>
+    </div>
 <% } else { %>
-    <li class="right clearfix">
+    <div class="right clearfix">
         <span class="chat-img pull-right">
-            <img src="http://placehold.it/50/FA6F57/fff&amp;text=<%- letterImage %>" alt="User Avatar" class="img-circle">
+            <img src="http://placehold.it/36/FA6F57/fff&amp;text=<%- letterImage %>" alt="User Avatar" class="img-circle">
         </span>
         <div class="chat-body clearfix">
             <div class="header">
@@ -23,5 +23,5 @@
             </div>
             <p><%- message %></p>
         </div>
-    </li>
+    </div>
 <% } %>
