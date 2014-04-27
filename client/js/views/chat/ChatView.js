@@ -51,6 +51,8 @@ define([
                     
                     var content = messageView.render();
                     $('#messages').append(content.el);
+                    
+                    $('.panel-body').animate({ scrollTop: $('#messages').height() }, 1000);
                 });
                 
                 self.socket.on('disconnect', function () {

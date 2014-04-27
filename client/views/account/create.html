@@ -37,54 +37,63 @@
                 </div>
             </header>
             <article>
-                {% if (message) !== '' %}
-                    <div class="alert {{ type }}">
+                {% if (message) != '' %}
+                    <div class="alert alert-danger">
                         <button data-dismiss="alert" class="close" type="button">x</button>
                         {{ message }}
                     </div>
                 {% endif %}
                 
                 <h4>
-                    <span class="text-danger">spacecraft</span> <small>login</small>
+                    <span class="text-danger">spacecraft</span> <small>create account</small>
                 </h4>
-                
+
                 <hr />
-                
-                <form action="/login" method="post" class="form-horizontal">
-                    
+
+                <form action="/account/create" method="post" class="form-horizontal">
+
+                    <div class="form-group">
+                        <label for="name" class="col-sm-2 control-label">Name</label>
+                        <div class="col-sm-4">
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                                <input type="text" name="name" value="" class="form-control" placeholder="Name">
+                            </div>
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <label for="email" class="col-sm-2 control-label">E-mail</label>
                         <div class="col-sm-4">
                             <div class="input-group">
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
-                                <input type="text" name="email" class="form-control" placeholder="E-mail">
+                                <input type="text" name="email" value="" class="form-control" placeholder="E-mail">
                             </div>
                             <span class="help-block"></span>
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="password" class="col-sm-2 control-label">Password</label>
                         <div class="col-sm-4">
                             <div class="input-group">
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-                                <input type="password" name="password" class="form-control" placeholder="Password">
+                                <input type="password" name="password" value="" class="form-control" placeholder="Password">
                             </div>
                             <span class="help-block"></span>
                         </div>
                     </div>
-                    
+
                     <hr/>
-    
+
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
-                            <a href="/account/forgot-password" class="btn btn-link"><span class="glyphicon glyphicon-question-sign"></span>&nbsp; Forgot password?</a>
-                            <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-log-in"></span>&nbsp; login</button>
-                            <br/>
-                            <a href="/account/create" class="btn btn-link"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp; Create account</a>
+                            <a id="back" href="/login" class="btn btn-link"><span class="glyphicon glyphicon-circle-arrow-left"></span> Back</a>
+                            <button id="submit" type="submit" class="btn btn-success">Send</button>
                         </div>
-                    </div>
-                    
+                    </div>    
+
                 </form>
             </article>
         </div>
@@ -99,4 +108,3 @@
     
 </body>
 </html>
-

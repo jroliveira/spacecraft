@@ -72,10 +72,6 @@ define([
             new Account({
                 email: 'junolive@gmail.com',
                 password: 'legal'
-            }),
-            new Account({
-                email: 'junior@gmail.com',
-                password: 'legal'
             })
         ];
         

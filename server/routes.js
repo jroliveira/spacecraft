@@ -16,6 +16,7 @@ define([
      
     'server/routes/home',
     'server/routes/message',
+    'server/routes/account',
     'server/routes/setup',
     'server/routes/login',
     'server/routes/logout'
@@ -37,6 +38,7 @@ define([
      
     home,
     message,
+    account,
     setup,
     login,
     logout
@@ -85,6 +87,9 @@ define([
         app.get('/message', authorize, message.index);
         
         app.get('/', authorize, home.index);
+        
+        app.get('/account/create', account.getCreate);
+        app.post('/account/create', account.postCreate);
         
         app.get('/login', login.get);
         app.post('/login', login.post);

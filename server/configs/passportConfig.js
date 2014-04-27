@@ -33,23 +33,24 @@ define([
                 if (err)
                     return done(err);
     
-                if (account) {
-                    return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
-                } else {
-                    var newAccount = new Account();
-    
-                    newAccount.email = email;
-                    newAccount.password = newAccount.generateHash(password);
-    
-                    newAccount.save(function(err) {
-                        if (err)
-                            throw err;
-                        
-                        return done(null, newAccount);
-                    });
-                }
+                if (account)
+                    return done(null, false, req.flash('signupMessage', 'That e-mail is already taken'));
+                
+                var newAccount = new Account();
+                
+                if (!newAccount.validEmail(email))
+                    return done(null, false, req.flash('signupMessage', 'The e-mail is not a valid'));
+                
+                newAccount.email = email;
+                newAccount.password = newAccount.generateHash(password);
+
+                newAccount.save(function(err) {
+                    if (err) 
+                        throw err;
+
+                    return done(null, newAccount, req.flash('loginMessage', { message: 'Account created successfully', type: 'alert alert-success' }));
+                });
             });
-    
         }));
     
         passport.use('local-login', new passportLocal.Strategy({
@@ -59,14 +60,14 @@ define([
         },
         function(req, email, password, done) {
             Account.findOne({ 'email' :  email }, function(err, account) {
-                if (err)
+                if (err) 
                     return done(err);
     
                 if (!account)
-                    return done(null, false, req.flash('loginMessage', 'Invalid email or password.'));
+                    return done(null, false, req.flash('loginMessage', { message: 'Invalid email or password.', type: 'alert-danger' }));
     
                 if (!account.validPassword(password))
-                    return done(null, false, req.flash('loginMessage', 'Invalid email or password.'));
+                    return done(null, false, req.flash('loginMessage', { message: 'Invalid email or password.', type: 'alert-danger' }));
     
                 return done(null, account);
             });
