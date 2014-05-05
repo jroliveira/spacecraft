@@ -5,7 +5,6 @@ define([
     'views/game/game',
     
     'views/HeaderView',
-    'views/chat/ChatView',
     'views/home/IndexView',
     'views/game/GameView',
     'views/projectile/IndexView',
@@ -25,7 +24,6 @@ define([
     game,
      
     HeaderView,
-    ChatView,
     HomeIndexView,
     GameView,
     ProjectileIndexView,
@@ -74,9 +72,6 @@ define([
         
         this.headerView = new HeaderView;
         this.headerView.render();
-        
-        this.chatView = new ChatView;
-        this.chatView.render();
         
         var appRouter = new AppRouter;
         

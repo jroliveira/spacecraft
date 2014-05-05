@@ -1,8 +1,8 @@
 define([
     'passport',
-        
+
     'server/authentication/authorize',
-    
+
     'server/routes/api/projectiles',
     'server/routes/api/enemies',
     'server/routes/api/characters',
@@ -13,18 +13,17 @@ define([
     'server/routes/api/effects',
     'server/routes/api/phases',
     'server/routes/api/scenarios',
-     
+
     'server/routes/home',
-    'server/routes/message',
     'server/routes/account',
     'server/routes/setup',
     'server/routes/login',
     'server/routes/logout'
 ], function (
     passport,
-         
+
     authorize,
-     
+
     projectiles,
     enemies,
     characters,
@@ -35,16 +34,15 @@ define([
     effects,
     phases,
     scenarios,
-     
+
     home,
-    message,
     account,
     setup,
     login,
     logout
 ) {
     'use strict';
-        
+
     var routes = function (app) {
 
         // API's
@@ -53,53 +51,51 @@ define([
         app.post('/api/projectiles', authorize, projectiles.post);
         app.put('/api/projectiles/:_id', authorize, projectiles.put);
         app.del('/api/projectiles/:_id', authorize, projectiles.delete);
-            
+
         app.get('/api/characters', characters.all);
         app.get('/api/characters/:_id', characters.get);
         app.post('/api/characters', authorize, characters.post);
         app.put('/api/characters/:_id', authorize, characters.put);
         app.del('/api/characters/:_id', authorize, characters.delete);
-    
+
         app.get('/api/enemies', enemies.get);
         app.get('/api/entities', entities.get);
         app.get('/api/backgrounds', backgrounds.get);
         app.get('/api/effects', effects.get);
         app.get('/api/phases', phases.get);
         app.get('/api/scenarios', scenarios.get);
-        
+
         app.get('/api/accounts', accounts.logged);
-        
+
         app.get('/api/images/:image', images.base64);
-        
+
         // Pages
         app.get('/projectiles', authorize, home.index);
         app.get('/projectile/create', authorize, home.index);
         app.get('/projectile/edit/:id', authorize, home.index);
-            
+
         app.get('/characters', authorize, home.index);
         app.get('/character/create', authorize, home.index);
         app.get('/character/edit/:id', authorize, home.index);
-        
+
         app.get('/setup', setup.index);
-        
+
         app.get('/game', authorize, home.index);
-        
-        app.get('/message', authorize, message.index);
-        
+
         app.get('/', authorize, home.index);
-        
+
         app.get('/account/create', account.getCreate);
         app.post('/account/create', account.postCreate);
-        
+
         app.get('/login', login.get);
         app.post('/login', login.post);
-        
-        app.get('/logout', logout.get);
-        
-        return app;
-    }
 
-    
+        app.get('/logout', logout.get);
+
+        return app;
+    };
+
+
     return { initialize: routes };
 
 });
