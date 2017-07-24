@@ -6,6 +6,11 @@ export class Parallax extends Background {
   }
 
   updates(): void {
-    this.pos.x = (Math.abs(this.pos.x) >= this.config.width) ? 0 : this.pos.x - this.config.speed;
+    if ((Math.abs(this.pos.x) >= this.config.width)) {
+      this.pos.reset(0, this.pos.y);
+      return;
+    }
+
+    this.pos.toLeft(this.config.speed);
   }
 }

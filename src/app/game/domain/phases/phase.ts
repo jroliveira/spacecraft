@@ -9,7 +9,7 @@ import { Character, Ship, Soldier } from '../characters';
 type PhaseType<TPhase> = new (config: any) => TPhase;
 
 export abstract class Phase implements Updatable {
-  private objects: any[] = [];
+  private readonly objects: any[] = [];
   private _background: Background;
   private _character: Character;
 

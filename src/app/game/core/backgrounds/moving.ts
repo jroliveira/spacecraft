@@ -15,7 +15,7 @@ export class MovingBackground extends Background {
     }
 
     if ((Math.abs(this.pos.x) + this.config.canvas.width) < this.config.width) {
-      this.pos.x = this.pos.x - this.config.speed;
+      this.pos.toLeft(this.config.speed);
       return;
     }
 
