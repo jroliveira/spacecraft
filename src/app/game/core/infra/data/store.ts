@@ -42,7 +42,7 @@ class Store {
     });
   }
 
-  async clear(table: any): Promise<void> {
+  async clear(table: string): Promise<void> {
     return new Promise<void>(resolve => {
       this.db
         .transaction([table], 'readwrite')
@@ -52,7 +52,7 @@ class Store {
     });
   }
 
-  async add(table: any, value: any): Promise<void> {
+  async add(table: string, value: any): Promise<void> {
     return new Promise<void>(resolve => {
       this.db
         .transaction([table], 'readwrite')

@@ -51,10 +51,12 @@ export abstract class Collide {
       height: config.height
     }
 
-    this._pos = config.pos || {
+    config.pos = config.pos || {
       x: 0,
       y: 0
     };
+
+    this._pos = new Position(config.pos.x, config.pos.y);
   }
 
   protected updatePos(pos: Position): void {

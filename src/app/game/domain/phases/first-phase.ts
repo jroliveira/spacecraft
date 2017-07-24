@@ -1,5 +1,6 @@
 import * as $ from 'jquery';
 
+import { Timer } from '../../core/infra';
 import { store } from '../../core/infra/data';
 
 import { Phase } from '.';
@@ -8,10 +9,11 @@ import { Projectile } from '../projectiles';
 import { Asteroid } from '../enemies';
 
 export class FirstPhase extends Phase {
-  private timer = 0;
+  private timer: Timer;
 
   constructor(config: any) {
     super(config);
+    this.timer = new Timer(200);
   }
 
   async configure(): Promise<void> {
@@ -23,13 +25,10 @@ export class FirstPhase extends Phase {
   }
 
   private async enterEnemy(): Promise<void> {
-    this.timer++;
-
-    if (this.timer !== 200) {
+    if (!this.timer.ended) {
       return;
     }
 
-    this.timer = 0;
     const config = await store.get('enemies', 'asteroid');
     const enemy = new Asteroid(config);
 

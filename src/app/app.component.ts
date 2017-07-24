@@ -57,7 +57,7 @@ export class AppComponent implements AfterViewInit {
     this.scenario.draw();
   }
 
-  private changeScenario(event: any, newScenario: Scenario): void {
+  private changeScenario(_, newScenario: Scenario): void {
     this.scenario = newScenario;
     this.scenario.start();
   }

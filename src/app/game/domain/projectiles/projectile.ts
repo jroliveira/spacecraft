@@ -21,7 +21,7 @@ export class Projectile extends Collide implements Configurable, Updatable {
       return;
     }
 
-    this.pos.x = this.pos.x + this.config.speed;
+    this.pos.toRight(this.config.speed);
   }
 
   resolvesCollision(obstacle: Collide): void {

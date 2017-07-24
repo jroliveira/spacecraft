@@ -18,7 +18,7 @@ export class HealthBar extends Component {
 
   draw(): void {
     let x = this.object.pos.x;
-    let y = this.object.pos.y - 5;
+    let y = this.object.pos.y - 10;
     let width = this.object.config.width + 2;
     let height = 5 + 2;
     let color = 'white';
@@ -26,7 +26,7 @@ export class HealthBar extends Component {
     this.fill(x, y, width, height, color);
 
     x = this.object.pos.x + 1;
-    y = this.object.pos.y - 5 + 1;
+    y = this.object.pos.y - 10 + 1;
     width = this.maxWidth * this.object.health / this.maxHealth;
     height = 5;
     color = 'red';

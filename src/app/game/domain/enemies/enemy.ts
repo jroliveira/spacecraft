@@ -13,7 +13,7 @@ export abstract class Enemy extends Collide implements Configurable, Updatable {
       return;
     }
 
-    this.pos.x = this.pos.x - this.config.speed;
+    this.pos.toLeft(this.config.speed);
   }
 
   resolvesCollision(obstacle: Collide): void {

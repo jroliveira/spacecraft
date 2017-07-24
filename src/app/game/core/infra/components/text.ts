@@ -3,7 +3,7 @@ import { Component } from '.';
 export class Text extends Component {
   constructor(
     config: any,
-    private context: any
+    private context: CanvasRenderingContext2D
   ) {
     super(config, undefined);
   }

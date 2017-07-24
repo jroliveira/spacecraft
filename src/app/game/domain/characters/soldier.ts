@@ -1,46 +1,35 @@
 import * as $ from 'jquery';
 
+import { Timer } from '../../core/infra';
+
 import { Character } from '.';
 
 export class Soldier extends Character {
+  private timer: Timer;
+
   constructor(config: any) {
     super(config)
+    this.timer = new Timer(this.config.timeNextMove);
 
-    $(document).on('up', this.lift.bind(this));
-    $(document).on('down', this.lower.bind(this));
-    $(document).on('left', this.toLeft.bind(this));
-    $(document).on('right', this.toRight.bind(this));
+    $(this.direction).on('lift', () => this.sprite.row = 3);
+    $(this.direction).on('lower', () => this.sprite.row = 0);
+    $(this.direction).on('to-left', () => this.sprite.row = 1);
+    $(this.direction).on('to-right', () => this.sprite.row = 2);
   }
 
-  private lift(_, move: any): void {
-    this.keys.up = move;
+  updates(): void {
+    super.updates();
 
-    if (move) {
-      this.sprite.row = 3;
+    if (this.direction.moving) {
+      this.moves();
     }
   }
 
-  private lower(_, move: any): void {
-    this.keys.down = move;
-
-    if (move) {
-      this.sprite.row = 0;
+  private moves(): void {
+    if (!this.timer.ended) {
+      return;
     }
-  }
 
-  private toLeft(_, move: any): void {
-    this.keys.left = move;
-
-    if (move) {
-      this.sprite.row = 1;
-    }
-  }
-
-  private toRight(_, move: any): void {
-    this.keys.right = move;
-
-    if (this.keys.right) {
-      this.sprite.row = 2;
-    }
+    this.sprite.col = (this.sprite.col === 2) ? 0 : this.sprite.col + 1;
   }
 }
