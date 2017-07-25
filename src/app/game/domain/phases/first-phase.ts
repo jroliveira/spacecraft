@@ -9,23 +9,30 @@ import { Projectile } from '../projectiles';
 import { Asteroid } from '../enemies';
 
 export class FirstPhase extends Phase {
-  private timer: Timer;
+  private enemyTimer: Timer;
+  private starbaseTimer: Timer;
 
   constructor(config: any) {
     super(config);
-    this.timer = new Timer(200);
+    this.enemyTimer = new Timer(200);
+    this.starbaseTimer = new Timer(2000);
   }
 
   async configure(): Promise<void> {
     await super.configure();
 
-    $(this.background).on('ended', this.showStarbase.bind(this));
     $(this.character).on('shot', (_, projectile: Projectile) => this.addElement(projectile));
-    $(this).on('updated', this.enterEnemy.bind(this));
+  }
+
+  async updates(): Promise<void> {
+    super.updates();
+
+    await this.enterEnemy();
+    await this.showStarbase();
   }
 
   private async enterEnemy(): Promise<void> {
-    if (!this.timer.ended) {
+    if (!this.enemyTimer.ended) {
       return;
     }
 
@@ -36,6 +43,10 @@ export class FirstPhase extends Phase {
   }
 
   private async showStarbase(): Promise<void> {
+    if (!this.starbaseTimer || !this.starbaseTimer.ended) {
+      return;
+    }
+
     const config = await store.get('entities', 'starbase');
     const starbase = new Starbase(config);
 

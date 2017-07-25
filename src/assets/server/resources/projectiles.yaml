@@ -1,0 +1,38 @@
+- type: bullet
+  health: 1
+  damage: 3
+  speed: 3
+  width: 9
+  height: 8
+  canvas:
+    width: 900
+    height: 540
+  components:
+  - type: Img
+    src: projectiles/bullet
+
+- type: missile
+  health: 1
+  damage: 5
+  speed: 5
+  width: 51
+  height: 10
+  canvas:
+    width: 900
+    height: 540
+  components:
+  - type: Img
+    src: projectiles/missile
+
+- type: laser
+  health: 1
+  damage: 10
+  speed: 7
+  width: 39
+  height: 17
+  canvas:
+    width: 900
+    height: 540
+  components:
+  - type: Img
+    src: projectiles/laser

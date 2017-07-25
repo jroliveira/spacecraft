@@ -10,9 +10,9 @@ export class Asteroid extends Enemy {
 
   private initPos(): Position {
     const min = 1;
-    const max = 600 - this.config.height;
+    const max = 540 - this.config.height;
     const y = Math.floor(Math.random() * (max - min + 1)) + min;
 
-    return new Position(1170, y);
+    return new Position(900, y);
   }
 }

@@ -1,0 +1,13 @@
+- type: asteroid
+  health: 10
+  damage: 20
+  speed: 1.5
+  components:
+  - type: Img
+    src: enemies/asteroid
+  - type: HealthBar
+  width: 95
+  height: 93
+  canvas:
+    width: 900
+    height: 540

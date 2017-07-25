@@ -1,0 +1,12 @@
+- type: starbase
+  components:
+  - type: Img
+    src: objects/starbase
+  width: 250
+  height: 250
+  canvas:
+    width: 900
+    height: 540
+  pos:
+    x: 640
+    y: 280

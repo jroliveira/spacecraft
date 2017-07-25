@@ -1,0 +1,13 @@
+- name: first
+  character:
+    type: Ship
+  phase:
+    config: oneMoving
+  entities:
+
+- name: starbase
+  character:
+    type: Soldier
+  phase:
+    config: one
+  entities:

@@ -1,0 +1,59 @@
+- type: Soldier
+  health: 50
+  damage: 100
+  timeNextMove: 15
+  width: 48
+  height: 48
+  sprite:
+    row: 0
+    col: 0
+  pos:
+    x: 1
+    y: 10
+  canvas:
+    width: 900
+    height: 540
+  components:
+  - type: Sprite
+    src: characters/soldier
+    width: 32
+    height: 32
+  - type: HealthBar
+  projectiles:
+    first: bullet
+    second: missile
+  speed:
+    up: 2
+    left: 2
+    right: 2
+    down: 2
+
+- type: Ship
+  health: 50
+  damage: 100
+  timeNextMove: 5
+  width: 64.5
+  height: 58.4
+  sprite:
+    row: 0
+    col: 0
+  pos:
+    x: 1
+    y: 10
+  canvas:
+    width: 900
+    height: 540
+  components:
+  - type: Sprite
+    src: characters/ship
+    width: 43
+    height: 39
+  - type: HealthBar
+  projectiles:
+    first: bullet
+    second: missile
+  speed:
+    up: 2
+    left: 2
+    right: 2
+    down: 2
