@@ -1,7 +1,6 @@
 import * as $ from 'jquery';
 
 import { Configurable } from '../../core';
-import { sleep } from '../../core/infra';
 import { store } from '../../core/infra/data';
 
 import { Scenario } from './scenario'
@@ -30,8 +29,6 @@ export class Main extends Scenario {
   }
 
   private async changeScenario(): Promise<void> {
-    await sleep(1000);
-
     let config = await store.get('phases', 'starbase');
     const phase = await Phase.create(config, StarbasePhase);
 

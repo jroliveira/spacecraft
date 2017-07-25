@@ -1,4 +1,5 @@
 import * as $ from 'jquery';
+import * as yaml from 'js-yaml'
 
 import { store } from '.';
 import { getImage } from '.';
@@ -15,15 +16,17 @@ const resources: string[] = [
 ];
 
 const images: string[] = [
-  'backgrounds_background1.png',
-  'parallax_parallax1.png',
-  'parallax_parallax2.png',
-  'characters_shipSprite.png',
-  'characters_soldierSprite.png',
-  'enemies_asteroid.png',
-  'projectiles_bullet.png',
-  'projectiles_laser.png',
-  'projectiles_missile.png'
+  'backgrounds/starfield',
+  'backgrounds/parallax-a',
+  'backgrounds/parallax-b',
+  'characters/ship',
+  'characters/soldier',
+  'enemies/asteroid',
+  'projectiles/bullet',
+  'projectiles/laser',
+  'projectiles/missile',
+  'objects/starbase',
+  'components/loading'
 ];
 
 export async function setup(): Promise<void> {
@@ -32,7 +35,7 @@ export async function setup(): Promise<void> {
 
   resources
     .forEach(async resource => {
-      const data = await get(`http://localhost:4000/api/${resource}`);
+      const data = await get(`assets/server/resources/${resource}.yaml`);
       await store.clear(resource);
 
       data
@@ -42,8 +45,18 @@ export async function setup(): Promise<void> {
 
 async function get(url: string): Promise<any> {
   return new Promise<any>(resolve => {
-    $.get(url)
-      .done(data => resolve(data))
-      .fail(err => console.log(err));
+    $.ajax({
+      cache: false,
+      type: 'GET',
+      url: url,
+      contentType: 'application/x-yaml',
+
+      success: data => {
+        const doc = yaml.safeLoad(data);
+        resolve(doc);
+      },
+
+      error: err => console.log(`Error occurred while loading the resource. ${err}`)
+    });
   });
 }

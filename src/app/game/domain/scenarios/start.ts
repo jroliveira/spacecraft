@@ -1,6 +1,5 @@
 import * as $ from 'jquery';
 
-import { sleep } from '../../core/infra';
 import { store } from '../../core/infra/data';
 import { Text } from '../../core/infra/components';
 
@@ -27,8 +26,6 @@ export class Start extends Scenario {
     if (!pressed) {
       return;
     }
-
-    await sleep(1000);
 
     let config = await store.get('phases', 'first');
     const phase = await Phase.create(config, FirstPhase);

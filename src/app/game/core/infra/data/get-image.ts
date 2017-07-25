@@ -11,7 +11,7 @@ export async function getImage(image): Promise<any> {
     $.ajax({
       cache: false,
       type: 'GET',
-      url: `http://localhost:4000/api/images/${image}`,
+      url: `assets/server/images/${image}.json`,
       contentType: 'application/json',
       dataType: 'json',
 

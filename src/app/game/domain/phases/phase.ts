@@ -48,8 +48,6 @@ export abstract class Phase implements Updatable {
         this.detectsCollision(object);
       }
     });
-
-    $(this).trigger('updated');
   }
 
   async configure(): Promise<void> {

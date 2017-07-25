@@ -1,0 +1,23 @@
+- name: one
+  type: Background
+  pos:
+    x: 1
+    y: 1
+  width: 250
+  height: 140
+  canvas:
+    width: 900
+    height: 540
+
+- name: oneMoving
+  type: MovingBackground
+  pos:
+    x: 0
+  speed: 2.5
+  components:
+  - type: ImgContinuous
+    src: backgrounds/starfield
+  width: 900
+  canvas:
+    width: 900
+    height: 540
