@@ -1,4 +1,4 @@
-- name: one
+- name: starbase-phase
   type: Background
   pos:
     x: 1
@@ -9,7 +9,7 @@
     width: 900
     height: 540
 
-- name: oneMoving
+- name: first-phase
   type: MovingBackground
   pos:
     x: 0
