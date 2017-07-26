@@ -1,13 +1,13 @@
 - name: first
-  character:
-    type: Ship
-  phase:
-    config: oneMoving
   entities:
+  - id: first-phase
+    table: backgrounds
+  - id: Ship
+    table: characters
 
 - name: starbase
-  character:
-    type: Soldier
-  phase:
-    config: one
   entities:
+  - id: starbase-phase
+    table: backgrounds
+  - id: Soldier
+    table: characters
