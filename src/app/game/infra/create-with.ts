@@ -1,5 +1,5 @@
-import { Component, HealthBar } from '../components';
-import { Img, ImgContinuous, Sprite } from '../components/img';
+import { Component, HealthBar, Text } from '../components';
+import { Img, Loading, Parallax, Sprite } from '../components/images';
 
 import { Background, MovingBackground } from '../entities/backgrounds';
 import { Ship, Soldier } from '../entities/characters';
@@ -12,13 +12,19 @@ const types = {
   'MovingBackground': config => new MovingBackground(config),
 
   // components
-  'HealthBar': (config, context, entity) => new HealthBar(config, entity, context),
-  'Img': (config, context, entity) => new Img(config, entity, context),
-  'ImgContinuous': (config, context, entity) => new ImgContinuous(config, entity, context),
-  'Sprite': (config, context, entity) => new Sprite(config, entity, context)
+  'HealthBar': (config, context, entity) => new HealthBar(context, config, entity),
+  'Img': (config, context, entity) => new Img(context, config, entity),
+  'Loading': (config, context, entity) => new Loading(context, config, entity),
+  'Parallax': (config, context, entity) => new Parallax(context, config, entity),
+  'Sprite': (config, context, entity) => new Sprite(context, config, entity),
+  'Text': (config, context, entity) => new Text(context, config, entity)
 };
 
-export function createWith(config: any, context?: CanvasRenderingContext2D, entity?: any): any {
+export function createWith(
+  config: any,
+  context?: CanvasRenderingContext2D,
+  entity?: any
+): any {
   if (!types.hasOwnProperty(config.type)) {
     throw new Error(`Unconfigured type ${config.type}.`)
   }

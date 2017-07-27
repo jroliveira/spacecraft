@@ -1,8 +1,9 @@
 import { Configurable, Drawable } from '../core/behaviors';
 
-export abstract class Component implements Configurable, Drawable {
+export abstract class Component implements Drawable {
   constructor(
-    public readonly config: any,
+    protected readonly context: CanvasRenderingContext2D,
+    protected readonly config: any,
     public readonly entity: any
   ) { }
 

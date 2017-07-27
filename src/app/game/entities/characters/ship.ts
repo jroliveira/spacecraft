@@ -9,7 +9,7 @@ import { Projectile } from '../projectiles';
 export class Ship extends Character {
   private readonly timer: Timer;
 
-  constructor(readonly config: any) {
+  constructor(config: any) {
     super(config);
     this.timer = new Timer(this.config.timeNextMove);
 

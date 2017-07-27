@@ -1,6 +1,5 @@
 import * as $ from 'jquery';
 
-import { createWith } from '../../infra';
 import { store } from '../../infra/data';
 
 import { Scenario } from './scenario'
@@ -15,8 +14,8 @@ export class Main extends Scenario {
   ) {
     super(config, context);
 
-    $(this.phase).on('entity:added', this.addComponent.bind(this));
-    $(this.phase).on('entity:removed', this.removeComponent.bind(this));
+    $(this.phase).on('entity:added', this.addedEntity.bind(this));
+    $(this.phase).on('entity:removed', this.removedComponent.bind(this));
     $(document).on('phase:ended', this.changeScenario.bind(this));
   }
 
@@ -25,6 +24,7 @@ export class Main extends Scenario {
   }
 
   async start(): Promise<void> {
+    await super.start();
     await this.phase.start();
   }
 
@@ -38,23 +38,17 @@ export class Main extends Scenario {
     $(document).trigger('scenario:change', [scenario]);
   }
 
-  private addComponent(_, entity: any): void {
+  private addedEntity(_, entity: any): void {
     if (!entity.config.components) {
       return;
     }
 
-    entity.config.components.forEach(config => {
-      const component = createWith(config, this.context, entity);
-      this.components.push(component);
-    });
+    entity.config.components.forEach(config => this.addComponent(config, entity));
   }
 
-  private removeComponent(_, entity: any): void {
+  private removedComponent(_, entity: any): void {
     this.components
       .filter(component => component.entity === entity)
-      .forEach(component => {
-        const index = this.components.indexOf(component);
-        delete this.components[index];
-      });
+      .forEach(component => this.removeComponent(component));
   }
 }

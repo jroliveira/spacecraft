@@ -1,31 +1,31 @@
 import { Character } from '../../entities/characters';
 
-import { Img } from './img';
+import { ImageBase } from '.';
 
-export class Sprite extends Img {
+export class Sprite extends ImageBase {
   constructor(
-    readonly config: any,
-    private readonly character: Character,
-    readonly context: CanvasRenderingContext2D
+    context: CanvasRenderingContext2D,
+    config: any,
+    entity: any
   ) {
-    super(config, character, context);
+    super(context, config, entity);
   }
 
   private get row(): number {
-    return this.character.sprite.row * this.config.height;
+    return this.entity.sprite.row * this.config.height;
   }
 
   private get col(): number {
-    return this.character.sprite.col * this.config.width;
+    return this.entity.sprite.col * this.config.width;
   }
 
   draw(): void {
-    if (this.loaded === false) {
+    if (this.img.loaded === false) {
       return;
     }
 
     this.context.drawImage(
-      this.image,
+      this.img.value,
       this.col,
       this.row,
       this.config.width,

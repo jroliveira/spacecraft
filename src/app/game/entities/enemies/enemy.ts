@@ -11,7 +11,7 @@ export abstract class Enemy extends Collidable implements Entity, Updatable {
 
   update(): void {
     if (this.pos.x <= 0) {
-      $(this).trigger('destroy', [this]);
+      $(document).trigger('entity:remove', [this]);
       return;
     }
 
@@ -22,7 +22,7 @@ export abstract class Enemy extends Collidable implements Entity, Updatable {
     super.resolvesCollision(obstacle);
 
     if (this.destroyed) {
-      $(this).trigger('destroy', [this]);
+      $(document).trigger('entity:remove', [this]);
     }
   }
 }

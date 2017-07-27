@@ -6,8 +6,8 @@ export abstract class Collidable {
   private _health: number;
   private _pos: Position;
 
-  constructor(readonly config: any) {
-    this.initialize(config);
+  constructor(config: any) {
+    this.reboot(config);
   }
 
   get health(): number {
@@ -41,7 +41,7 @@ export abstract class Collidable {
       && obstacle.pos.y <= this.vertical);
   }
 
-  protected initialize(config: any) {
+  protected reboot(config: any) {
     this._health = config.health || 999;
     this.damage = config.damage || 999;
 
