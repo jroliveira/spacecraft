@@ -2,6 +2,14 @@
   canvas:
     width: 900
     height: 540
+  components:
+  - type: Loading
+    src: components/loading
+    width: 2500
+    height: 100
+    frame:
+      ticks: 4
+      total: 25
 
 - name: main
   canvas:
@@ -12,3 +20,9 @@
   canvas:
     width: 900
     height: 540
+  components:
+  - type: Text
+    message: Press ENTER to start the game.
+    pos:
+      x: 50
+      y: 50

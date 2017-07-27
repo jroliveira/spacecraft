@@ -1,13 +1,13 @@
 - name: first
   entities:
   - id: first-phase
-    table: backgrounds
+    resource: backgrounds
   - id: Ship
-    table: characters
+    resource: characters
 
 - name: starbase
   entities:
   - id: starbase-phase
-    table: backgrounds
+    resource: backgrounds
   - id: Soldier
-    table: characters
+    resource: characters

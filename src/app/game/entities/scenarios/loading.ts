@@ -1,20 +1,23 @@
-import { Loader } from '../../components';
+import * as $ from 'jquery';
 
-import { Scenario } from '.';
+import { sleep } from '../../infra';
+import { setup, store } from '../../infra/data';
+
+import { Scenario, Start } from '.';
 
 export class Loading extends Scenario {
   constructor(config: any, readonly context: CanvasRenderingContext2D) {
     super(config, context);
   }
 
-  update(): void {
-    this.components
-      .filter(component => component instanceof Loader)
-      .map(component => component as Loader)
-      .forEach(loader => loader.updates());
-  }
+  async load(): Promise<void> {
+    await sleep(1000);
+    await setup();
+    await sleep(1000);
 
-  async start(): Promise<void> {
-    this.components.push(new Loader(this.context));
+    const config = await store.get('scenarios', 'start');
+    await sleep(3000);
+    const scenario =  new Start(config, this.context);
+    $(document).trigger('scenario:change', [scenario]);
   }
 }

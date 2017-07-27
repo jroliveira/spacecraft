@@ -7,7 +7,7 @@ import { Character } from '.';
 export class Soldier extends Character {
   private readonly timer: Timer;
 
-  constructor(readonly config: any) {
+  constructor(config: any) {
     super(config)
     this.timer = new Timer(this.config.timeNextMove);
 

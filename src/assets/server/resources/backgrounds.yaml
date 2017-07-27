@@ -15,7 +15,7 @@
     x: 0
   speed: 2.5
   components:
-  - type: ImgContinuous
+  - type: Parallax
     src: backgrounds/starfield
   width: 900
   canvas:

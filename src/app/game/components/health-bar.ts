@@ -5,41 +5,30 @@ export class HealthBar extends Component {
   private readonly maxWidth: number;
 
   constructor(
-    readonly config: any,
-    readonly entity: any,
-    private readonly context: CanvasRenderingContext2D,
+    context: CanvasRenderingContext2D,
+    config: any,
+    entity: any
   ) {
-    super(config, entity);
+    super(context, config, entity);
 
     this.maxHealth = this.entity.health;
     this.maxWidth = this.entity.config.width;
   }
 
   draw(): void {
-    let x = this.entity.pos.x;
-    let y = this.entity.pos.y - 10;
-    let width = this.entity.config.width + 2;
-    let height = 5 + 2;
-    let color = 'white';
+    let width = this.entity.config.width + this.config.outer.width;
+    this.fill(this.config.outer, width);
 
-    this.fill(x, y, width, height, color);
-
-    x = this.entity.pos.x + 1;
-    y = this.entity.pos.y - 10 + 1;
     width = this.maxWidth * this.entity.health / this.maxHealth;
-    height = 5;
-    color = 'red';
-
-    this.fill(x, y, width, height, color);
+    this.fill(this.config.inner, width);
   }
 
-  private fill(
-    x: number,
-    y: number,
-    width: number,
-    height: number,
-    color: string
-  ): void {
+  private fill(config: any, width: number): void {
+    const x = this.entity.pos.x + config.pos.x;
+    const y = this.entity.pos.y - config.pos.y;
+    const height = config.height;
+    const color = config.color;
+
     this.context.beginPath();
     this.context.rect(x, y, width, height);
     this.context.fillStyle = color;

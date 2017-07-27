@@ -9,7 +9,7 @@ import { Character } from '../characters';
 export class Projectile extends Collidable implements Entity, Updatable {
   constructor(
     public readonly config: any,
-    readonly character: Character
+    character: Character
   ) {
     super(config);
     this.updatePos(character.initPosShot());
@@ -19,7 +19,7 @@ export class Projectile extends Collidable implements Entity, Updatable {
     const width = this.config.canvas.width - this.config.width;
 
     if (this.pos.x >= width) {
-      $(this).trigger('destroy', [this]);
+      $(document).trigger('entity:remove', [this]);
       return;
     }
 
@@ -30,7 +30,7 @@ export class Projectile extends Collidable implements Entity, Updatable {
     super.resolvesCollision(obstacle);
 
     if (this.destroyed) {
-      $(this).trigger('destroy', [this]);
+      $(document).trigger('entity:remove', [this]);
     }
   }
 }

@@ -41,7 +41,7 @@ export abstract class Character extends Collidable implements Entity, Updatable 
     super.resolvesCollision(obstacle);
 
     if (this.destroyed) {
-      this.initialize(this.config);
+      this.reboot(this.config);
     }
   }
 }

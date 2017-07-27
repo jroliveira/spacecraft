@@ -3,7 +3,7 @@ import { Position } from '../../core/structs';
 import { Enemy } from '.';
 
 export class Asteroid extends Enemy {
-  constructor(readonly config: any) {
+  constructor(config: any) {
     super(config);
     this.updatePos(this.initPos());
   }

@@ -11,13 +11,11 @@ export class FirstPhase extends Phase {
   private readonly enemyTimer: Timer;
   private readonly starbaseTimer: Timer;
 
-  constructor(readonly config: any) {
+  constructor(config: any) {
     super(config);
 
     this.enemyTimer = new Timer(200);
     this.starbaseTimer = new Timer(2000);
-
-    $(document).on('entity:add', (_, entity) => this.addEntity(entity));
   }
 
   async update(): Promise<void> {
@@ -35,7 +33,7 @@ export class FirstPhase extends Phase {
     const config = await store.get('enemies', 'asteroid');
     const enemy = new Asteroid(config);
 
-    this.addEntity(enemy);
+    $(document).trigger('entity:add', [enemy]);
   }
 
   private async showStarbase(): Promise<void> {
@@ -46,6 +44,6 @@ export class FirstPhase extends Phase {
     const config = await store.get('objects', 'starbase');
     const starbase = new Starbase(config);
 
-    this.addEntity(starbase);
+    $(document).trigger('entity:add', [starbase]);
   }
 }
