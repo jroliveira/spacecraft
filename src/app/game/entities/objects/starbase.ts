@@ -12,7 +12,7 @@ export class Starbase extends Collidable implements Entity {
 
   resolvesCollision(obstacle: Collidable): void {
     if (obstacle instanceof Character) {
-      $(document).trigger('phase:ended');
+      $(document).trigger('scenario:load', 'startbase');
     }
   }
 }
