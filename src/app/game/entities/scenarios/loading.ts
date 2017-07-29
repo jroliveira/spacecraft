@@ -1,23 +1,9 @@
-import * as $ from 'jquery';
+import { Loading as Loader } from '../../components/images';
 
-import { sleep } from '../../infra';
-import { setup, store } from '../../infra/data';
-
-import { Scenario, Start } from '.';
+import { Scenario } from '.';
 
 export class Loading extends Scenario {
-  constructor(config: any, readonly context: CanvasRenderingContext2D) {
+  constructor(config: any, context: CanvasRenderingContext2D) {
     super(config, context);
-  }
-
-  async load(): Promise<void> {
-    await sleep(1000);
-    await setup();
-    await sleep(1000);
-
-    const config = await store.get('scenarios', 'start');
-    await sleep(3000);
-    const scenario =  new Start(config, this.context);
-    $(document).trigger('scenario:change', [scenario]);
   }
 }

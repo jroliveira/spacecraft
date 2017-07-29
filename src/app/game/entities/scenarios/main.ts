@@ -1,5 +1,6 @@
 import * as $ from 'jquery';
 
+import { createWith } from '../../infra';
 import { store } from '../../infra/data';
 
 import { Scenario } from './scenario'
@@ -9,14 +10,13 @@ import { StarbasePhase } from '../phases/starbase-phase';
 export class Main extends Scenario {
   constructor(
     config: any,
-    readonly context: CanvasRenderingContext2D,
+    context: CanvasRenderingContext2D,
     private readonly phase: Phase
   ) {
     super(config, context);
 
     $(this.phase).on('entity:added', this.addedEntity.bind(this));
-    $(this.phase).on('entity:removed', this.removedComponent.bind(this));
-    $(document).on('phase:ended', this.changeScenario.bind(this));
+    $(this.phase).on('entity:removed', this.removedEntity.bind(this));
   }
 
   update(): void {
@@ -24,18 +24,7 @@ export class Main extends Scenario {
   }
 
   async start(): Promise<void> {
-    await super.start();
     await this.phase.start();
-  }
-
-  private async changeScenario(): Promise<void> {
-    let config = await store.get('phases', 'starbase');
-    const phase = await Phase.create(config, StarbasePhase);
-
-    config = await store.get('scenarios', 'main');
-    const scenario = new Main(config, this.context, phase);
-
-    $(document).trigger('scenario:change', [scenario]);
   }
 
   private addedEntity(_, entity: any): void {
@@ -46,7 +35,7 @@ export class Main extends Scenario {
     entity.config.components.forEach(config => this.addComponent(config, entity));
   }
 
-  private removedComponent(_, entity: any): void {
+  private removedEntity(_, entity: any): void {
     this.components
       .filter(component => component.entity === entity)
       .forEach(component => this.removeComponent(component));

@@ -3,13 +3,17 @@ import { Img, Loading, Parallax, Sprite } from '../components/images';
 
 import { Background, MovingBackground } from '../entities/backgrounds';
 import { Ship, Soldier } from '../entities/characters';
+import { FirstPhase } from '../entities/phases/first-phase';
+import { StarbasePhase } from '../entities/phases/starbase-phase';
 
 const types = {
   // entities
   'Background': config => new Background(config),
+  'MovingBackground': config => new MovingBackground(config),
   'Ship': config => new Ship(config),
   'Soldier': config => new Soldier(config),
-  'MovingBackground': config => new MovingBackground(config),
+  'FirstPhase': config => new FirstPhase(config),
+  'StarbasePhase': config => new StarbasePhase(config),
 
   // components
   'HealthBar': (config, context, entity) => new HealthBar(context, config, entity),

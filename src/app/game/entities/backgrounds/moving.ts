@@ -3,7 +3,7 @@ import { Updatable } from '../../core/behaviors';
 import { Background } from '.'
 
 export class MovingBackground extends Background implements Updatable {
-  constructor(readonly config: any) {
+  constructor(config: any) {
     super(config);
   }
 

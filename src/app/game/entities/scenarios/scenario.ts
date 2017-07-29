@@ -4,13 +4,11 @@ import { createWith } from '../../infra';
 
 import { Component } from '../../components';
 
-import { Entity } from '..';
-
-export abstract class Scenario implements Entity, Drawable, Updatable {
+export abstract class Scenario implements Drawable, Updatable {
   protected readonly components: Component[] = [];
 
   constructor(
-    public readonly config: any,
+    protected readonly config: any,
     protected readonly context: CanvasRenderingContext2D
   ) { }
 
@@ -22,10 +20,6 @@ export abstract class Scenario implements Entity, Drawable, Updatable {
   update(): void { }
 
   async start(): Promise<void> {
-    if (!this.config.components) {
-      return;
-    }
-
     this.config.components.forEach(config => this.addComponent(config, this));
   }
 

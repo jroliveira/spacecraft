@@ -2,6 +2,12 @@
   canvas:
     width: 900
     height: 540
+  message:
+    type: Text
+    message: Press ENTER to start the game.
+    pos:
+      x: 50
+      y: 50
   components:
   - type: Loading
     src: components/loading
@@ -11,18 +17,36 @@
       ticks: 4
       total: 25
 
-- name: main
+- name: first
   canvas:
     width: 900
     height: 540
+  phase:
+    name: first
+  nextScenario:
+    startbase
+  setup:
+    images:
+    - backgrounds/starfield
+    - characters/ship
+    - enemies/asteroid
+    - projectiles/bullet
+    - projectiles/laser
+    - projectiles/missile
+    - objects/starbase
+    - components/loading
+    resources: []
 
-- name: start
+- name: startbase
   canvas:
     width: 900
     height: 540
-  components:
-  - type: Text
-    message: Press ENTER to start the game.
-    pos:
-      x: 50
-      y: 50
+  phase:
+    name: starbase
+  nextScenario:
+  setup:
+    images:
+    - characters/soldier
+    - objects/starbase
+    - components/loading
+    resources: []

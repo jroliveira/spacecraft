@@ -7,17 +7,8 @@ import { store } from '../../infra/data';
 
 import { Entity } from '..';
 
-type PhaseType<TPhase> = new (config: any) => TPhase;
-
 export abstract class Phase implements Entity, Updatable {
   private readonly entities: Array<Updatable | Collidable> = [];
-
-  static async create<TPhase extends Phase>(config: any, type: PhaseType<TPhase>): Promise<TPhase> {
-    return new Promise<TPhase>(async resolve => {
-      const phase = new type(config);
-      resolve(phase);
-    });
-  }
 
   constructor(public readonly config: any) {
     $(document).on('entity:add', (_, entity) => this.addEntity(entity));
