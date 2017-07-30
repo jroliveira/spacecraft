@@ -24,6 +24,7 @@ export class Main extends Scenario {
   }
 
   async start(): Promise<void> {
+    await super.start();
     await this.phase.start();
   }
 

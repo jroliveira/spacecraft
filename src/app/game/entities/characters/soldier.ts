@@ -6,6 +6,7 @@ import { Character } from '.';
 
 export class Soldier extends Character {
   private readonly timer: Timer;
+  private forward: boolean;
 
   constructor(config: any) {
     super(config)
@@ -30,6 +31,18 @@ export class Soldier extends Character {
       return;
     }
 
-    this.sprite.col = (this.sprite.col === 2) ? 0 : this.sprite.col + 1;
+    if (this.sprite.col === 0) {
+      this.sprite.col++;
+      this.forward = true;
+      return;
+    }
+
+    if (this.sprite.col === 2) {
+      this.sprite.col--;
+      this.forward = false;
+      return;
+    }
+
+    this.sprite.col = this.forward ? this.sprite.col + 1 : this.sprite.col - 1;
   }
 }

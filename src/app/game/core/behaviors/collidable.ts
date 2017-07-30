@@ -43,7 +43,7 @@ export abstract class Collidable {
 
   protected reboot(config: any) {
     this._health = config.health || 999;
-    this.damage = config.damage || 999;
+    this.damage = config.damage || 0;
 
     this.dimension = {
       width: config.width,

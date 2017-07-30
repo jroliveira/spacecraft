@@ -1,10 +1,13 @@
 - name: starbase-phase
   type: Background
   pos:
-    x: 1
-    y: 1
-  width: 250
-  height: 140
+    x: -80
+    y: -80
+  components:
+  - type: Img
+    src: backgrounds/starbase
+  width: 900
+  height: 500
   canvas:
     width: 900
     height: 540
