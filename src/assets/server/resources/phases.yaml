@@ -13,3 +13,5 @@
     resource: backgrounds
   - id: Soldier
     resource: characters
+  - id: Door
+    resource: objects

@@ -8,8 +8,8 @@
     row: 0
     col: 0
   pos:
-    x: 1
-    y: 10
+    x: 450
+    y: 470
   canvas:
     width: 900
     height: 540
@@ -30,16 +30,17 @@
       color: red
       pos:
         x: 1
-        y: 11
+        y: 9
       height: 5
-  projectiles:
-    first: bullet
-    second: missile
+  - type: Minimap
+    pos:
+      x: 850
+      y: 15
   speed:
-    up: 2
-    left: 2
-    right: 2
-    down: 2
+    up: 1
+    left: 1
+    right: 1
+    down: 1
 
 - type: Ship
   health: 50

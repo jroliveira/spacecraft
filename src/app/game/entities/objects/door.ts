@@ -5,14 +5,14 @@ import { Collidable } from '../../core/behaviors';
 import { Entity } from '..';
 import { Character } from './../characters';
 
-export class Starbase extends Collidable implements Entity {
+export class Door extends Collidable implements Entity {
   constructor(public readonly config: any) {
     super(config);
   }
 
   resolvesCollision(obstacle: Collidable): void {
     if (obstacle instanceof Character) {
-      $(document).trigger('scenario:load', 'starbase');
+      console.log('toc toc... Hello, I\'m here!');
     }
   }
 }

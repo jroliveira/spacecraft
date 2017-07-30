@@ -10,3 +10,14 @@
   pos:
     x: 640
     y: 280
+
+- type: Door
+  components: []
+  width: 36
+  height: 1
+  canvas:
+    width: 900
+    height: 540
+  pos:
+    x: 198
+    y: 183
