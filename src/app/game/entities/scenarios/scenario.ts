@@ -4,8 +4,10 @@ import { createWith } from '../../infra';
 
 import { Component } from '../../components';
 
+import { Entity } from '../../entities';
+
 export abstract class Scenario implements Drawable, Updatable {
-  protected readonly components: Component[] = [];
+  protected readonly components: Component<Entity>[] = [];
 
   constructor(
     protected readonly config: any,
@@ -28,7 +30,7 @@ export abstract class Scenario implements Drawable, Updatable {
     this.components.push(component);
   }
 
-  protected removeComponent(component: Component): void {
+  protected removeComponent(component: Component<Entity>): void {
     const index = this.components.indexOf(component);
     delete this.components[index];
   }

@@ -1,13 +1,12 @@
-import { Collidable, Updatable } from '../../core/behaviors';
 import { Direction, Position, Sprite } from '../../core/structs';
 
 import { Entity } from '..';
 
-export abstract class Character extends Collidable implements Entity, Updatable {
+export abstract class Character extends Entity {
   protected readonly direction: Direction = new Direction();
   readonly sprite: Sprite;
 
-  constructor(public readonly config: any) {
+  constructor(config: any) {
     super(config);
     this.sprite = this.config.sprite;
   }
@@ -20,6 +19,8 @@ export abstract class Character extends Collidable implements Entity, Updatable 
   }
 
   update(): void {
+    super.update();
+
     if (this.direction.up && this.pos.y > 10) {
       this.pos.lift(this.config.speed.up);
     }
@@ -37,11 +38,11 @@ export abstract class Character extends Collidable implements Entity, Updatable 
     }
   }
 
-  resolvesCollision(obstacle: Collidable): void {
+  resolvesCollision(obstacle: Entity): void {
     super.resolvesCollision(obstacle);
 
-    if (this.destroyed) {
-      this.reboot(this.config);
+    if (this.collidable.destroyed) {
+      this.collidable.respawn();
     }
   }
 }

@@ -1,6 +1,7 @@
 - type: Soldier
-  health: 50
-  damage: 100
+  collidable:
+    health: 50
+    damage: 100
   timeNextMove: 15
   width: 48
   height: 48
@@ -18,20 +19,6 @@
     src: characters/soldier
     width: 32
     height: 32
-  - type: HealthBar
-    outer:
-      color: white
-      pos:
-        x: 0
-        y: 10
-      width: 2
-      height: 7
-    inner:
-      color: red
-      pos:
-        x: 1
-        y: 9
-      height: 5
   - type: Minimap
     pos:
       x: 850
@@ -43,8 +30,9 @@
     down: 1
 
 - type: Ship
-  health: 50
-  damage: 100
+  collidable:
+    health: 50
+    damage: 100
   timeNextMove: 5
   width: 64.5
   height: 58.4

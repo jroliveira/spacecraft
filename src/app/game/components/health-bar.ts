@@ -1,17 +1,19 @@
+import { Entity } from '../entities';
+
 import { Component } from '.';
 
-export class HealthBar extends Component {
+export class HealthBar extends Component<Entity> {
   private readonly maxHealth: number;
   private readonly maxWidth: number;
 
   constructor(
     context: CanvasRenderingContext2D,
     config: any,
-    entity: any
+    entity: Entity
   ) {
     super(context, config, entity);
 
-    this.maxHealth = this.entity.health;
+    this.maxHealth = this.entity.collidable.health;
     this.maxWidth = this.entity.config.width;
   }
 
@@ -19,7 +21,7 @@ export class HealthBar extends Component {
     let width = this.entity.config.width + this.config.outer.width;
     this.fill(this.config.outer, width);
 
-    width = this.maxWidth * this.entity.health / this.maxHealth;
+    width = this.maxWidth * this.entity.collidable.health / this.maxHealth;
     this.fill(this.config.inner, width);
   }
 

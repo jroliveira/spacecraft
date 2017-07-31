@@ -1,18 +1,14 @@
+import { Entity } from '../entities';
+
 import { Component } from '.';
 
-export class Minimap extends Component {
-  private readonly x: number;
-  private readonly y: number;
-
+export class Minimap extends Component<Entity> {
   constructor(
     context: CanvasRenderingContext2D,
     config: any,
-    entity: any
+    entity: Entity
   ) {
     super(context, config, entity);
-
-    this.x = this.config.pos.x;
-    this.y = this.config.pos.y;
   }
 
   draw(): void {
@@ -21,6 +17,6 @@ export class Minimap extends Component {
     this.context.fillStyle = 'black';
     this.context.font = '8pt sans-serif';
     this.context.textAlign = 'center';
-    this.context.fillText(message, this.x, this.y);
+    this.context.fillText(message, this.config.pos.x, this.config.pos.y);
   }
 }

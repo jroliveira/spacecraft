@@ -2,17 +2,14 @@
   canvas:
     width: 900
     height: 540
-  message:
-    type: Text
-    message: Press ENTER to start the game.
-    pos:
-      x: 50
-      y: 50
   components:
   - type: Loading
     src: components/loading
     width: 2500
     height: 100
+    pos:
+      x: 400
+      y: 220
     frame:
       ticks: 4
       total: 25

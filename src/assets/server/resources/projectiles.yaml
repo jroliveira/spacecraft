@@ -1,6 +1,7 @@
 - type: bullet
-  health: 1
-  damage: 3
+  collidable:
+    health: 1
+    damage: 3
   speed: 3
   width: 9
   height: 8
@@ -12,8 +13,9 @@
     src: projectiles/bullet
 
 - type: missile
-  health: 1
-  damage: 5
+  collidable:
+    health: 1
+    damage: 5
   speed: 5
   width: 51
   height: 10
@@ -25,6 +27,7 @@
     src: projectiles/missile
 
 - type: laser
+  collidable: true
   health: 1
   damage: 10
   speed: 7
