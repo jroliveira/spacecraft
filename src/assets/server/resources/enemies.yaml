@@ -1,6 +1,7 @@
 - type: asteroid
-  health: 10
-  damage: 20
+  collidable:
+    health: 10
+    damage: 20
   speed: 1.5
   components:
   - type: Img

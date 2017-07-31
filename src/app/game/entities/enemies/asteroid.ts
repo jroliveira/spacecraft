@@ -5,7 +5,7 @@ import { Enemy } from '.';
 export class Asteroid extends Enemy {
   constructor(config: any) {
     super(config);
-    this.updatePos(this.initPos());
+    this.move(this.initPos());
   }
 
   private initPos(): Position {

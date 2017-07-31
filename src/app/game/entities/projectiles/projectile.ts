@@ -1,18 +1,16 @@
 import * as $ from 'jquery';
 
-import { Collidable, Updatable } from '../../core/behaviors';
-
 import { Entity } from '..';
 
 import { Character } from '../characters';
 
-export class Projectile extends Collidable implements Entity, Updatable {
+export class Projectile extends Entity {
   constructor(
-    public readonly config: any,
+    config: any,
     character: Character
   ) {
     super(config);
-    this.updatePos(character.initPosShot());
+    this.move(character.initPosShot());
   }
 
   update(): void {
@@ -26,10 +24,10 @@ export class Projectile extends Collidable implements Entity, Updatable {
     this.pos.toRight(this.config.speed);
   }
 
-  resolvesCollision(obstacle: Collidable): void {
+  resolvesCollision(obstacle: Entity): void {
     super.resolvesCollision(obstacle);
 
-    if (this.destroyed) {
+    if (this.collidable.destroyed) {
       $(document).trigger('entity:remove', [this]);
     }
   }

@@ -1,4 +1,4 @@
-import { HealthBar, Minimap, Text } from '../components';
+import { HealthBar, Minimap } from '../components';
 import { Img, Loading, Parallax, Sprite } from '../components/images';
 
 import { Background, MovingBackground } from '../entities/backgrounds';
@@ -23,8 +23,7 @@ const types = {
   'Loading': (config, context, entity) => new Loading(context, config, entity),
   'Minimap': (config, context, entity) => new Minimap(context, config, entity),
   'Parallax': (config, context, entity) => new Parallax(context, config, entity),
-  'Sprite': (config, context, entity) => new Sprite(context, config, entity),
-  'Text': (config, context, entity) => new Text(context, config, entity)
+  'Sprite': (config, context, entity) => new Sprite(context, config, entity)
 };
 
 export function createWith(

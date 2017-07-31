@@ -1,12 +1,14 @@
+import { Entity } from '../../entities';
+
 import { ImageBase } from '.';
 
-export class Img extends ImageBase {
+export class Img extends ImageBase<any> {
   constructor(
     context: CanvasRenderingContext2D,
     config: any,
-    entity: any,
+    _,
   ) {
-    super(context, config, entity);
+    super(context, config, _);
   }
 
   draw(): void {

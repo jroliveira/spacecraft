@@ -1,64 +1,62 @@
+import { Entity } from '../../entities';
+
 import { Dimension, Position } from '../structs';
 
-export abstract class Collidable {
+export class Collidable {
   private damage: number;
   private dimension: Dimension;
   private _health: number;
-  private _pos: Position;
 
-  constructor(config: any) {
-    this.reboot(config);
+  constructor(private readonly entity: Entity) {
+    this.respawn();
   }
 
   get health(): number {
     return this._health;
   }
 
-  get pos(): Position {
-    return this._pos;
+  get horizontal(): number {
+    return this.entity.pos.x + this.dimension.width;
   }
 
-  private get horizontal(): number {
-    return this.pos.x + this.dimension.width;
+  get vertical(): number {
+    return this.entity.pos.y + this.dimension.height;
   }
 
-  private get vertical(): number {
-    return this.pos.y + this.dimension.height;
-  }
-
-  protected get destroyed(): boolean {
+  get destroyed(): boolean {
     return this.health <= 0;
   }
 
-  resolvesCollision(obstacle: Collidable): void {
-    this._health = this._health - obstacle.damage;
+  resolvesCollision(obstacle: Entity): void {
+    if (!obstacle.collidable) {
+      return;
+    }
+
+    this._health = this._health - obstacle.collidable.damage;
   }
 
-  collidedWith(obstacle: Collidable): boolean {
-    return (this.pos.x <= obstacle.horizontal
+  collidedWith(obstacle: Entity): boolean {
+    if (!obstacle.collidable) {
+      return;
+    }
+
+    return (this.entity.pos.x <= obstacle.collidable.horizontal
       && obstacle.pos.x <= this.horizontal
-      && this.pos.y <= obstacle.vertical
+      && this.entity.pos.y <= obstacle.collidable.vertical
       && obstacle.pos.y <= this.vertical);
   }
 
-  protected reboot(config: any) {
-    this._health = config.health || 999;
-    this.damage = config.damage || 0;
+  respawn() {
+    this._health = this.entity.config.collidable.health;
+    this.damage = this.entity.config.collidable.damage;
 
     this.dimension = {
-      width: config.width,
-      height: config.height
+      width: this.entity.config.width,
+      height: this.entity.config.height
     }
 
-    config.pos = config.pos || {
-      x: 0,
-      y: 0
-    };
+    const { x, y } = this.entity.config.pos || { x: 0, y: 0 };
 
-    this._pos = new Position(config.pos.x, config.pos.y);
-  }
-
-  protected updatePos(pos: Position): void {
-    this._pos = pos;
+    this.entity.move(new Position(x, y));
   }
 }

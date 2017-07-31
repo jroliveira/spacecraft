@@ -1,4 +1,7 @@
 - type: starbase
+  collidable:
+    health: 999
+    damage: 0
   components:
   - type: Img
     src: objects/starbase
@@ -12,6 +15,7 @@
     y: 280
 
 - type: Door
+  collidable: true
   components: []
   width: 36
   height: 1

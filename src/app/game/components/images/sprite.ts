@@ -2,11 +2,11 @@ import { Character } from '../../entities/characters';
 
 import { ImageBase } from '.';
 
-export class Sprite extends ImageBase {
+export class Sprite extends ImageBase<Character> {
   constructor(
     context: CanvasRenderingContext2D,
     config: any,
-    entity: any
+    entity: Character
   ) {
     super(context, config, entity);
   }

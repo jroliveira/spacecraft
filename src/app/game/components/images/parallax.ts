@@ -1,10 +1,12 @@
+import { Entity } from '../../entities';
+
 import { ImageBase } from '.';
 
-export class Parallax extends ImageBase {
+export class Parallax extends ImageBase<Entity> {
   constructor(
     context: CanvasRenderingContext2D,
     config: any,
-    entity: any
+    entity: Entity
   ) {
     super(context, config, entity);
   }

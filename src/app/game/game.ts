@@ -42,7 +42,7 @@ export class Game {
 
     this.scenarioLoop();
 
-    await this.loadScenario(null, 'first');
+    await this.loadScenario(undefined, 'first');
   }
 
   private scenarioLoop(): void {
@@ -63,7 +63,7 @@ export class Game {
 
   private async loadScenario(_, scenario: string): Promise<void> {
     const loadingConfig = await store.get('scenarios', 'loading');
-    this.changeScenario(null, new Loading(loadingConfig, this.context));
+    this.changeScenario(undefined, new Loading(loadingConfig, this.context));
     await sleep(1000);
 
     const scenarioConfig = await store.get('scenarios', scenario);
@@ -72,6 +72,6 @@ export class Game {
 
     await setup(scenarioConfig.setup);
 
-    this.changeScenario(null, new Main(scenarioConfig, this.context, phase));
+    this.changeScenario(undefined, new Main(scenarioConfig, this.context, phase));
   }
 }
